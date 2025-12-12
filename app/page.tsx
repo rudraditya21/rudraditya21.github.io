@@ -1,5 +1,6 @@
 export default function Home() {
   return (
-    <div></div>
+    <main className="relative isolate min-h-screen background-tricolor">
+    </main>
   )
 }
