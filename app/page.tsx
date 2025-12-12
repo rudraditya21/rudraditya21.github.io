@@ -33,13 +33,13 @@ export default function Home() {
           className={`${bbhSansBoggle.className} text-md`}
         />
       </div>
-      <div id="about" className="hidden md:block min-h-svh">
+      <div id="about" className="hidden md:block min-h-svh py-6 px-8">
         <p className={`${bbhSansBartle.className} text-center md:text-7xl lg:text-9xl `}>ABOUT</p>
       </div>
-      <div id="projects" className="hidden md:block min-h-svh">
+      <div id="projects" className="hidden md:block min-h-svh py-6 px-8">
         <p className={`${bbhSansBartle.className} text-center md:text-7xl lg:text-9xl `}>PROJECTS</p>
       </div>
-      <div id="work" className="hidden md:block min-h-svh">
+      <div id="work" className="hidden md:block min-h-svh py-6 px-8">
         <p className={`${bbhSansBartle.className} text-center md:text-7xl lg:text-9xl `}>WORK</p>
       </div>
     </main>
