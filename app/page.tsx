@@ -68,13 +68,31 @@ export default function Home() {
           className={`${bbhSansBoggle.className} text-md`}
         />
       </div>
-      <div id="about" className="hidden md:flex flex-col items-center justify-center min-h-svh py-6 px-8 space-y-2">
-        <p className={`${bbhSansBartle.className} text-center md:text-7xl lg:text-9xl `}>ABOUT</p>
+      <div className="block md:hidden min-h-svh py-3 px-4">
+        <div className="flex flex-col items-center justify-center">
+          <p className={`${bbhSansBartle.className} text-center text-3xl`}> # ENGINEER </p>
+          <div className="flex mt-4 justify-between w-screen text-center py-3 px-4">
+            <Link href="#about" className="">{`[ABOUT]`}</Link>
+            <Link href="#projects" className="">{`[PROJECTS]`}</Link>
+            <Link href="#work" className="">{`[WORK]`}</Link>
+          </div>
+          <CurvedLoop
+            marqueeText="Built Different. Engineered Better."
+            speed={3}
+            curveAmount={300}
+            direction="right"
+            interactive={true}
+            className={`${bbhSansBoggle.className} text-md`}
+          />
+        </div>
+      </div>
+      <div id="about" className="flex flex-col items-center justify-center min-h-svh py-6 px-8 space-y-2">
+        <p className={`${bbhSansBartle.className} text-center text-4xl md:text-7xl lg:text-9xl `}>ABOUT</p>
         <p className={`${bbhSansBoggle.className} max-w-5xl lg:max-w-7xl text-3xl lg:text-4xl text-justify`}>{`I’m not an average engineer. I work by understanding problems at their core, reasoning from first principles, and designing solutions that hold up under scale and complexity. I care about clarity, correctness, and long-term reliability over quick wins.`}</p>
       </div>
-      <div id="projects" className="hidden md:flex flex-col items-center justify-start min-h-svh py-6 px-8 space-y-2">
-        <p className={`${bbhSansBartle.className} text-center md:text-7xl lg:text-9xl `}>PROJECTS</p>
-        <div className="flex flex-col lg:flex-row max-w-5xl lg:max-w-7xl mt-8 w-full gap-6">
+      <div id="projects" className="flex flex-col items-center justify-start min-h-svh py-6 px-8 space-y-2">
+        <p className={`${bbhSansBartle.className} text-center text-4xl md:text-7xl lg:text-9xl `}>PROJECTS</p>
+        <div className="flex flex-col lg:flex-row max-w-5xl lg:max-w-7xl mt-4 md:mt-6 w-full gap-6">
           <div className="flex flex-col space-y-2 w-full lg:w-1/2">
             {projects.map((project, index) => (
               <Link
@@ -86,13 +104,13 @@ export default function Home() {
             ))}
           </div>
           <div className="flex flex-col space-y-2 w-full lg:w-1/2 bg-foreground text-background items-end justify-end py-6 px-4">
-            <p className={`${bbhSansBartle.className} text-5xl`}>View More</p>
+            <p className={`${bbhSansBartle.className} text-2xl md:text-4xl lg:text-5xl`}>View More</p>
           </div>
         </div>
       </div>
-      <div id="work" className="hidden md:flex flex-col items-center justify-start min-h-svh py-6 px-8 space-y-2">
-        <p className={`${bbhSansBartle.className} text-center md:text-7xl lg:text-9xl `}>WORK</p>
-        <div className="flex flex-col lg:flex-row max-w-5xl lg:max-w-7xl mt-8 w-full">
+      <div id="work" className="flex flex-col items-center justify-start min-h-svh py-6 px-8 space-y-2">
+        <p className={`${bbhSansBartle.className} text-center text-4xl md:text-7xl lg:text-9xl `}>WORK</p>
+        <div className="flex flex-col lg:flex-row max-w-5xl lg:max-w-7xl mt-4 md:mt-6 w-full">
           <div className="flex flex-col space-y-2 w-full">
             {work.map((work, index) => (
               <Link
