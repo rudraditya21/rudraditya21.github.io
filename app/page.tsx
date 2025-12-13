@@ -13,6 +13,41 @@ const bbhSansBartle = BBH_Sans_Bartle({
 })
 
 export default function Home() {
+  const work = [
+    {
+      company: "Company",
+      link: "",
+      start: "June 2025",
+      end: "Present",
+    }
+  ]
+
+  const projects = [
+    {
+      title: "Project",
+      github: "",
+    },
+    {
+      title: "Project",
+      github: "",
+    },
+    {
+      title: "Project",
+      github: "",
+    },
+    {
+      title: "Project",
+      github: "",
+    },
+    {
+      title: "Project",
+      github: "",
+    },
+    {
+      title: "Project",
+      github: "",
+    },
+  ]
   return (
     <main className="relative isolate min-h-screen background-tricolor">
       <div className="hidden md:block py-6 px-8">
@@ -33,14 +68,43 @@ export default function Home() {
           className={`${bbhSansBoggle.className} text-md`}
         />
       </div>
-      <div id="about" className="hidden md:block min-h-svh py-6 px-8">
+      <div id="about" className="hidden md:flex flex-col items-center justify-center min-h-svh py-6 px-8 space-y-2">
         <p className={`${bbhSansBartle.className} text-center md:text-7xl lg:text-9xl `}>ABOUT</p>
+        <p className={`${bbhSansBoggle.className} max-w-5xl lg:max-w-7xl text-3xl lg:text-4xl text-justify`}>{`I’m not an average engineer. I work by understanding problems at their core, reasoning from first principles, and designing solutions that hold up under scale and complexity. I care about clarity, correctness, and long-term reliability over quick wins.`}</p>
       </div>
-      <div id="projects" className="hidden md:block min-h-svh py-6 px-8">
+      <div id="projects" className="hidden md:flex flex-col items-center justify-start min-h-svh py-6 px-8 space-y-2">
         <p className={`${bbhSansBartle.className} text-center md:text-7xl lg:text-9xl `}>PROJECTS</p>
+        <div className="flex flex-col lg:flex-row max-w-5xl lg:max-w-7xl mt-8 w-full gap-6">
+          <div className="flex flex-col space-y-2 w-full lg:w-1/2">
+            {projects.map((project, index) => (
+              <Link
+                href={project.github} key={index}
+                className={`${bbhSansBoggle.className} text-4xl border-b-2 border-white py-6 block w-full `}
+              >
+                {project.title}
+              </Link>
+            ))}
+          </div>
+          <div className="flex flex-col space-y-2 w-full lg:w-1/2 bg-foreground text-background items-end justify-end py-6 px-4">
+            <p className={`${bbhSansBartle.className} text-5xl`}>View More</p>
+          </div>
+        </div>
       </div>
-      <div id="work" className="hidden md:block min-h-svh py-6 px-8">
+      <div id="work" className="hidden md:flex flex-col items-center justify-start min-h-svh py-6 px-8 space-y-2">
         <p className={`${bbhSansBartle.className} text-center md:text-7xl lg:text-9xl `}>WORK</p>
+        <div className="flex flex-col lg:flex-row max-w-5xl lg:max-w-7xl mt-8 w-full">
+          <div className="flex flex-col space-y-2 w-full">
+            {work.map((work, index) => (
+              <Link
+                href={work.link} key={index}
+                className={` flex flex-col space-y-2 border-b-2 border-white py-6 w-full `}
+              >
+                <p className={`${bbhSansBoggle.className} text-4xl`}>{work.company}</p>
+                <p className="text-md tracking-widest uppercase">{work.start} - {work.end}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </main>
   )
