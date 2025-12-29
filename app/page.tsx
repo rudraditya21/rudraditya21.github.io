@@ -15,8 +15,8 @@ const bbhSansBartle = BBH_Sans_Bartle({
 export default function Home() {
   const work = [
     {
-      company: "Company",
-      link: "",
+      company: "Nova Signal",
+      link: "https://www.nova-signal.com/",
       start: "June 2025",
       end: "Present",
     }
@@ -24,28 +24,20 @@ export default function Home() {
 
   const projects = [
     {
-      title: "Project",
-      github: "",
+      title: "Lattice Programming Language",
+      github: "https://github.com/rudraditya21/lattice",
     },
     {
-      title: "Project",
-      github: "",
+      title: "Texedo",
+      github: "https://github.com/rudraditya21/texedo",
     },
     {
-      title: "Project",
-      github: "",
+      title: "Aegis",
+      github: "https://github.com/rudraditya21/aegis",
     },
     {
-      title: "Project",
-      github: "",
-    },
-    {
-      title: "Project",
-      github: "",
-    },
-    {
-      title: "Project",
-      github: "",
+      title: "Aurora",
+      github: "https://github.com/rudraditya21/aurora",
     },
   ]
   return (
@@ -104,7 +96,7 @@ export default function Home() {
             ))}
           </div>
           <div className="flex flex-col space-y-2 w-full lg:w-1/2 bg-foreground text-background items-end justify-end py-6 px-4">
-            <p className={`${bbhSansBartle.className} text-2xl md:text-4xl lg:text-5xl`}>View More</p>
+            <Link href="https://github.com/rudraditya21" className={`${bbhSansBartle.className} text-2xl md:text-4xl lg:text-5xl`}>View More</Link>
           </div>
         </div>
       </div>
