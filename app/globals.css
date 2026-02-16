@@ -104,3 +104,82 @@ html {
     background-attachment: fixed;
   }
 }
+
+.heatmap {
+  --heat-0: #161b22;
+  --heat-1: #0e4429;
+  --heat-2: #006d32;
+  --heat-3: #26a641;
+  --heat-4: #39d353;
+}
+
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  color: oklch(0.708 0 0);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.heatmap-legend-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.heatmap-legend .heatmap-cell {
+  width: 10px;
+  height: 10px;
+  aspect-ratio: auto;
+}
+
+.heatmap-grid {
+  display: flex;
+  gap: clamp(2px, 0.5vw, 6px);
+  overflow-x: hidden;
+  padding-top: 16px;
+  width: 100%;
+}
+
+.heatmap-week {
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  gap: clamp(2px, 0.5vw, 6px);
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.heatmap-cell {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: var(--heat-0);
+  display: inline-block;
+}
+
+.heatmap-level-1 {
+  background: var(--heat-1);
+}
+
+.heatmap-level-2 {
+  background: var(--heat-2);
+}
+
+.heatmap-level-3 {
+  background: var(--heat-3);
+}
+
+.heatmap-level-4 {
+  background: var(--heat-4);
+}
+
+.heatmap-empty {
+  background: transparent;
+}
+
+.heatmap-future {
+  opacity: 0.3;
+}
