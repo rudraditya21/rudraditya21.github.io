@@ -1,24 +1,29 @@
 "use client"
-import { LinkedinLogoIcon, XLogoIcon, GooglePodcastsLogoIcon, GithubLogoIcon } from "@phosphor-icons/react"
-import { BBH_Sans_Bartle } from "next/font/google"
 
-const bbhSansBartle = BBH_Sans_Bartle({
-  weight: '400',
-  subsets: ['latin']
-})
+import Link from "next/link"
 
 export default function Header() {
   return (
-    <div className="py-6 px-8 flex justify-center lg:justify-between items-center">
-      <div className="hidden lg:flex space-x-4">
-        <LinkedinLogoIcon size={22} />
-        <XLogoIcon size={22} />
+    <header className="fixed top-0 left-0 right-0 z-40 backdrop-blur-sm bg-black/30 border-b border-white/5">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <Link href="#" className="text-xs font-bold tracking-widest hover:opacity-70 transition-opacity" style={{ fontFamily: "var(--font-jetbrains-mono)" }}>
+          [RUDRADITYA]
+        </Link>
+        <nav className="hidden md:flex items-center gap-8">
+          <Link href="#about" className="text-xs tracking-widest text-white/60 hover:text-white transition-colors" style={{ fontFamily: "var(--font-jetbrains-mono)" }}>
+            ABOUT
+          </Link>
+          <Link href="#domains" className="text-xs tracking-widest text-white/60 hover:text-white transition-colors" style={{ fontFamily: "var(--font-jetbrains-mono)" }}>
+            DOMAINS
+          </Link>
+          <Link href="#projects" className="text-xs tracking-widest text-white/60 hover:text-white transition-colors" style={{ fontFamily: "var(--font-jetbrains-mono)" }}>
+            PROJECTS
+          </Link>
+          <Link href="#github" className="text-xs tracking-widest text-white/60 hover:text-white transition-colors" style={{ fontFamily: "var(--font-jetbrains-mono)" }}>
+            GITHUB
+          </Link>
+        </nav>
       </div>
-      <p className={`${bbhSansBartle.className} text-md md:text-xl lg:text-2xl `}>Rudraditya Thakur</p>
-      <div className="hidden lg:flex space-x-4">
-        <GithubLogoIcon size={22} />
-        <GooglePodcastsLogoIcon size={22} />
-      </div>
-    </div>
+    </header>
   )
 }
