@@ -4,19 +4,16 @@ import { useEffect, useState } from 'react'
 
 const greetings = [
   'Hello',
-  'Bonjour',
-  'Hola',
-  'Ciao',
   'नमस्ते',
   'こんにちは',
   '안녕하세요',
   'Привет',
 ]
 
-const FADE_IN = 450
-const HOLD = 280
-const FADE_OUT = 270
-const SLIDE = 950
+const FADE_IN = 130
+const HOLD = 50
+const FADE_OUT = 100
+const SLIDE = 600
 
 export default function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   const [index, setIndex] = useState(0)
