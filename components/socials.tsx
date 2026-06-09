@@ -1,6 +1,7 @@
 'use client'
 
 import { GithubLogo, LinkedinLogo, TwitterLogo, YoutubeLogo, MediumLogo } from '@phosphor-icons/react'
+import { socials } from '@/lib/data'
 
 function SubstackIcon({ size = 18 }: { size?: number }) {
   return (
@@ -11,11 +12,11 @@ function SubstackIcon({ size = 18 }: { size?: number }) {
 }
 
 const links = [
-  { icon: GithubLogo,   href: 'https://github.com/rudraditya21', label: 'GitHub' },
-  { icon: LinkedinLogo, href: '#', label: 'LinkedIn' },
-  { icon: TwitterLogo,  href: '#', label: 'Twitter' },
-  { icon: YoutubeLogo,  href: '#', label: 'YouTube' },
-  { icon: MediumLogo,   href: '#', label: 'Medium' },
+  { icon: GithubLogo,   href: socials.github,   label: 'GitHub' },
+  { icon: LinkedinLogo, href: socials.linkedin,  label: 'LinkedIn' },
+  { icon: TwitterLogo,  href: socials.twitter,   label: 'Twitter' },
+  { icon: YoutubeLogo,  href: socials.youtube,   label: 'YouTube' },
+  { icon: MediumLogo,   href: socials.medium,    label: 'Medium' },
 ]
 
 export default function Socials({ show }: { show: boolean }) {
@@ -41,7 +42,7 @@ export default function Socials({ show }: { show: boolean }) {
         </a>
       ))}
       <a
-        href="#"
+        href={socials.substack}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Substack"

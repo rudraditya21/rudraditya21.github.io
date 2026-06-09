@@ -1,6 +1,7 @@
 'use client'
 
 import { GithubLogo, LinkedinLogo, TwitterLogo, YoutubeLogo, MediumLogo } from '@phosphor-icons/react'
+import { socials } from '@/lib/data'
 
 function SubstackIcon({ size = 15 }: { size?: number }) {
   return (
@@ -10,12 +11,12 @@ function SubstackIcon({ size = 15 }: { size?: number }) {
   )
 }
 
-const socials = [
-  { icon: GithubLogo,   href: 'https://github.com/rudraditya21', label: 'GitHub' },
-  { icon: LinkedinLogo, href: '#', label: 'LinkedIn' },
-  { icon: TwitterLogo,  href: '#', label: 'Twitter' },
-  { icon: YoutubeLogo,  href: '#', label: 'YouTube' },
-  { icon: MediumLogo,   href: '#', label: 'Medium' },
+const links = [
+  { icon: GithubLogo,   href: socials.github,   label: 'GitHub' },
+  { icon: LinkedinLogo, href: socials.linkedin,  label: 'LinkedIn' },
+  { icon: TwitterLogo,  href: socials.twitter,   label: 'Twitter' },
+  { icon: YoutubeLogo,  href: socials.youtube,   label: 'YouTube' },
+  { icon: MediumLogo,   href: socials.medium,    label: 'Medium' },
 ]
 
 export default function Footer() {
@@ -39,7 +40,7 @@ export default function Footer() {
           </div>
 
           <div className="flex items-center gap-4">
-            {socials.map(({ icon: Icon, href, label }) => (
+            {links.map(({ icon: Icon, href, label }) => (
               <a
                 key={label}
                 href={href}
@@ -52,7 +53,7 @@ export default function Footer() {
               </a>
             ))}
             <a
-              href="#"
+              href={socials.substack}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Substack"
@@ -62,7 +63,6 @@ export default function Footer() {
             </a>
           </div>
         </div>
-
       </div>
     </footer>
   )
