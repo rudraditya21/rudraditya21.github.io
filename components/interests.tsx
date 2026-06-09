@@ -75,7 +75,7 @@ function InterestRow({ item, index }: { item: typeof interests[0]; index: number
   return (
     <div
       ref={ref}
-      className="grid grid-cols-1 gap-6 py-10 md:grid-cols-[220px_1fr]"
+      className="grid grid-cols-1 gap-4 py-8 md:gap-6 md:py-10 md:grid-cols-[220px_1fr]"
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? 'translateY(0)' : 'translateY(28px)',
@@ -108,7 +108,7 @@ export default function Interests() {
   const { ref, inView } = useInView(0.2)
 
   return (
-    <section className="mx-auto max-w-5xl px-6 pb-24 md:px-12">
+    <section className="mx-auto max-w-5xl px-6 pb-16 md:px-12 md:pb-24">
       <div
         ref={ref}
         className="mb-5"

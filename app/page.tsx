@@ -23,7 +23,8 @@ export default function Home() {
     const onScroll = () => {
       const y = window.scrollY
       if (heroContentRef.current) {
-        heroContentRef.current.style.transform = `translateY(${y * 0.35}px)`
+        const factor = window.innerWidth < 768 ? 0 : 0.35
+        heroContentRef.current.style.transform = `translateY(${y * factor}px)`
       }
     }
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -43,15 +44,15 @@ export default function Home() {
       {!loaded && <LoadingScreen onComplete={() => setLoaded(true)} />}
 
       <section className="relative flex h-screen items-center justify-center overflow-hidden">
-        <div ref={heroContentRef} className="flex flex-col items-center gap-5 text-center">
-          <h1 className="text-7xl font-bold tracking-tight">
+        <div ref={heroContentRef} className="flex flex-col items-center gap-5 px-6 text-center">
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             <span style={word(0)}>Rudraditya</span>
             {' '}
             <span style={word(130)}>Thakur</span>
           </h1>
 
           <p
-            className="text-lg font-light text-muted-foreground"
+            className="text-base font-light text-muted-foreground sm:text-lg"
             style={{
               opacity: show ? 1 : 0,
               transform: show ? 'translateY(0)' : 'translateY(20px)',

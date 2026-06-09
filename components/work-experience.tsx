@@ -65,7 +65,7 @@ function JobEntry({ job, index }: { job: typeof jobs[0]; index: number }) {
   return (
     <div
       ref={ref}
-      className="flex items-center gap-6 py-10"
+      className="flex flex-col gap-3 py-8 sm:flex-row sm:items-center sm:gap-6 sm:py-10"
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? 'translateY(0)' : 'translateY(36px)',
@@ -81,7 +81,7 @@ function JobEntry({ job, index }: { job: typeof jobs[0]; index: number }) {
         </p>
       </div>
 
-      <div className="flex flex-col items-end gap-0.5 text-xs text-muted-foreground" style={{ fontFamily: 'var(--font-inter)' }}>
+      <div className="flex flex-col items-start gap-0.5 text-xs text-muted-foreground sm:items-end" style={{ fontFamily: 'var(--font-inter)' }}>
         <span>{period(job.start, job.end)}</span>
         <span>{job.location}</span>
       </div>
@@ -93,7 +93,7 @@ export default function WorkExperience() {
   const { ref, inView } = useInView(0.2)
 
   return (
-    <section className="mx-auto max-w-5xl px-6 py-24 md:px-12">
+    <section className="mx-auto max-w-5xl px-6 py-16 md:px-12 md:py-24">
       <div
         ref={ref}
         className="mb-5"

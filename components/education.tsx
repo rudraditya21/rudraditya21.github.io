@@ -39,7 +39,7 @@ function SchoolEntry({ school, index }: { school: typeof schools[0]; index: numb
   return (
     <div
       ref={ref}
-      className="flex items-center gap-6 py-10"
+      className="flex flex-col gap-3 py-8 sm:flex-row sm:items-center sm:gap-6 sm:py-10"
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? 'translateY(0)' : 'translateY(36px)',
@@ -55,7 +55,7 @@ function SchoolEntry({ school, index }: { school: typeof schools[0]; index: numb
         </p>
       </div>
 
-      <div className="text-xs text-muted-foreground" style={{ fontFamily: 'var(--font-inter)' }}>
+      <div className="shrink-0 text-xs text-muted-foreground" style={{ fontFamily: 'var(--font-inter)' }}>
         {school.period}
       </div>
     </div>
@@ -66,7 +66,7 @@ export default function Education() {
   const { ref, inView } = useInView(0.2)
 
   return (
-    <section className="mx-auto max-w-5xl px-6 pb-24 md:px-12">
+    <section className="mx-auto max-w-5xl px-6 pb-16 md:px-12 md:pb-24">
       <div
         ref={ref}
         className="mb-5"

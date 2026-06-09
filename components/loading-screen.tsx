@@ -52,7 +52,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
       }}
     >
       <span
-        className="select-none text-6xl font-semibold tracking-[0.25em] text-white"
+        className="select-none text-4xl font-semibold tracking-[0.25em] text-white sm:text-5xl md:text-6xl"
         style={{
           opacity: visible ? 1 : 0,
           transform: visible ? 'translateY(0)' : 'translateY(10px)',
