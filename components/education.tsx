@@ -2,18 +2,16 @@
 
 import { useEffect, useRef, useState } from 'react'
 
-const jobs = [
+const schools = [
   {
-    company: 'Supernova Labs',
-    role: 'Maintainer & Core Developer',
-    period: 'Sep 2025 – Present · 10 mos',
-    location: 'Remote',
+    institution: 'Vellore Institute of Technology',
+    degree: 'Bachelor of Technology – Computer Science',
+    period: 'Sep 2022 – Aug 2026',
   },
   {
-    company: 'Udyansh',
-    role: 'Software Engineer',
-    period: 'Mar 2024 – Present · 2 yrs 4 mos',
-    location: 'India · Remote',
+    institution: 'Amity International School, Sec 46 Gurugram',
+    degree: 'High School Education',
+    period: 'Apr 2009 – Apr 2022',
   },
 ]
 
@@ -35,7 +33,7 @@ function useInView(threshold = 0.15) {
   return { ref, inView }
 }
 
-function JobEntry({ job, index }: { job: typeof jobs[0]; index: number }) {
+function SchoolEntry({ school, index }: { school: typeof schools[0]; index: number }) {
   const { ref, inView } = useInView(0.1)
 
   return (
@@ -50,26 +48,25 @@ function JobEntry({ job, index }: { job: typeof jobs[0]; index: number }) {
     >
       <div className="flex flex-1 flex-col gap-0.5">
         <p className="text-base font-semibold" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-          {job.company}
+          {school.institution}
         </p>
         <p className="text-sm text-foreground/70" style={{ fontFamily: 'var(--font-inter)' }}>
-          {job.role}
+          {school.degree}
         </p>
       </div>
 
-      <div className="flex flex-col items-end gap-0.5 text-xs text-muted-foreground" style={{ fontFamily: 'var(--font-inter)' }}>
-        <span>{job.period}</span>
-        <span>{job.location}</span>
+      <div className="text-xs text-muted-foreground" style={{ fontFamily: 'var(--font-inter)' }}>
+        {school.period}
       </div>
     </div>
   )
 }
 
-export default function WorkExperience() {
+export default function Education() {
   const { ref, inView } = useInView(0.2)
 
   return (
-    <section className="mx-auto max-w-5xl px-6 py-24 md:px-12">
+    <section className="mx-auto max-w-5xl px-6 pb-24 md:px-12">
       <div
         ref={ref}
         className="mb-5"
@@ -83,15 +80,15 @@ export default function WorkExperience() {
           className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground"
           style={{ fontFamily: 'var(--font-inter)' }}
         >
-          Experience
+          Education
         </span>
       </div>
 
       <div className="border-t border-border" />
 
       <div className="divide-y divide-border">
-        {jobs.map((job, i) => (
-          <JobEntry key={job.company} job={job} index={i} />
+        {schools.map((school, i) => (
+          <SchoolEntry key={school.institution} school={school} index={i} />
         ))}
       </div>
     </section>

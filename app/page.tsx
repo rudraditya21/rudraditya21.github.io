@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import LoadingScreen from '@/components/loading-screen'
 import WorkExperience from '@/components/work-experience'
+import Education from '@/components/education'
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false)
@@ -77,6 +78,7 @@ export default function Home() {
       </section>
 
       <WorkExperience />
+      <Education />
     </>
   )
 }
