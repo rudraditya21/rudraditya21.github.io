@@ -20,6 +20,7 @@ const jetbrainsMono = JetBrains_Mono({
   variable: '--font-jetbrains-mono',
 })
 
+
 export const metadata: Metadata = {
   title: "Rudraditya Thakur",
   description: "Turning caffeine into products.",
