@@ -3,6 +3,6 @@ export const socials = {
   linkedin:  'https://www.linkedin.com/in/rudraditya-thakur/',
   twitter:   'https://x.com/rudraditya21',
   youtube:   '#',
-  medium:    '#',
+  medium:    'https://medium.com/@rudraditya.thakur21',
   substack:  '#',
 }
