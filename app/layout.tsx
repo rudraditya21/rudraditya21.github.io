@@ -22,7 +22,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Rudraditya Thakur",
-  description: "Software engineer specializing in systems programming, compilers, cybersecurity, and AI/ML. Exploring rust, linux internals, security architecture, and distributed systems.",
+  description: "Turning caffeine into products.",
 };
 
 export default function RootLayout({
@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="font-sans antialiased">
-          {children}
+        {children}
       </body>
     </html>
   );
