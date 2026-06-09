@@ -5,6 +5,8 @@ import LoadingScreen from '@/components/loading-screen'
 import WorkExperience from '@/components/work-experience'
 import Education from '@/components/education'
 import Socials from '@/components/socials'
+import Interests from '@/components/interests'
+import Footer from '@/components/footer'
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false)
@@ -67,6 +69,8 @@ export default function Home() {
 
       <WorkExperience />
       <Education />
+      <Interests />
+      <Footer />
     </>
   )
 }
