@@ -2,17 +2,41 @@
 
 import { useEffect, useRef, useState } from 'react'
 
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+function fmt(d: Date) {
+  return `${MONTHS[d.getMonth()]} ${d.getFullYear()}`
+}
+
+function duration(start: Date, end: Date) {
+  const total = (end.getFullYear() - start.getFullYear()) * 12 + end.getMonth() - start.getMonth()
+  const yrs = Math.floor(total / 12)
+  const mos = total % 12
+  if (yrs === 0) return `${mos} mo${mos !== 1 ? 's' : ''}`
+  if (mos === 0) return `${yrs} yr${yrs !== 1 ? 's' : ''}`
+  return `${yrs} yr${yrs !== 1 ? 's' : ''} ${mos} mo${mos !== 1 ? 's' : ''}`
+}
+
+function period(start: Date, end: Date | null) {
+  const now = new Date()
+  const to = end ?? now
+  return `${fmt(start)} – ${end ? fmt(end) : 'Present'} · ${duration(start, to)}`
+}
+
+// month is 1-indexed for readability
 const jobs = [
   {
     company: 'Supernova Labs',
     role: 'Maintainer & Core Developer',
-    period: 'Sep 2025 – Present · 10 mos',
+    start: new Date(2025, 8),  // Sep 2025
+    end: null,
     location: 'Remote',
   },
   {
     company: 'Udyansh',
     role: 'Software Engineer',
-    period: 'Mar 2024 – Present · 2 yrs 4 mos',
+    start: new Date(2024, 2),  // Mar 2024
+    end: null,
     location: 'India · Remote',
   },
 ]
@@ -58,7 +82,7 @@ function JobEntry({ job, index }: { job: typeof jobs[0]; index: number }) {
       </div>
 
       <div className="flex flex-col items-end gap-0.5 text-xs text-muted-foreground" style={{ fontFamily: 'var(--font-inter)' }}>
-        <span>{job.period}</span>
+        <span>{period(job.start, job.end)}</span>
         <span>{job.location}</span>
       </div>
     </div>

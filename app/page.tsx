@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import LoadingScreen from '@/components/loading-screen'
 import WorkExperience from '@/components/work-experience'
 import Education from '@/components/education'
+import Socials from '@/components/socials'
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false)
@@ -18,8 +19,9 @@ export default function Home() {
 
   useEffect(() => {
     const onScroll = () => {
+      const y = window.scrollY
       if (heroContentRef.current) {
-        heroContentRef.current.style.transform = `translateY(${window.scrollY * 0.35}px)`
+        heroContentRef.current.style.transform = `translateY(${y * 0.35}px)`
       }
     }
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -57,24 +59,10 @@ export default function Home() {
           >
             Turning caffeine into products.
           </p>
+
+          <Socials show={show} />
         </div>
 
-        {/* scroll indicator */}
-        <div
-          className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2"
-          style={{
-            opacity: show ? 1 : 0,
-            transition: 'opacity 1000ms ease 900ms',
-          }}
-        >
-          <span
-            className="text-xs uppercase tracking-[0.2em] text-muted-foreground"
-            style={{ fontFamily: 'var(--font-inter)' }}
-          >
-            scroll
-          </span>
-          <div className="h-10 w-px origin-top animate-[grow_1.6s_ease-in-out_infinite] bg-foreground/25" />
-        </div>
       </section>
 
       <WorkExperience />
