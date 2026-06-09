@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import LoadingScreen from '@/components/loading-screen'
+import WorkExperience from '@/components/work-experience'
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false)
@@ -75,8 +76,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* empty section — content TBD */}
-      <section className="min-h-screen" />
+      <WorkExperience />
     </>
   )
 }
