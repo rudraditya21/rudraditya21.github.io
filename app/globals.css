@@ -96,15 +96,13 @@
 }
 
 @keyframes grow {
+  0%, 100% { transform: scaleY(0.3); opacity: 0.3; }
+  50%       { transform: scaleY(1);   opacity: 1;   }
+}
 
-  0%,
-  100% {
-    transform: scaleY(0.3);
-    opacity: 0.3;
-  }
-
-  50% {
-    transform: scaleY(1);
-    opacity: 1;
-  }
+@keyframes greet {
+  0%   { opacity: 0; transform: translateY(8px);  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  35%  { opacity: 1; transform: translateY(0);    animation-timing-function: linear; }
+  70%  { opacity: 1; transform: translateY(0);    animation-timing-function: cubic-bezier(0.4, 0, 1, 1); }
+  100% { opacity: 0; transform: translateY(-5px); }
 }

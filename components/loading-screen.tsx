@@ -10,28 +10,22 @@ const greetings = [
   'Привет',
 ]
 
-const FADE_IN = 130
-const HOLD = 50
-const FADE_OUT = 100
+const WORD_DURATION = 340
 const SLIDE = 600
 
 export default function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   const [index, setIndex] = useState(0)
-  const [visible, setVisible] = useState(false)
   const [sliding, setSliding] = useState(false)
 
   useEffect(() => {
-    const t1 = setTimeout(() => setVisible(true), 40)
-    const t2 = setTimeout(() => setVisible(false), 40 + FADE_IN + HOLD)
-    const t3 = setTimeout(() => {
+    const t = setTimeout(() => {
       if (index < greetings.length - 1) {
         setIndex(i => i + 1)
       } else {
         setSliding(true)
       }
-    }, 40 + FADE_IN + HOLD + FADE_OUT)
-
-    return () => [t1, t2, t3].forEach(clearTimeout)
+    }, WORD_DURATION)
+    return () => clearTimeout(t)
   }, [index])
 
   useEffect(() => {
@@ -49,11 +43,10 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
       }}
     >
       <span
+        key={index}
         className="select-none text-4xl font-semibold tracking-[0.25em] text-white sm:text-5xl md:text-6xl"
         style={{
-          opacity: visible ? 1 : 0,
-          transform: visible ? 'translateY(0)' : 'translateY(10px)',
-          transition: `opacity ${visible ? FADE_IN : FADE_OUT}ms ease, transform ${visible ? FADE_IN : FADE_OUT}ms ease`,
+          animation: `greet ${WORD_DURATION}ms linear forwards`,
           fontFamily: 'var(--font-space-grotesk)',
         }}
       >
