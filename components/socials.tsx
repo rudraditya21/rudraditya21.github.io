@@ -2,6 +2,7 @@
 
 import { GithubLogo, LinkedinLogo, TwitterLogo, YoutubeLogo, MediumLogo } from '@phosphor-icons/react'
 import { socials } from '@/lib/data'
+import MagneticIcon from '@/components/magnetic-icon'
 
 function SubstackIcon({ size = 18 }: { size?: number }) {
   return (
@@ -30,26 +31,13 @@ export default function Socials({ show }: { show: boolean }) {
       }}
     >
       {links.map(({ icon: Icon, href, label }) => (
-        <a
-          key={label}
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={label}
-          className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
-        >
+        <MagneticIcon key={label} href={href} label={label}>
           <Icon size={18} />
-        </a>
+        </MagneticIcon>
       ))}
-      <a
-        href={socials.substack}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Substack"
-        className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
-      >
+      <MagneticIcon href={socials.substack} label="Substack">
         <SubstackIcon size={18} />
-      </a>
+      </MagneticIcon>
     </div>
   )
 }

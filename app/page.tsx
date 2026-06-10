@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import LoadingScreen from '@/components/loading-screen'
 import WorkExperience from '@/components/work-experience'
 import Education from '@/components/education'
@@ -8,9 +10,12 @@ import Socials from '@/components/socials'
 import Interests from '@/components/interests'
 import Footer from '@/components/footer'
 
+gsap.registerPlugin(ScrollTrigger)
+
 export default function Home() {
   const [loaded, setLoaded] = useState(false)
   const [show, setShow] = useState(false)
+  const heroSectionRef = useRef<HTMLElement>(null)
   const heroContentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -19,17 +24,29 @@ export default function Home() {
     return () => clearTimeout(t)
   }, [loaded])
 
+  // GSAP scroll tilt — runs after loading screen completes
   useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY
-      if (heroContentRef.current) {
-        const factor = window.innerWidth < 768 ? 0 : 0.35
-        heroContentRef.current.style.transform = `translateY(${y * factor}px)`
-      }
+    if (!loaded || !heroContentRef.current || !heroSectionRef.current) return
+    if (window.innerWidth < 768) return
+
+    const tween = gsap.to(heroContentRef.current, {
+      y: 180,
+      rotateX: 10,
+      opacity: 0,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: heroSectionRef.current,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1.5,
+      },
+    })
+
+    return () => {
+      tween.kill()
+      ScrollTrigger.getAll().forEach(t => t.kill())
     }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [loaded])
 
   const word = (delay: number): React.CSSProperties => ({
     display: 'inline-block',
@@ -43,8 +60,14 @@ export default function Home() {
     <>
       {!loaded && <LoadingScreen onComplete={() => setLoaded(true)} />}
 
-      <section className="relative flex h-screen items-center justify-center overflow-hidden">
-        <div ref={heroContentRef} className="flex flex-col items-center gap-5 px-6 text-center">
+      <section
+        ref={heroSectionRef}
+        className="relative flex h-screen items-center justify-center overflow-hidden [perspective:1000px]"
+      >
+        <div
+          ref={heroContentRef}
+          className="flex flex-col items-center gap-5 px-6 text-center [transform-style:preserve-3d]"
+        >
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             <span style={word(0)}>Rudraditya</span>
             {' '}
@@ -65,7 +88,6 @@ export default function Home() {
 
           <Socials show={show} />
         </div>
-
       </section>
 
       <WorkExperience />
