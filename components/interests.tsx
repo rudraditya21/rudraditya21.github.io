@@ -107,6 +107,8 @@ function MarqueeRow({ item, index }: { item: typeof interests[0]; index: number 
 export default function Interests() {
   const sectionRef = useRef<HTMLElement>(null)
   const rowsRef = useRef<HTMLDivElement>(null)
+  const labelRef = useRef<HTMLSpanElement>(null)
+  const [labelInView, setLabelInView] = useState(false)
 
   useEffect(() => {
     const section = sectionRef.current
@@ -129,12 +131,34 @@ export default function Interests() {
     return () => observer.disconnect()
   }, [])
 
+  useEffect(() => {
+    const el = labelRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setLabelInView(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.5 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <section ref={sectionRef} className="mx-auto max-w-5xl px-6 pb-16 md:px-12 md:pb-24">
       <div className="mb-5">
         <span
+          ref={labelRef}
           className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground"
-          style={{ fontFamily: 'var(--font-inter)' }}
+          style={{
+            display: 'block',
+            fontFamily: 'var(--font-inter)',
+            clipPath: labelInView ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)',
+            transition: 'clip-path 700ms cubic-bezier(0.16, 1, 0.3, 1)',
+          }}
         >
           Areas of Interest
         </span>

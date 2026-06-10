@@ -18,31 +18,29 @@ function duration(start: Date, end: Date) {
 }
 
 function period(start: Date, end: Date | null) {
-  const now = new Date()
-  const to = end ?? now
+  const to = end ?? new Date()
   return `${fmt(start)} – ${end ? fmt(end) : 'Present'} · ${duration(start, to)}`
 }
 
-// month is 1-indexed for readability
 const jobs = [
   {
     company: 'Supernova Labs',
     role: 'Maintainer & Core Developer',
-    start: new Date(2025, 8),  // Sep 2025
+    start: new Date(2025, 8),
     end: null,
     location: 'Remote',
   },
   {
     company: 'Udyansh',
     role: 'Software Engineer',
-    start: new Date(2024, 2),  // Mar 2024
+    start: new Date(2024, 2),
     end: null,
     location: 'India · Remote',
   },
 ]
 
 function useInView(threshold = 0.15) {
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLElement>(null)
   const [inView, setInView] = useState(false)
 
   useEffect(() => {
@@ -64,7 +62,7 @@ function JobEntry({ job, index }: { job: typeof jobs[0]; index: number }) {
 
   return (
     <div
-      ref={ref}
+      ref={ref as React.RefObject<HTMLDivElement>}
       className="flex flex-col gap-3 py-8 sm:flex-row sm:items-center sm:gap-6 sm:py-10"
       style={{
         opacity: inView ? 1 : 0,
@@ -94,18 +92,16 @@ export default function WorkExperience() {
 
   return (
     <section className="mx-auto max-w-5xl px-6 py-16 md:px-12 md:py-24">
-      <div
-        ref={ref}
-        className="mb-5"
-        style={{
-          opacity: inView ? 1 : 0,
-          transform: inView ? 'translateY(0)' : 'translateY(16px)',
-          transition: 'opacity 600ms ease, transform 600ms ease',
-        }}
-      >
+      <div className="mb-5">
         <span
+          ref={ref as React.RefObject<HTMLSpanElement>}
           className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground"
-          style={{ fontFamily: 'var(--font-inter)' }}
+          style={{
+            display: 'block',
+            fontFamily: 'var(--font-inter)',
+            clipPath: inView ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)',
+            transition: 'clip-path 700ms cubic-bezier(0.16, 1, 0.3, 1)',
+          }}
         >
           Experience
         </span>
