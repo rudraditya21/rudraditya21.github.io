@@ -85,10 +85,6 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-@media (pointer: fine) {
-  * { cursor: none !important; }
-}
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
