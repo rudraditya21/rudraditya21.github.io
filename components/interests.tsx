@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import gsap from 'gsap'
+import { CaretDown } from '@phosphor-icons/react'
 
 const interests = [
   {
@@ -52,52 +52,76 @@ const interests = [
   },
 ]
 
-// vary speed slightly per row so they don't loop in lockstep
-const durations = [32, 24, 28, 22, 26]
+function useInView(threshold = 0.15) {
+  const ref = useRef<HTMLElement>(null)
+  const [inView, setInView] = useState(false)
 
-function MarqueeRow({ item, index }: { item: typeof interests[0]; index: number }) {
-  const [paused, setPaused] = useState(false)
-  const direction = index % 2 === 0 ? 'marquee-left' : 'marquee-right'
-  const doubled = [...item.areas, ...item.areas]
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setInView(true) },
+      { threshold }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [threshold])
+
+  return { ref, inView }
+}
+
+function AccordionRow({ item, index, open, onToggle }: { item: typeof interests[0]; index: number; open: boolean; onToggle: () => void }) {
+  const { ref, inView } = useInView(0.1)
 
   return (
     <div
-      className="flex items-center gap-6 border-b border-border py-6 md:py-7"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
+      ref={ref as React.RefObject<HTMLDivElement>}
+      style={{
+        opacity: inView ? 1 : 0,
+        transform: inView ? 'translateY(0)' : 'translateY(24px)',
+        transition: `opacity 700ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 60}ms, transform 700ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 60}ms`,
+      }}
     >
-      {/* domain name — fixed left */}
-      <div className="w-40 shrink-0 md:w-52">
-        <p
-          className="text-xs font-medium leading-snug text-foreground/80 md:text-sm"
+      <button
+        onClick={onToggle}
+        className="flex w-full items-center justify-between py-6 text-left"
+      >
+        <span
+          className="text-sm font-medium text-foreground"
           style={{ fontFamily: 'var(--font-space-grotesk)' }}
         >
           {item.domain}
-        </p>
-      </div>
-
-      {/* marquee track */}
-      <div className="relative min-w-0 flex-1 overflow-hidden">
-        {/* fade edges */}
-        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-10 bg-gradient-to-r from-background to-transparent" />
-        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-10 bg-gradient-to-l from-background to-transparent" />
-
-        <div
-          className="flex w-max gap-2"
+        </span>
+        <CaretDown
+          size={14}
+          className="shrink-0 text-muted-foreground"
           style={{
-            animation: `${direction} ${durations[index]}s linear infinite`,
-            animationPlayState: paused ? 'paused' : 'running',
+            transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+            transition: 'transform 300ms cubic-bezier(0.16, 1, 0.3, 1)',
           }}
-        >
-          {doubled.map((area, i) => (
-            <span
-              key={i}
-              className="whitespace-nowrap rounded-md border border-border px-2.5 py-1 text-xs text-foreground/55"
-              style={{ fontFamily: 'var(--font-inter)' }}
-            >
-              {area}
-            </span>
-          ))}
+        />
+      </button>
+
+      {/* CSS grid trick: animates height without JS measurement */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateRows: open ? '1fr' : '0fr',
+          transition: 'grid-template-rows 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+        }}
+      >
+        <div className="overflow-hidden">
+          <div className="flex flex-wrap gap-2 pb-6">
+            {item.areas.map(area => (
+              <span
+                key={area}
+                className="rounded-md border border-border px-2.5 py-1 text-xs text-foreground/55"
+                style={{ fontFamily: 'var(--font-inter)' }}
+              >
+                {area}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -105,31 +129,9 @@ function MarqueeRow({ item, index }: { item: typeof interests[0]; index: number 
 }
 
 export default function Interests() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const rowsRef = useRef<HTMLDivElement>(null)
+  const [activeIndex, setActiveIndex] = useState<number>(0)
   const labelRef = useRef<HTMLSpanElement>(null)
   const [labelInView, setLabelInView] = useState(false)
-
-  useEffect(() => {
-    const section = sectionRef.current
-    const rows = rowsRef.current
-    if (!section || !rows) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return
-        gsap.fromTo(
-          rows.children,
-          { opacity: 0, y: 24 },
-          { opacity: 1, y: 0, stagger: 0.08, duration: 0.6, ease: 'power2.out' }
-        )
-        observer.disconnect()
-      },
-      { threshold: 0.1 }
-    )
-    observer.observe(section)
-    return () => observer.disconnect()
-  }, [])
 
   useEffect(() => {
     const el = labelRef.current
@@ -148,7 +150,7 @@ export default function Interests() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="mx-auto max-w-5xl px-6 pb-16 md:px-12 md:pb-24">
+    <section className="mx-auto max-w-5xl px-6 pb-16 md:px-12 md:pb-24">
       <div className="mb-5">
         <span
           ref={labelRef}
@@ -166,9 +168,15 @@ export default function Interests() {
 
       <div className="border-t border-border" />
 
-      <div ref={rowsRef}>
+      <div className="divide-y divide-border">
         {interests.map((item, i) => (
-          <MarqueeRow key={item.domain} item={item} index={i} />
+          <AccordionRow
+            key={item.domain}
+            item={item}
+            index={i}
+            open={activeIndex === i}
+            onToggle={() => setActiveIndex(activeIndex === i ? -1 : i)}
+          />
         ))}
       </div>
     </section>
