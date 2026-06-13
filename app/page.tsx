@@ -7,6 +7,7 @@ import WorkExperience from '@/components/work-experience'
 import Education from '@/components/education'
 import Socials from '@/components/socials'
 import Interests from '@/components/interests'
+import HamburgerMenu from '@/components/hamburger-menu'
 
 const navItems = [
   { label: 'About',             id: 'about' },
@@ -189,6 +190,8 @@ export default function Home() {
         <div id="education"><Education /></div>
         <div id="interests"><Interests /></div>
       </div>
+
+      <HamburgerMenu show={show} />
     </>
   )
 }
