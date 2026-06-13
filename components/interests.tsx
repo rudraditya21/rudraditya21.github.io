@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { CaretDown } from '@phosphor-icons/react'
 
 const interests = [
   {
@@ -70,94 +69,52 @@ function useInView(threshold = 0.15) {
   return { ref, inView }
 }
 
-function AccordionRow({ item, index, open, onToggle }: { item: typeof interests[0]; index: number; open: boolean; onToggle: () => void }) {
+function InterestRow({ item, index }: { item: typeof interests[0]; index: number }) {
   const { ref, inView } = useInView(0.1)
 
   return (
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
+      className="flex flex-col gap-2 py-8 lg:flex-row lg:gap-10 lg:py-10"
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? 'translateY(0)' : 'translateY(24px)',
         transition: `opacity 700ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 60}ms, transform 700ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 60}ms`,
       }}
     >
-      <button
-        onClick={onToggle}
-        className="flex w-full items-center justify-between py-6 text-left"
-      >
-        <span
-          className="text-sm font-medium text-foreground"
-          style={{ fontFamily: 'var(--font-space-grotesk)' }}
+      {/* Domain name */}
+      <div className="lg:w-52 lg:shrink-0">
+        <p
+          className="text-lg leading-snug text-foreground"
+          style={{ fontFamily: 'var(--font-instrument-serif)' }}
         >
           {item.domain}
-        </span>
-        <CaretDown
-          size={14}
-          className="shrink-0 text-muted-foreground"
-          style={{
-            transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
-            transition: 'transform 300ms cubic-bezier(0.16, 1, 0.3, 1)',
-          }}
-        />
-      </button>
-
-      {/* CSS grid trick: animates height without JS measurement */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateRows: open ? '1fr' : '0fr',
-          transition: 'grid-template-rows 400ms cubic-bezier(0.16, 1, 0.3, 1)',
-        }}
-      >
-        <div className="overflow-hidden">
-          <div className="flex flex-wrap gap-2 pb-6">
-            {item.areas.map(area => (
-              <span
-                key={area}
-                className="rounded-md border border-border px-2.5 py-1 text-xs text-foreground/55"
-                style={{ fontFamily: 'var(--font-inter)' }}
-              >
-                {area}
-              </span>
-            ))}
-          </div>
-        </div>
+        </p>
       </div>
+
+      {/* Comma-separated areas */}
+      <p
+        className="text-sm leading-relaxed text-foreground/50 lg:pt-0.5"
+        style={{ fontFamily: 'var(--font-inter)' }}
+      >
+        {item.areas.join(', ')}
+      </p>
     </div>
   )
 }
 
 export default function Interests() {
-  const [activeIndex, setActiveIndex] = useState<number>(0)
-  const labelRef = useRef<HTMLHeadingElement>(null)
-  const [labelInView, setLabelInView] = useState(false)
-
-  useEffect(() => {
-    const el = labelRef.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setLabelInView(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.5 }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
+  const { ref, inView } = useInView(0.15)
 
   return (
     <section className="min-h-[90svh] px-12 py-16 md:py-24">
       <h2
-        ref={labelRef}
+        ref={ref as React.RefObject<HTMLHeadingElement>}
         className="mb-10 text-5xl tracking-tight"
         style={{
           fontFamily: 'var(--font-instrument-serif)',
-          opacity: labelInView ? 1 : 0,
-          transform: labelInView ? 'translateY(0)' : 'translateY(20px)',
+          opacity: inView ? 1 : 0,
+          transform: inView ? 'translateY(0)' : 'translateY(20px)',
           transition: 'opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
@@ -166,13 +123,7 @@ export default function Interests() {
 
       <div className="divide-y divide-border">
         {interests.map((item, i) => (
-          <AccordionRow
-            key={item.domain}
-            item={item}
-            index={i}
-            open={activeIndex === i}
-            onToggle={() => setActiveIndex(activeIndex === i ? -1 : i)}
-          />
+          <InterestRow key={item.domain} item={item} index={i} />
         ))}
       </div>
     </section>
