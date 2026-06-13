@@ -56,7 +56,7 @@ function BlobAvatar() {
   }, [])
 
   return (
-    <div ref={containerRef} className="relative aspect-square w-full overflow-hidden rounded-full border border-border bg-muted">
+    <div ref={containerRef} className="relative aspect-square w-full overflow-hidden rounded-full border border-border bg-muted shadow-md">
       {/* Gooey filter: blur → alpha threshold → blobs merge when touching */}
       <svg style={{ position: 'absolute', width: 0, height: 0 }}>
         <defs>
@@ -157,7 +157,7 @@ export default function Home() {
       </aside>
 
       {/* Fixed top-right socials */}
-      <div className="fixed right-10 top-8 z-40 hidden lg:block">
+      <div className="fixed right-10 top-8 z-40 hidden rounded-full bg-background/70 px-4 py-2.5 shadow-md backdrop-blur-md lg:block">
         <Socials show={show} />
       </div>
 
