@@ -130,7 +130,7 @@ function AccordionRow({ item, index, open, onToggle }: { item: typeof interests[
 
 export default function Interests() {
   const [activeIndex, setActiveIndex] = useState<number>(0)
-  const labelRef = useRef<HTMLSpanElement>(null)
+  const labelRef = useRef<HTMLHeadingElement>(null)
   const [labelInView, setLabelInView] = useState(false)
 
   useEffect(() => {
@@ -150,23 +150,19 @@ export default function Interests() {
   }, [])
 
   return (
-    <section className="mx-auto max-w-5xl px-6 pb-16 md:px-12 md:pb-24">
-      <div className="mb-5">
-        <span
-          ref={labelRef}
-          className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground"
-          style={{
-            display: 'block',
-            fontFamily: 'var(--font-inter)',
-            clipPath: labelInView ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)',
-            transition: 'clip-path 700ms cubic-bezier(0.16, 1, 0.3, 1)',
-          }}
-        >
-          Areas of Interest
-        </span>
-      </div>
-
-      <div className="border-t border-border" />
+    <section className="min-h-[90svh] px-12 py-16 md:py-24">
+      <h2
+        ref={labelRef}
+        className="mb-10 text-5xl tracking-tight"
+        style={{
+          fontFamily: 'var(--font-instrument-serif)',
+          opacity: labelInView ? 1 : 0,
+          transform: labelInView ? 'translateY(0)' : 'translateY(20px)',
+          transition: 'opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)',
+        }}
+      >
+        Areas of Interest
+      </h2>
 
       <div className="divide-y divide-border">
         {interests.map((item, i) => (

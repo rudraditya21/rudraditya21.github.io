@@ -22,20 +22,34 @@ function period(start: Date, end: Date | null) {
   return `${fmt(start)} – ${end ? fmt(end) : 'Present'} · ${duration(start, to)}`
 }
 
-const jobs = [
+type Job = {
+  company: string
+  abbr: string
+  role: string
+  start: Date
+  end: Date | null
+  location: string
+  description: string[]
+}
+
+const jobs: Job[] = [
   {
     company: 'Supernova Labs',
+    abbr: 'SL',
     role: 'Maintainer & Core Developer',
     start: new Date(2025, 8),
     end: null,
     location: 'Remote',
+    description: [],
   },
   {
     company: 'Udyansh',
+    abbr: 'U',
     role: 'Software Engineer',
     start: new Date(2024, 2),
     end: null,
     location: 'India · Remote',
+    description: [],
   },
 ]
 
@@ -57,57 +71,66 @@ function useInView(threshold = 0.15) {
   return { ref, inView }
 }
 
-function JobEntry({ job, index }: { job: typeof jobs[0]; index: number }) {
+function JobEntry({ job, index }: { job: Job; index: number }) {
   const { ref, inView } = useInView(0.1)
 
   return (
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
-      className="flex flex-col gap-3 py-8 sm:flex-row sm:items-center sm:gap-6 sm:py-10"
+      className="py-10"
       style={{
         opacity: inView ? 1 : 0,
-        transform: inView ? 'translateY(0)' : 'translateY(36px)',
+        transform: inView ? 'translateY(0)' : 'translateY(32px)',
         transition: `opacity 800ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 100}ms, transform 800ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 100}ms`,
       }}
     >
-      <div className="flex flex-1 flex-col gap-0.5">
+      <div className="flex flex-col gap-0.5">
         <p className="text-base font-semibold" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
           {job.company}
         </p>
         <p className="text-sm text-foreground/70" style={{ fontFamily: 'var(--font-inter)' }}>
           {job.role}
         </p>
-      </div>
+        <p className="mt-0.5 text-xs text-muted-foreground" style={{ fontFamily: 'var(--font-inter)' }}>
+          {job.location}&nbsp;&nbsp;·&nbsp;&nbsp;{period(job.start, job.end)}
+        </p>
 
-      <div className="flex flex-col items-start gap-0.5 text-xs text-muted-foreground sm:items-end" style={{ fontFamily: 'var(--font-inter)' }}>
-        <span>{period(job.start, job.end)}</span>
-        <span>{job.location}</span>
+        {job.description.length > 0 && (
+          <ul className="mt-4 flex flex-col gap-2.5">
+            {job.description.map((point, i) => (
+              <li
+                key={i}
+                className="flex items-start gap-2.5 text-sm leading-relaxed text-foreground/60"
+                style={{ fontFamily: 'var(--font-inter)' }}
+              >
+                <span className="mt-1.75 h-1 w-1 shrink-0 rounded-full bg-foreground/30" />
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   )
 }
 
 export default function WorkExperience() {
-  const { ref, inView } = useInView(0.2)
+  const { ref, inView } = useInView(0.15)
 
   return (
-    <section className="mx-auto max-w-5xl px-6 py-16 md:px-12 md:py-24">
-      <div className="mb-5">
-        <span
-          ref={ref as React.RefObject<HTMLSpanElement>}
-          className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground"
-          style={{
-            display: 'block',
-            fontFamily: 'var(--font-inter)',
-            clipPath: inView ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)',
-            transition: 'clip-path 700ms cubic-bezier(0.16, 1, 0.3, 1)',
-          }}
-        >
-          Experience
-        </span>
-      </div>
-
-      <div className="border-t border-border" />
+    <section className="min-h-[90svh] px-12 py-16 md:py-24">
+      <h2
+        ref={ref as React.RefObject<HTMLHeadingElement>}
+        className="mb-10 text-5xl tracking-tight"
+        style={{
+          fontFamily: 'var(--font-instrument-serif)',
+          opacity: inView ? 1 : 0,
+          transform: inView ? 'translateY(0)' : 'translateY(20px)',
+          transition: 'opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)',
+        }}
+      >
+        Work Experience
+      </h2>
 
       <div className="divide-y divide-border">
         {jobs.map((job, i) => (
