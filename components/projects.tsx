@@ -35,24 +35,85 @@ const data: Record<Tab, Project[]> = {
   ],
   Experiments: [
     {
-      name: 'Project 3',
-      description: 'Short description of what this project does and the problem it solves.',
-      stack: ['Solidity', 'Ethereum'],
-      github: '#',
+      name: 'Lattice',
+      description: 'Small scientific computing language with reproducible numerics, a REPL, strict typing, a full numeric tower, and GPU backends (OpenCL, CUDA, HIP, Metal).',
+      stack: ['C++', 'Objective-C++', 'CMake', 'OpenCL', 'CUDA', 'HIP', 'Metal'],
+      github: 'https://github.com/rudraditya21/lattice',
+    },
+    {
+      name: '8051',
+      description: 'Full MCS-51/8051 microcontroller implementation with CPU core, internal RAM/SFRs, timers, serial port, interrupt controller, and a Verilator testbench.',
+      stack: ['SystemVerilog', 'Verilator'],
+      github: 'https://github.com/rudraditya21/8051',
+    },
+    {
+      name: 'Moonlight',
+      description: 'Modular security framework with a deterministic control plane for running modules, managing sessions, tracking campaigns, and generating advisory plans.',
+      stack: ['Rust'],
+      github: 'https://github.com/rudraditya21/moonlight',
+    },
+    {
+      name: 'Aegis',
+      description: 'High-performance firewall and IDS workspace with persistent configuration under /etc/aegis.',
+      stack: ['Rust'],
+      github: 'https://github.com/rudraditya21/aegis',
+    },
+    {
+      name: 'minAlphaFold2',
+      description: 'Minimal re-implementation of AlphaFold2\'s model and training pipeline.',
+      stack: ['Python', 'PyTorch'],
+      github: 'https://github.com/rudraditya21/minAlphaFold2',
+    },
+    {
+      name: 'Rust Chain',
+      description: 'Production-style minimal blockchain node.',
+      stack: ['Rust'],
+      github: 'https://github.com/rudraditya21/rustchain',
+    },
+    {
+      name: '16bit.cpu',
+      description: 'Custom 16-bit CPU emulator with a tiny assembler.',
+      stack: ['C', 'Makefile'],
+      github: 'https://github.com/rudraditya21/16bit.cpu',
+    },
+    {
+      name: 'Alexnet.cpp',
+      description: 'AlexNet implemented from scratch.',
+      stack: ['C++', 'Makefile'],
+      github: 'https://github.com/rudraditya21/alexnet.cpp',
+    },
+    {
+      name: 'JAX CNN Examples',
+      description: 'CNN model zoo with 60+ architectures and training sanity checks across 25+ datasets.',
+      stack: ['Python', 'JAX'],
+      github: 'https://github.com/rudraditya21/jax-cnn-examples',
+    },
+    {
+      name: 'Texedo',
+      description: 'Local, open-source LaTeX editor inspired by Overleaf.',
+      stack: ['Next.js', 'TypeScript', 'PostgreSQL', 'MinIO'],
+      github: 'https://github.com/rudraditya21/texedo',
+    },
+    {
+      name: 'Devops.Scripts',
+      description: 'Production-grade DevOps automation library organized by domain, with strict standards for script quality, safety, and documentation.',
+      stack: ['Bash', 'Shell'],
+      github: 'https://github.com/rudraditya21/devops.scripts',
+      live: 'https://rudraditya21.github.io/devops.scripts/',
     },
   ],
   'For Fun': [
     {
       name: 'Typy',
       description: 'Mechanical keyboard with sound. Desktop only.',
-      stack: [],
+      stack: ['Next.js', 'TypeScript', 'TailwindCSS'],
       github: 'https://github.com/rudraditya21/typy',
       live: 'https://rudraditya21.github.io/typy/',
     },
     {
       name: 'Tipsy Type',
       description: 'Minimal typing speed test with live stats, timer presets, and an animated keyboard UI. Desktop only.',
-      stack: [],
+      stack: ['Next.js', 'TypeScript', 'TailwindCSS'],
       github: 'https://github.com/rudraditya21/tipsy-type',
       live: 'https://rudraditya21.github.io/tipsy-type/',
     },
@@ -113,14 +174,16 @@ function ProjectRow({ project }: { project: Project }) {
   )
 }
 
+const PER_PAGE = 4
+
 export default function Projects() {
   const [activeTab, setActiveTab] = useState<Tab>('Projects')
-  const tabRefs    = useRef<(HTMLButtonElement | null)[]>([])
+  const [page, setPage] = useState(0)
+  const tabRefs      = useRef<(HTMLButtonElement | null)[]>([])
   const indicatorRef = useRef<HTMLDivElement>(null)
   const contentRef   = useRef<HTMLDivElement>(null)
   const { ref: headingRef, inView } = useInView(0.15)
 
-  // Set indicator to first tab once mounted
   useEffect(() => {
     const first = tabRefs.current[0]
     if (!first || !indicatorRef.current) return
@@ -134,7 +197,6 @@ export default function Projects() {
   function switchTab(tab: Tab) {
     if (tab === activeTab) return
 
-    // Slide indicator immediately
     const idx = TABS.indexOf(tab)
     const btn = tabRefs.current[idx]
     if (btn) {
@@ -146,7 +208,6 @@ export default function Projects() {
       })
     }
 
-    // Fade out content → swap → fade in
     gsap.to(contentRef.current, {
       opacity: 0,
       y: 8,
@@ -154,6 +215,7 @@ export default function Projects() {
       ease: 'power2.in',
       onComplete: () => {
         setActiveTab(tab)
+        setPage(0)
         gsap.to(contentRef.current, {
           opacity: 1,
           y: 0,
@@ -163,6 +225,28 @@ export default function Projects() {
       },
     })
   }
+
+  function changePage(next: number) {
+    gsap.to(contentRef.current, {
+      opacity: 0,
+      y: 8,
+      duration: 0.15,
+      ease: 'power2.in',
+      onComplete: () => {
+        setPage(next)
+        gsap.to(contentRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.28,
+          ease: 'power2.out',
+        })
+      },
+    })
+  }
+
+  const items      = data[activeTab]
+  const totalPages = Math.ceil(items.length / PER_PAGE)
+  const paged      = items.slice(page * PER_PAGE, (page + 1) * PER_PAGE)
 
   return (
     <section className="min-h-[90svh] px-12 py-16 md:py-24">
@@ -195,7 +279,6 @@ export default function Projects() {
             {tab}
           </button>
         ))}
-        {/* GSAP-animated sliding indicator */}
         <div
           ref={indicatorRef}
           className="absolute bottom-0 h-px bg-foreground"
@@ -203,11 +286,41 @@ export default function Projects() {
         />
       </div>
 
-      {/* Content */}
-      <div ref={contentRef} className="divide-y divide-border">
-        {data[activeTab].map(project => (
-          <ProjectRow key={project.name} project={project} />
-        ))}
+      {/* Content + Pagination pinned together */}
+      <div className="flex min-h-[32rem] flex-col">
+        <div ref={contentRef} className="divide-y divide-border">
+          {paged.map(project => (
+            <ProjectRow key={project.name} project={project} />
+          ))}
+        </div>
+
+        {/* Pagination always at bottom of the fixed-height area */}
+        {totalPages > 1 && (
+        <div className="mt-auto pt-8 flex items-center gap-6">
+          <button
+            onClick={() => changePage(page - 1)}
+            disabled={page === 0}
+            className="text-xs font-medium uppercase tracking-wider text-muted-foreground transition-colors duration-200 hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed"
+            style={{ fontFamily: 'var(--font-instrument-serif)' }}
+          >
+            ← Prev
+          </button>
+          <span
+            className="text-xs text-muted-foreground"
+            style={{ fontFamily: 'var(--font-inter)' }}
+          >
+            {page + 1} / {totalPages}
+          </span>
+          <button
+            onClick={() => changePage(page + 1)}
+            disabled={page === totalPages - 1}
+            className="text-xs font-medium uppercase tracking-wider text-muted-foreground transition-colors duration-200 hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed"
+            style={{ fontFamily: 'var(--font-instrument-serif)' }}
+          >
+            Next →
+          </button>
+        </div>
+        )}
       </div>
     </section>
   )
