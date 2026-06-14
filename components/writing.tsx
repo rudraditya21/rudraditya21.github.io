@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { useInView } from '@/hooks/use-in-view'
-import { ArrowSquareOut } from '@phosphor-icons/react'
+import { ArrowUpRight } from '@phosphor-icons/react'
 
 const TABS = ['Medium', 'Substack'] as const
 type Tab = (typeof TABS)[number]
@@ -56,10 +56,10 @@ function PostRow({ post }: { post: Post }) {
             href={post.href}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Read post"
-            className="transition-colors duration-200 hover:text-foreground"
+            className="inline-flex items-start gap-0.5 text-xs font-medium uppercase tracking-wider underline underline-offset-2 transition-colors duration-200 hover:text-foreground"
+            style={{ fontFamily: 'var(--font-instrument-serif)' }}
           >
-            <ArrowSquareOut size={14} />
+            Visit<ArrowUpRight size={10} />
           </a>
         </div>
       </div>

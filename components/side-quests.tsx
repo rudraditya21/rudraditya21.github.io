@@ -1,10 +1,12 @@
 'use client'
 
 import { useInView } from '@/hooks/use-in-view'
+import { ArrowUpRight } from '@phosphor-icons/react'
 
 type Quest = {
   name: string
   description: string
+  href?: string
 }
 
 const quests: Quest[] = [
@@ -38,6 +40,19 @@ function QuestRow({ quest, index }: { quest: Quest; index: number }) {
         >
           {quest.name}
         </p>
+        {quest.href && (
+          <div className="mt-2 text-muted-foreground">
+            <a
+              href={quest.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-start gap-0.5 text-xs font-medium uppercase tracking-wider underline underline-offset-2 transition-colors duration-200 hover:text-foreground"
+              style={{ fontFamily: 'var(--font-instrument-serif)' }}
+            >
+              Visit<ArrowUpRight size={10} />
+            </a>
+          </div>
+        )}
       </div>
       <p
         className="text-sm leading-relaxed text-foreground/50 lg:pt-0.5"
