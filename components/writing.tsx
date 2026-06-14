@@ -74,8 +74,11 @@ function PostRow({ post }: { post: Post }) {
   )
 }
 
+const PER_PAGE = 4
+
 export default function Writing() {
   const [activeTab, setActiveTab] = useState<Tab>('Medium')
+  const [page, setPage] = useState(0)
   const tabRefs      = useRef<(HTMLButtonElement | null)[]>([])
   const indicatorRef = useRef<HTMLDivElement>(null)
   const contentRef   = useRef<HTMLDivElement>(null)
@@ -112,6 +115,7 @@ export default function Writing() {
       ease: 'power2.in',
       onComplete: () => {
         setActiveTab(tab)
+        setPage(0)
         gsap.to(contentRef.current, {
           opacity: 1,
           y: 0,
@@ -121,6 +125,28 @@ export default function Writing() {
       },
     })
   }
+
+  function changePage(next: number) {
+    gsap.to(contentRef.current, {
+      opacity: 0,
+      y: 8,
+      duration: 0.15,
+      ease: 'power2.in',
+      onComplete: () => {
+        setPage(next)
+        gsap.to(contentRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.28,
+          ease: 'power2.out',
+        })
+      },
+    })
+  }
+
+  const items      = data[activeTab]
+  const totalPages = Math.ceil(items.length / PER_PAGE)
+  const paged      = items.slice(page * PER_PAGE, (page + 1) * PER_PAGE)
 
   return (
     <section className="min-h-[90svh] px-12 py-16 md:py-24">
@@ -160,11 +186,40 @@ export default function Writing() {
         />
       </div>
 
-      {/* Content */}
-      <div ref={contentRef} className="divide-y divide-border">
-        {data[activeTab].map(post => (
-          <PostRow key={post.title} post={post} />
-        ))}
+      {/* Content + Pagination pinned together */}
+      <div className="flex min-h-128 flex-col">
+        <div ref={contentRef} className="divide-y divide-border">
+          {paged.map(post => (
+            <PostRow key={post.title} post={post} />
+          ))}
+        </div>
+
+        {totalPages > 1 && (
+          <div className="mt-auto pt-8 flex items-center gap-6">
+            <button
+              onClick={() => changePage(page - 1)}
+              disabled={page === 0}
+              className="text-xs font-medium uppercase tracking-wider text-muted-foreground transition-colors duration-200 hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed"
+              style={{ fontFamily: 'var(--font-instrument-serif)' }}
+            >
+              ← Prev
+            </button>
+            <span
+              className="text-xs text-muted-foreground"
+              style={{ fontFamily: 'var(--font-inter)' }}
+            >
+              {page + 1} / {totalPages}
+            </span>
+            <button
+              onClick={() => changePage(page + 1)}
+              disabled={page === totalPages - 1}
+              className="text-xs font-medium uppercase tracking-wider text-muted-foreground transition-colors duration-200 hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed"
+              style={{ fontFamily: 'var(--font-instrument-serif)' }}
+            >
+              Next →
+            </button>
+          </div>
+        )}
       </div>
     </section>
   )
