@@ -190,15 +190,16 @@ export default function HamburgerMenu({ show }: { show: boolean }) {
         </Tooltip>
       </TooltipProvider>
 
-      {/* Full-screen overlay — outer flex-col keeps socials at the bottom */}
+      {/* Full-screen overlay */}
       <div
         ref={overlayRef}
         className="fixed inset-0 z-45 flex flex-col bg-background px-12 pb-8 pt-20"
       >
-        {/* Inner row: nav + blob rectangle, height = nav's natural height only */}
-        <div className="flex flex-col md:flex-row md:gap-8">
+        {/* sm/md: flex-col + flex-1 so blob fills the vertical whitespace
+            lg+:   flex-row + flex-none so blob matches nav height (50-50 split) */}
+        <div className="flex min-h-0 flex-1 flex-col lg:flex-none lg:flex-row lg:gap-8">
 
-          <nav className="flex flex-col divide-y divide-border md:flex-1">
+          <nav className="flex flex-col divide-y divide-border lg:flex-1">
             {NAV.map(({ label, id }, i) => (
               <a
                 key={id}
@@ -213,14 +214,17 @@ export default function HamburgerMenu({ show }: { show: boolean }) {
             ))}
           </nav>
 
-          {/* Blob rectangle — hidden on mobile, stretches to nav height on md+ */}
-          <div ref={blobColRef} className="hidden md:block md:flex-1">
+          {/* sm/md: flex-1 stretches to fill remaining whitespace
+              lg+:   flex-1 gives 50% width, height matches nav via flex stretch */}
+          <div ref={blobColRef} className="flex-1 py-5 lg:py-0">
             <BlobRectangle />
           </div>
 
         </div>
 
-        <div ref={socialsRef} className="mt-auto pt-4">
+        {/* sm/md: sits naturally below the flex-1 block above (already at bottom)
+            lg+:   mt-auto pushes it to the bottom of the overlay */}
+        <div ref={socialsRef} className="pt-4 lg:mt-auto">
           <Socials show />
         </div>
       </div>
