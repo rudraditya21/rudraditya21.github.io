@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { useInView } from '@/hooks/use-in-view'
 import { ArrowUpRight } from '@phosphor-icons/react'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
 const TABS = ['Medium', 'Substack'] as const
 type Tab = (typeof TABS)[number]
@@ -41,7 +42,7 @@ const data: Record<Tab, Post[]> = {
   ],
 }
 
-function PostRow({ post }: { post: Post }) {
+function PostRow({ post, tab }: { post: Post; tab: Tab }) {
   return (
     <div className="flex flex-col gap-2 py-8 lg:flex-row lg:gap-10 lg:py-10">
       <div className="lg:w-52 lg:shrink-0">
@@ -52,15 +53,24 @@ function PostRow({ post }: { post: Post }) {
           {post.title}
         </p>
         <div className="mt-2 text-muted-foreground">
-          <a
-            href={post.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-start gap-0.5 text-xs font-medium uppercase tracking-wider underline underline-offset-2 transition-colors duration-200 hover:text-foreground"
-            style={{ fontFamily: 'var(--font-instrument-serif)' }}
-          >
-            Visit<ArrowUpRight size={10} />
-          </a>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <a
+                  href={post.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-start gap-0.5 text-xs font-medium uppercase tracking-wider underline underline-offset-2 transition-colors duration-200 hover:text-foreground"
+                  style={{ fontFamily: 'var(--font-instrument-serif)' }}
+                >
+                  {tab === 'Medium' ? 'Read on Medium' : 'Read on Substack'}<ArrowUpRight size={10} />
+                </a>
+              </TooltipTrigger>
+              <TooltipContent side="right">
+                Read Blog
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </div>
 
@@ -190,7 +200,7 @@ export default function Writing() {
       <div className="flex min-h-128 flex-col">
         <div ref={contentRef} className="divide-y divide-border">
           {paged.map(post => (
-            <PostRow key={post.title} post={post} />
+            <PostRow key={post.title} post={post} tab={activeTab} />
           ))}
         </div>
 
