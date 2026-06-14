@@ -2,6 +2,7 @@
 
 import { useInView } from '@/hooks/use-in-view'
 import { ArrowUpRight } from '@phosphor-icons/react'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
 type Link = { name?: string; label: string; href: string }
 
@@ -65,14 +66,23 @@ function QuestRow({ quest, index }: { quest: Quest; index: number }) {
                 <span className="h-1 w-1 shrink-0 rounded-full bg-foreground/30" />
                 <span className="text-sm text-foreground/50" style={{ fontFamily: 'var(--font-inter)' }}>
                   {link.name && <>{link.name} (</>}
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-0.5 font-medium underline underline-offset-2 text-muted-foreground transition-colors duration-200 hover:text-foreground"
-                  >
-                    {link.label}<ArrowUpRight size={10} />
-                  </a>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-0.5 font-medium underline underline-offset-2 text-muted-foreground transition-colors duration-200 hover:text-foreground"
+                        >
+                          {link.label}<ArrowUpRight size={10} />
+                        </a>
+                      </TooltipTrigger>
+                      <TooltipContent side="top">
+                        {link.name ? `${link.name} ${link.label}` : link.label}
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                   {link.name && <>)</>}
                 </span>
               </div>
