@@ -10,6 +10,8 @@ const NAV = [
   { label: 'Work Experience',   id: 'experience' },
   { label: 'Education',         id: 'education' },
   { label: 'Areas of Interest', id: 'interests' },
+  { label: 'Side Quests',       id: 'quests' },
+  { label: 'Writing',           id: 'writing' },
 ]
 
 export default function HamburgerMenu({ show }: { show: boolean }) {

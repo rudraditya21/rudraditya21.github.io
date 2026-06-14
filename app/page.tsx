@@ -10,6 +10,8 @@ import Interests from '@/components/interests'
 import HamburgerMenu from '@/components/hamburger-menu'
 import ThemeToggle from '@/components/theme-toggle'
 import Projects from '@/components/projects'
+import SideQuests from '@/components/side-quests'
+import Writing from '@/components/writing'
 
 const navItems = [
   { label: 'About',             id: 'about' },
@@ -17,6 +19,8 @@ const navItems = [
   { label: 'Work Experience',   id: 'experience' },
   { label: 'Education',         id: 'education' },
   { label: 'Areas of Interest', id: 'interests' },
+  { label: 'Side Quests',       id: 'quests' },
+  { label: 'Writing',           id: 'writing' },
 ]
 
 const BLOB_COUNT = 9
@@ -190,6 +194,8 @@ export default function Home() {
         <div id="experience"><WorkExperience /></div>
         <div id="education"><Education /></div>
         <div id="interests"><Interests /></div>
+        <div id="quests"><SideQuests /></div>
+        <div id="writing"><Writing /></div>
       </div>
 
       <HamburgerMenu show={show} />
