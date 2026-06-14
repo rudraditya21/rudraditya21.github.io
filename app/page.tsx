@@ -13,6 +13,7 @@ import Projects from '@/components/projects'
 import SideQuests from '@/components/side-quests'
 import Writing from '@/components/writing'
 import Publications from '@/components/publications'
+import Tools from '@/components/tools'
 
 const navItems = [
   { label: 'About',             id: 'about' },
@@ -21,6 +22,7 @@ const navItems = [
   { label: 'Education',         id: 'education' },
   { label: 'Publications',      id: 'publications' },
   { label: 'Areas of Interest', id: 'interests' },
+  { label: 'Tools & Tech',      id: 'tools' },
   { label: 'Side Quests',       id: 'quests' },
   { label: 'Writing',           id: 'writing' },
 ]
@@ -202,6 +204,7 @@ export default function Home() {
         <div id="education"><Education /></div>
         <div id="publications"><Publications /></div>
         <div id="interests"><Interests /></div>
+        <div id="tools"><Tools /></div>
         <div id="quests"><SideQuests /></div>
         <div id="writing"><Writing /></div>
       </div>
