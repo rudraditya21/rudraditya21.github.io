@@ -1,7 +1,6 @@
 'use client'
 
 import { useInView } from '@/hooks/use-in-view'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { PythonIcon, RustIcon, CIcon, CppIcon, BunIcon, DartIcon, DockerIcon, ErlangIcon, GoIcon, JavaIcon, JavascriptIcon, MatlabIcon, ClaudeIcon, CodexIcon, LangChainIcon } from '@/components/icons'
 
 type Tool = {
@@ -55,16 +54,14 @@ const stack: Category[] = [
 function ToolIcon({ tool }: { tool: Tool }) {
   const Icon = tool.icon
   return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <span className="inline-flex cursor-default items-center justify-center rounded-lg border border-border p-2 text-foreground/60 transition-colors duration-200 hover:border-foreground/30 hover:text-foreground">
-            <Icon size={22} />
-          </span>
-        </TooltipTrigger>
-        <TooltipContent side="bottom">{tool.name}</TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <span className="group inline-flex cursor-default items-center rounded-lg border border-border p-2 text-foreground/60 transition-colors duration-200 hover:border-foreground/30 hover:text-foreground">
+      <Icon size={22} />
+      <span className="grid grid-cols-[0fr] transition-all duration-300 ease-out group-hover:grid-cols-[1fr]">
+        <span className="overflow-hidden whitespace-nowrap">
+          <span className="pl-2 text-sm">{tool.name}</span>
+        </span>
+      </span>
+    </span>
   )
 }
 
