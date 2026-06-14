@@ -78,7 +78,7 @@ function QuestRow({ quest, index }: { quest: Quest; index: number }) {
                           {link.label}<ArrowUpRight size={10} />
                         </a>
                       </TooltipTrigger>
-                      <TooltipContent side="top">
+                      <TooltipContent side="bottom">
                         {link.name ? `${link.name} ${link.label}` : link.label}
                       </TooltipContent>
                     </Tooltip>
