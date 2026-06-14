@@ -36,7 +36,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-background"
       style={{
         transform: sliding ? 'translateY(-100%)' : 'translateY(0)',
         transition: sliding ? `transform ${SLIDE}ms cubic-bezier(0.76, 0, 0.24, 1)` : 'none',
@@ -44,7 +44,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
     >
       <span
         key={index}
-        className="select-none text-4xl font-semibold tracking-[0.25em] text-white sm:text-5xl md:text-6xl"
+        className="select-none text-4xl font-semibold tracking-[0.25em] text-foreground sm:text-5xl md:text-6xl"
         style={{
           animation: `greet ${WORD_DURATION}ms linear forwards`,
           fontFamily: 'var(--font-space-grotesk)',
