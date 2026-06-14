@@ -117,7 +117,7 @@ export default function Home() {
       if (!el) return null
       const observer = new IntersectionObserver(
         ([entry]) => { if (entry.isIntersecting) setActiveSection(id) },
-        { threshold: 0, rootMargin: '0px 0px -70% 0px' }
+        { threshold: 0, rootMargin: '0px 0px -60% 0px' }
       )
       observer.observe(el)
       return observer
@@ -173,7 +173,7 @@ export default function Home() {
 
       {/* Main content */}
       <div className="lg:ml-56">
-        <section id="about" className="flex min-h-[90svh] items-center px-12 py-20">
+        <section id="about" className="flex min-h-svh items-center px-12 py-20">
           <div>
             <div className="mb-8 w-24 sm:w-28 md:w-32 lg:hidden">
               <BlobAvatar />

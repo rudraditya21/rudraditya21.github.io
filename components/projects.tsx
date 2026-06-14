@@ -260,7 +260,7 @@ export default function Projects() {
   const paged      = items.slice(page * PER_PAGE, (page + 1) * PER_PAGE)
 
   return (
-    <section className="min-h-[90svh] px-12 py-16 md:py-24">
+    <section className="min-h-svh px-12 py-16 md:py-24">
       <h2
         ref={headingRef as React.RefObject<HTMLHeadingElement>}
         className="mb-10 text-5xl tracking-tight"
