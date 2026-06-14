@@ -187,10 +187,12 @@ export default function Home() {
             </h1>
 
             <p
-              className="max-w-sm text-base text-foreground/60 leading-relaxed"
+              className="max-w-md text-base text-foreground/60 leading-relaxed"
               style={{ fontFamily: 'var(--font-inter)', ...fadeUp(260) }}
             >
               Turning caffeine into products.
+              <br /><br />
+              I'm drawn to the hard parts of computing — the parts where you have to understand the hardware, the protocol, or the math to get it right. I work across systems programming, compiler design, blockchain internals, and security, with a published research background in deep learning.
             </p>
           </div>
         </section>
