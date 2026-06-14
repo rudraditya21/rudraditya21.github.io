@@ -6,6 +6,7 @@ import Socials from './socials'
 
 const NAV = [
   { label: 'About',             id: 'about' },
+  { label: 'Projects',          id: 'projects' },
   { label: 'Work Experience',   id: 'experience' },
   { label: 'Education',         id: 'education' },
   { label: 'Areas of Interest', id: 'interests' },
@@ -68,7 +69,7 @@ export default function HamburgerMenu({ show }: { show: boolean }) {
           - Large screens: bottom of sidebar */}
       <button
         onClick={() => setOpen(v => !v)}
-        className="fixed right-6 top-6 z-[46] flex h-10 w-10 flex-col items-center justify-center gap-[6px] rounded-full bg-background/80 shadow-md backdrop-blur-md lg:bottom-8 lg:left-8 lg:right-auto lg:top-auto"
+        className="fixed right-6 top-6 z-46 flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-full bg-background/80 shadow-md backdrop-blur-md lg:bottom-8 lg:left-8 lg:right-auto lg:top-auto"
         style={{
           opacity: show ? 1 : 0,
           pointerEvents: show ? 'auto' : 'none',
@@ -78,7 +79,7 @@ export default function HamburgerMenu({ show }: { show: boolean }) {
       >
         <span
           className={`block h-px w-5 origin-center bg-foreground transition-all duration-300 ${
-            open ? 'translate-y-[7px] rotate-45' : ''
+            open ? 'translate-y-1.75 rotate-45' : ''
           }`}
         />
         <span
@@ -88,7 +89,7 @@ export default function HamburgerMenu({ show }: { show: boolean }) {
         />
         <span
           className={`block h-px w-5 origin-center bg-foreground transition-all duration-300 ${
-            open ? '-translate-y-[7px] -rotate-45' : ''
+            open ? '-translate-y-1.75 -rotate-45' : ''
           }`}
         />
       </button>
@@ -96,7 +97,7 @@ export default function HamburgerMenu({ show }: { show: boolean }) {
       {/* Full-screen overlay */}
       <div
         ref={overlayRef}
-        className="fixed inset-0 z-[45] flex flex-col bg-background px-12 pb-16 pt-28"
+        className="fixed inset-0 z-45 flex flex-col bg-background px-12 pb-16 pt-28"
       >
         <nav className="flex flex-col divide-y divide-border">
           {NAV.map(({ label, id }, i) => (

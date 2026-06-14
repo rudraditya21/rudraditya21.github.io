@@ -9,9 +9,11 @@ import Socials from '@/components/socials'
 import Interests from '@/components/interests'
 import HamburgerMenu from '@/components/hamburger-menu'
 import ThemeToggle from '@/components/theme-toggle'
+import Projects from '@/components/projects'
 
 const navItems = [
   { label: 'About',             id: 'about' },
+  { label: 'Projects',          id: 'projects' },
   { label: 'Work Experience',   id: 'experience' },
   { label: 'Education',         id: 'education' },
   { label: 'Areas of Interest', id: 'interests' },
@@ -168,11 +170,8 @@ export default function Home() {
         <section id="about" className="flex min-h-[90svh] items-center px-12 py-20">
           <div>
             <h1
-              className="mb-6 leading-[0.88] tracking-tight"
-              style={{
-                fontFamily: 'var(--font-instrument-serif)',
-                fontSize: 'clamp(5.5rem, 10vw, 10rem)',
-              }}
+              className="mb-6 leading-[0.88] tracking-tight text-[3rem] sm:text-[4rem] md:text-[6rem] lg:text-[clamp(7rem,10vw,10rem)]"
+              style={{ fontFamily: 'var(--font-instrument-serif)' }}
             >
               <span className="block" style={fadeUp(0)}>Rudraditya</span>
               <span className="block" style={fadeUp(130)}>Thakur</span>
@@ -187,6 +186,7 @@ export default function Home() {
           </div>
         </section>
 
+        <div id="projects"><Projects /></div>
         <div id="experience"><WorkExperience /></div>
         <div id="education"><Education /></div>
         <div id="interests"><Interests /></div>
