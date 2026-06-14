@@ -111,7 +111,7 @@ export default function HamburgerMenu({ show }: { show: boolean }) {
       {/* Full-screen overlay */}
       <div
         ref={overlayRef}
-        className="fixed inset-0 z-45 flex flex-col bg-background px-12 pb-16 pt-28"
+        className="fixed inset-0 z-45 flex flex-col bg-background px-12 pb-8 pt-20"
       >
         <nav className="flex flex-col divide-y divide-border">
           {NAV.map(({ label, id }, i) => (
@@ -120,7 +120,7 @@ export default function HamburgerMenu({ show }: { show: boolean }) {
               ref={el => { itemRefs.current[i] = el }}
               href={`#${id}`}
               onClick={e => { e.preventDefault(); navigate(id) }}
-              className="py-3 text-2xl leading-none text-foreground/60 transition-colors duration-200 hover:text-foreground sm:py-4 sm:text-3xl lg:py-5 lg:text-3xl"
+              className="py-2 text-xl leading-none text-foreground/60 transition-colors duration-200 hover:text-foreground sm:py-2.5 sm:text-2xl lg:py-3 lg:text-2xl"
               style={{ fontFamily: 'var(--font-instrument-serif)' }}
             >
               {label}
@@ -128,7 +128,7 @@ export default function HamburgerMenu({ show }: { show: boolean }) {
           ))}
         </nav>
 
-        <div ref={socialsRef} className="mt-auto pt-10">
+        <div ref={socialsRef} className="mt-auto pt-4">
           <Socials show />
         </div>
       </div>
