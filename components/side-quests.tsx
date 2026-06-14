@@ -3,20 +3,35 @@
 import { useInView } from '@/hooks/use-in-view'
 import { ArrowUpRight } from '@phosphor-icons/react'
 
+type Link = { name?: string; label: string; href: string }
+
 type Quest = {
   name: string
-  description: string
-  href?: string
+  items?: string[]
+  links?: Link[]
 }
 
 const quests: Quest[] = [
   {
-    name: 'Quest 1',
-    description: 'Short description of this side quest, hobby, or thing you do outside of work.',
+    name: 'Chess',
+    links: [
+      { name: 'Lichess',   label: 'Profile', href: 'https://lichess.org/@/rudradityathakur' },
+      { name: 'Chess.com', label: 'Profile', href: 'https://www.chess.com/member/rudradityathakur' },
+    ],
   },
   {
-    name: 'Quest 2',
-    description: 'Short description of this side quest, hobby, or thing you do outside of work.',
+    name: 'Languages',
+    items: ['French (Français)', 'Russian (Русский)', 'Spanish (Español)', 'German (Deutsch)'],
+  },
+  {
+    name: 'Open Source',
+    links: [
+      { name: 'Metasploit Framework', label: 'Github', href: 'https://github.com/rapid7/metasploit-framework' },
+    ],
+  },
+  {
+    name: 'Music',
+    items: ['Guitar'],
   },
 ]
 
@@ -40,26 +55,47 @@ function QuestRow({ quest, index }: { quest: Quest; index: number }) {
         >
           {quest.name}
         </p>
-        {quest.href && (
-          <div className="mt-2 text-muted-foreground">
-            <a
-              href={quest.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-start gap-0.5 text-xs font-medium uppercase tracking-wider underline underline-offset-2 transition-colors duration-200 hover:text-foreground"
-              style={{ fontFamily: 'var(--font-instrument-serif)' }}
-            >
-              Visit<ArrowUpRight size={10} />
-            </a>
+      </div>
+
+      <div className="lg:pt-0.5">
+        {quest.links && (
+          <div className="flex flex-col gap-3 lg:flex-row lg:gap-12">
+            {quest.links.map(link => (
+              <div key={link.href} className="flex items-center gap-2">
+                <span className="h-1 w-1 shrink-0 rounded-full bg-foreground/30" />
+                <span className="text-sm text-foreground/50" style={{ fontFamily: 'var(--font-inter)' }}>
+                  {link.name && <>{link.name} (</>}
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-0.5 font-medium underline underline-offset-2 text-muted-foreground transition-colors duration-200 hover:text-foreground"
+                  >
+                    {link.label}<ArrowUpRight size={10} />
+                  </a>
+                  {link.name && <>)</>}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {quest.items && (
+          <div className="grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-x-12 lg:gap-y-3">
+            {quest.items.map(item => (
+              <div key={item} className="flex items-center gap-2">
+                <span className="h-1 w-1 shrink-0 rounded-full bg-foreground/30" />
+                <span
+                  className="text-sm text-foreground/50"
+                  style={{ fontFamily: 'var(--font-inter)' }}
+                >
+                  {item}
+                </span>
+              </div>
+            ))}
           </div>
         )}
       </div>
-      <p
-        className="text-sm leading-relaxed text-foreground/50 lg:pt-0.5"
-        style={{ fontFamily: 'var(--font-inter)' }}
-      >
-        {quest.description}
-      </p>
     </div>
   )
 }
@@ -71,7 +107,7 @@ export default function SideQuests() {
     <section className="min-h-[90svh] px-12 py-16 md:py-24">
       <h2
         ref={ref as React.RefObject<HTMLHeadingElement>}
-        className="mb-10 text-5xl tracking-tight"
+        className="mb-10 text-6xl tracking-tight"
         style={{
           fontFamily: 'var(--font-instrument-serif)',
           opacity: inView ? 1 : 0,
