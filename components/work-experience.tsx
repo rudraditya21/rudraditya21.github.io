@@ -30,7 +30,7 @@ type Job = {
   start: Date
   end: Date | null
   location: string
-  description: string
+  description: string[]
   href?: string
 }
 
@@ -42,8 +42,15 @@ const jobs: Job[] = [
     start: new Date(2025, 8),
     end: null,
     location: 'Remote',
-    description: 'Short description of what you worked on, technologies used, and impact you had in this role.',
     href: 'https://supernova-labs.com/',
+    description: [
+      'Contributed to the architecture and development of a Rust-based HTTP/3 edge runtime focused on reliability and operational resilience.',
+      'Implemented protocol-aware routing, backend load balancing, and traffic management mechanisms for efficient request handling.',
+      'Developed resilience features including admission control, circuit breakers, retry-budget enforcement, and graceful degradation systems.',
+      'Built health monitoring and backend orchestration capabilities to improve service availability during failures and degraded network conditions.',
+      'Integrated observability tooling using Prometheus and OpenTelemetry for metrics collection, tracing, and operational visibility.',
+      'Participated in performance analysis, failure testing, and runtime optimization to improve system stability, fault tolerance, and reliability.',
+    ],
   },
   {
     company: 'Udyansh',
@@ -52,7 +59,13 @@ const jobs: Job[] = [
     start: new Date(2024, 2),
     end: null,
     location: 'India · Remote',
-    description: 'Short description of what you worked on, technologies used, and impact you had in this role.',
+    description: [
+      'Built a high-performance Perl XS wrapper over the MongoDB C driver, replacing an end-of-life client library in production environments.',
+      'Developed scalable event ingestion and ETL pipelines in Go, consolidating data from multiple external sources into PostgreSQL with validation, transformation, and fault-tolerance mechanisms.',
+      'Built distributed ETL workflows processing data from Ticketmaster, AllSportsDB, and SeatGeek using source-specific transformers and concurrent execution patterns.',
+      'Designed and maintained data synchronization pipelines, improving reliability and consistency across external data providers and internal systems.',
+      'Worked on backend services, database integrations, and production data processing systems with a focus on performance, maintainability, and operational stability.',
+    ],
   },
 ]
 
@@ -97,9 +110,14 @@ function JobEntry({ job, index }: { job: Job; index: number }) {
         )}
       </div>
 
-      <p className="text-sm leading-relaxed text-foreground/50 lg:pt-0.5" style={{ fontFamily: 'var(--font-inter)' }}>
-        {job.description}
-      </p>
+      <ul className="flex flex-col gap-2 lg:pt-0.5" style={{ fontFamily: 'var(--font-inter)' }}>
+        {job.description.map((point, i) => (
+          <li key={i} className="flex items-start gap-2 text-sm leading-relaxed text-foreground/50">
+            <span className="mt-2.25 h-1 w-1 shrink-0 rounded-full bg-foreground/30" />
+            {point}
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
