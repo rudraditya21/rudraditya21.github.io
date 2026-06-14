@@ -10,6 +10,7 @@ const NAV = [
   { label: 'Projects',          id: 'projects' },
   { label: 'Work Experience',   id: 'experience' },
   { label: 'Education',         id: 'education' },
+  { label: 'Publications',      id: 'publications' },
   { label: 'Areas of Interest', id: 'interests' },
   { label: 'Side Quests',       id: 'quests' },
   { label: 'Writing',           id: 'writing' },

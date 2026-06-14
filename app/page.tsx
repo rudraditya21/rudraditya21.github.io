@@ -12,12 +12,14 @@ import ThemeToggle from '@/components/theme-toggle'
 import Projects from '@/components/projects'
 import SideQuests from '@/components/side-quests'
 import Writing from '@/components/writing'
+import Publications from '@/components/publications'
 
 const navItems = [
   { label: 'About',             id: 'about' },
   { label: 'Projects',          id: 'projects' },
   { label: 'Work Experience',   id: 'experience' },
   { label: 'Education',         id: 'education' },
+  { label: 'Publications',      id: 'publications' },
   { label: 'Areas of Interest', id: 'interests' },
   { label: 'Side Quests',       id: 'quests' },
   { label: 'Writing',           id: 'writing' },
@@ -196,6 +198,7 @@ export default function Home() {
         <div id="projects"><Projects /></div>
         <div id="experience"><WorkExperience /></div>
         <div id="education"><Education /></div>
+        <div id="publications"><Publications /></div>
         <div id="interests"><Interests /></div>
         <div id="quests"><SideQuests /></div>
         <div id="writing"><Writing /></div>
