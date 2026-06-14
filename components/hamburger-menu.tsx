@@ -71,7 +71,7 @@ export default function HamburgerMenu({ show }: { show: boolean }) {
           - Large screens: bottom of sidebar */}
       <button
         onClick={() => setOpen(v => !v)}
-        className="fixed right-6 top-6 z-46 flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-full bg-background/80 shadow-md backdrop-blur-md lg:bottom-8 lg:left-8 lg:right-auto lg:top-auto"
+        className="fixed right-6 top-6 z-46 flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-full bg-background/80 shadow-md backdrop-blur-md lg:right-10 lg:top-8"
         style={{
           opacity: show ? 1 : 0,
           pointerEvents: show ? 'auto' : 'none',
@@ -108,7 +108,7 @@ export default function HamburgerMenu({ show }: { show: boolean }) {
               ref={el => { itemRefs.current[i] = el }}
               href={`#${id}`}
               onClick={e => { e.preventDefault(); navigate(id) }}
-              className="py-7 text-4xl leading-none text-foreground/60 transition-colors duration-200 hover:text-foreground lg:text-5xl"
+              className="py-3 text-2xl leading-none text-foreground/60 transition-colors duration-200 hover:text-foreground sm:py-4 sm:text-3xl lg:py-5 lg:text-3xl"
               style={{ fontFamily: 'var(--font-instrument-serif)' }}
             >
               {label}

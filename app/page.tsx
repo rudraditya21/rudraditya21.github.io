@@ -165,7 +165,7 @@ export default function Home() {
       </aside>
 
       {/* Fixed top-right socials */}
-      <div className="fixed right-10 top-8 z-40 hidden rounded-full bg-background/70 px-4 py-2.5 shadow-md backdrop-blur-md lg:block">
+      <div className="fixed right-24 top-8 z-40 hidden rounded-full bg-background/70 px-4 py-2.5 shadow-md backdrop-blur-md lg:block">
         <Socials show={show} />
       </div>
 
