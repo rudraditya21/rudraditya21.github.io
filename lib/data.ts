@@ -5,4 +5,5 @@ export const socials = {
   youtube:   '#',
   medium:    'https://medium.com/@rudraditya.thakur21',
   substack:  '#',
+  kaggle:    'https://www.kaggle.com/rudradityathakur',
 }
