@@ -2,6 +2,7 @@
 
 import { useInView } from '@/hooks/use-in-view'
 import { ArrowUpRight } from '@phosphor-icons/react'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -97,15 +98,24 @@ function JobEntry({ job, index }: { job: Job; index: number }) {
         </p>
         {job.href && (
           <div className="mt-2">
-            <a
-              href={job.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-0.5 text-xs font-medium uppercase tracking-wider underline underline-offset-2 text-muted-foreground transition-colors duration-200 hover:text-foreground"
-              style={{ fontFamily: 'var(--font-instrument-serif)' }}
-            >
-              Visit<ArrowUpRight size={10} />
-            </a>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <a
+                    href={job.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-0.5 text-xs font-medium uppercase tracking-wider underline underline-offset-2 text-muted-foreground transition-colors duration-200 hover:text-foreground"
+                    style={{ fontFamily: 'var(--font-instrument-serif)' }}
+                  >
+                    Visit<ArrowUpRight size={10} />
+                  </a>
+                </TooltipTrigger>
+                <TooltipContent side="right">
+                  Visit Website
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         )}
       </div>

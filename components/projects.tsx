@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { useInView } from '@/hooks/use-in-view'
 import { ArrowUpRight } from '@phosphor-icons/react'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
 const TABS = ['Projects', 'Experiments', 'For Fun'] as const
 type Tab = (typeof TABS)[number]
@@ -124,26 +125,44 @@ function ProjectRow({ project }: { project: Project }) {
         </p>
         <div className="mt-2 flex items-center gap-3 text-muted-foreground">
           {project.github && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-start gap-0.5 text-xs font-medium uppercase tracking-wider underline underline-offset-2 transition-colors duration-200 hover:text-foreground"
-              style={{ fontFamily: 'var(--font-instrument-serif)' }}
-            >
-              GitHub<ArrowUpRight size={10} />
-            </a>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-start gap-0.5 text-xs font-medium uppercase tracking-wider underline underline-offset-2 transition-colors duration-200 hover:text-foreground"
+                    style={{ fontFamily: 'var(--font-instrument-serif)' }}
+                  >
+                    GitHub<ArrowUpRight size={10} />
+                  </a>
+                </TooltipTrigger>
+                <TooltipContent side="bottom">
+                  Source Code
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           )}
           {project.live && (
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-start gap-0.5 text-xs font-medium uppercase tracking-wider underline underline-offset-2 transition-colors duration-200 hover:text-foreground"
-              style={{ fontFamily: 'var(--font-instrument-serif)' }}
-            >
-              Visit<ArrowUpRight size={10} />
-            </a>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-start gap-0.5 text-xs font-medium uppercase tracking-wider underline underline-offset-2 transition-colors duration-200 hover:text-foreground"
+                    style={{ fontFamily: 'var(--font-instrument-serif)' }}
+                  >
+                    Visit<ArrowUpRight size={10} />
+                  </a>
+                </TooltipTrigger>
+                <TooltipContent side="bottom">
+                  View Website
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           )}
         </div>
       </div>
