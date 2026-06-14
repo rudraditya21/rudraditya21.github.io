@@ -43,10 +43,18 @@ const data: Record<Tab, Project[]> = {
   ],
   'For Fun': [
     {
-      name: 'Project 4',
-      description: 'Short description of what this project does and the problem it solves.',
-      stack: ['C', 'Linux'],
-      github: '#',
+      name: 'Typy',
+      description: 'Mechanical keyboard with sound. Desktop only.',
+      stack: [],
+      github: 'https://github.com/rudraditya21/typy',
+      live: 'https://rudraditya21.github.io/typy/',
+    },
+    {
+      name: 'Tipsy Type',
+      description: 'Minimal typing speed test with live stats, timer presets, and an animated keyboard UI. Desktop only.',
+      stack: [],
+      github: 'https://github.com/rudraditya21/tipsy-type',
+      live: 'https://rudraditya21.github.io/tipsy-type/',
     },
   ],
 }

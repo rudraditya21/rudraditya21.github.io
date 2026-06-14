@@ -1,6 +1,7 @@
 'use client'
 
 import { useInView } from '@/hooks/use-in-view'
+import { ArrowUpRight } from '@phosphor-icons/react'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -29,6 +30,8 @@ type Job = {
   start: Date
   end: Date | null
   location: string
+  description: string
+  href?: string
 }
 
 const jobs: Job[] = [
@@ -39,6 +42,8 @@ const jobs: Job[] = [
     start: new Date(2025, 8),
     end: null,
     location: 'Remote',
+    description: 'Short description of what you worked on, technologies used, and impact you had in this role.',
+    href: 'https://supernova-labs.com/',
   },
   {
     company: 'Udyansh',
@@ -47,6 +52,7 @@ const jobs: Job[] = [
     start: new Date(2024, 2),
     end: null,
     location: 'India · Remote',
+    description: 'Short description of what you worked on, technologies used, and impact you had in this role.',
   },
 ]
 
@@ -56,25 +62,44 @@ function JobEntry({ job, index }: { job: Job; index: number }) {
   return (
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
-      className="py-10"
+      className="flex flex-col gap-2 py-8 lg:flex-row lg:gap-10 lg:py-10"
       style={{
         opacity: inView ? 1 : 0,
-        transform: inView ? 'translateY(0)' : 'translateY(32px)',
-        transition: `opacity 800ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 100}ms, transform 800ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 100}ms`,
+        transform: inView ? 'translateY(0)' : 'translateY(24px)',
+        transition: `opacity 700ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 60}ms, transform 700ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 60}ms`,
       }}
     >
-      <div className="flex flex-col gap-0.5">
-        <p className="text-base font-semibold" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+      <div className="lg:w-52 lg:shrink-0">
+        <p className="text-lg leading-snug text-foreground" style={{ fontFamily: 'var(--font-instrument-serif)' }}>
           {job.company}
         </p>
-        <p className="text-sm text-foreground/70" style={{ fontFamily: 'var(--font-inter)' }}>
+        <p className="mt-0.5 text-sm text-foreground/70" style={{ fontFamily: 'var(--font-inter)' }}>
           {job.role}
         </p>
         <p className="mt-0.5 text-xs text-muted-foreground" style={{ fontFamily: 'var(--font-inter)' }}>
-          {job.location}&nbsp;&nbsp;·&nbsp;&nbsp;{period(job.start, job.end)}
+          {job.location}
         </p>
-
+        <p className="text-xs text-muted-foreground" style={{ fontFamily: 'var(--font-inter)' }}>
+          {period(job.start, job.end)}
+        </p>
+        {job.href && (
+          <div className="mt-2">
+            <a
+              href={job.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-0.5 text-xs font-medium uppercase tracking-wider underline underline-offset-2 text-muted-foreground transition-colors duration-200 hover:text-foreground"
+              style={{ fontFamily: 'var(--font-instrument-serif)' }}
+            >
+              Visit<ArrowUpRight size={10} />
+            </a>
+          </div>
+        )}
       </div>
+
+      <p className="text-sm leading-relaxed text-foreground/50 lg:pt-0.5" style={{ fontFamily: 'var(--font-inter)' }}>
+        {job.description}
+      </p>
     </div>
   )
 }
