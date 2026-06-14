@@ -31,12 +31,16 @@ export default function ThemeToggle({ show }: { show: boolean }) {
     const incoming = next ? moonRef.current : sunRef.current
 
     setDark(next)
+    const html = document.documentElement
+    html.setAttribute('data-theme-transition', '')
+    void html.offsetHeight  // force reflow so transition registers before class change
     if (next) {
-      document.documentElement.classList.add('dark')
+      html.classList.add('dark')
     } else {
-      document.documentElement.classList.remove('dark')
+      html.classList.remove('dark')
     }
     localStorage.setItem('theme', next ? 'dark' : 'light')
+    window.setTimeout(() => html.removeAttribute('data-theme-transition'), 420)
 
     gsap.timeline()
       .to(outgoing, {

@@ -133,6 +133,11 @@ html {
     color: var(--foreground);
   }
 
+  [data-theme-transition],
+  [data-theme-transition] * {
+    transition: background-color 400ms ease, color 400ms ease, border-color 400ms ease !important;
+  }
+
   body::after {
     content: '';
     position: fixed;
