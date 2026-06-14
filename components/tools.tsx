@@ -7,20 +7,32 @@ const stack = [
     category: 'Languages',
     tools: [
       'Python', 'Rust', 'C', 'C++', 'Go', 'Java', 'JavaScript', 'TypeScript',
-      'Perl', 'MATLAB', 'Dart', 'Erlang', 'Assembly',
+      'Perl', 'SQL', 'MATLAB', 'Dart', 'Erlang', 'Assembly',
     ],
   },
   {
     category: 'Frameworks',
-    tools: ['Next.js', 'React', 'Bun', 'LLVM', 'WASM'],
+    tools: ['Next.js', 'React', 'Bun', 'Tokio', 'LLVM', 'WASM'],
+  },
+  {
+    category: 'Messaging',
+    tools: ['NATS', 'Kafka', 'Redis', 'ZeroMQ'],
+  },
+  {
+    category: 'Databases',
+    tools: ['PostgreSQL', 'ClickHouse', 'MongoDB', 'MinIO'],
+  },
+  {
+    category: 'Protocols',
+    tools: ['QUIC', 'HTTP/3'],
   },
   {
     category: 'Infra',
-    tools: ['Docker', 'Podman', 'Kubernetes', 'MongoDB', 'Prometheus', 'Grafana'],
+    tools: ['Docker', 'Podman', 'Kubernetes', 'Cilium', 'AWS', 'eBPF', 'nftables', 'SearxNG', 'Prometheus', 'Grafana', 'OpenTelemetry'],
   },
   {
     category: 'AI / ML',
-    tools: ['PyTorch', 'TensorFlow', 'JAX', 'LangChain', 'Claude', 'Codex'],
+    tools: ['PyTorch', 'TensorFlow', 'JAX', 'LangChain', 'LangGraph', 'Claude', 'Codex'],
   },
 ]
 
@@ -30,7 +42,7 @@ function StackRow({ item, index }: { item: typeof stack[0]; index: number }) {
   return (
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
-      className="flex flex-col gap-2 py-8 lg:flex-row lg:gap-10 lg:py-10"
+      className="flex flex-col gap-2 py-5 lg:flex-row lg:gap-10 lg:py-6"
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? 'translateY(0)' : 'translateY(24px)',
