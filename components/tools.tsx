@@ -1,79 +1,36 @@
 'use client'
 
 import { useInView } from '@/hooks/use-in-view'
-import { PythonIcon, RustIcon, CIcon, CppIcon, BunIcon, DartIcon, DockerIcon, ErlangIcon, GoIcon, JavaIcon, JavascriptIcon, MatlabIcon, ClaudeIcon, CodexIcon, LangChainIcon } from '@/components/icons'
 
-type Tool = {
-  name: string
-  icon: React.ComponentType<{ size?: number }>
-}
-
-type Category = {
-  name: string
-  tools: Tool[]
-}
-
-const stack: Category[] = [
+const stack = [
   {
-    name: 'Languages',
+    category: 'Languages',
     tools: [
-      { name: 'Python',     icon: PythonIcon     },
-      { name: 'Rust',       icon: RustIcon       },
-      { name: 'C',          icon: CIcon          },
-      { name: 'C++',        icon: CppIcon        },
-      { name: 'Go',         icon: GoIcon         },
-      { name: 'Java',       icon: JavaIcon       },
-      { name: 'JavaScript', icon: JavascriptIcon },
-      { name: 'MATLAB',     icon: MatlabIcon     },
-      { name: 'Dart',       icon: DartIcon       },
-      { name: 'Erlang',     icon: ErlangIcon     },
+      'Python', 'Rust', 'C', 'C++', 'Go', 'Java', 'JavaScript', 'TypeScript',
+      'Perl', 'MATLAB', 'Dart', 'Erlang', 'Assembly',
     ],
   },
   {
-    name: 'Tools',
-    tools: [
-      { name: 'Bun', icon: BunIcon },
-    ],
+    category: 'Frameworks',
+    tools: ['Next.js', 'React', 'Bun', 'LLVM', 'WASM'],
   },
   {
-    name: 'Infra',
-    tools: [
-      { name: 'Docker', icon: DockerIcon },
-    ],
+    category: 'Infra',
+    tools: ['Docker', 'Podman', 'Kubernetes', 'MongoDB', 'Prometheus', 'Grafana'],
   },
   {
-    name: 'AI',
-    tools: [
-      { name: 'Claude',    icon: ClaudeIcon    },
-      { name: 'Codex',     icon: CodexIcon     },
-      { name: 'LangChain', icon: LangChainIcon },
-    ],
+    category: 'AI / ML',
+    tools: ['PyTorch', 'TensorFlow', 'JAX', 'LangChain', 'Claude', 'Codex'],
   },
 ]
 
-function ToolIcon({ tool }: { tool: Tool }) {
-  const Icon = tool.icon
-  return (
-    <span className="group inline-flex cursor-default items-center rounded-lg border border-border p-2 text-foreground/60 transition-colors duration-200 hover:border-foreground/30 hover:text-foreground">
-      <Icon size={22} />
-      <span className="grid grid-cols-[0fr] transition-all duration-300 ease-out group-hover:grid-cols-[1fr]">
-        <span className="overflow-hidden whitespace-nowrap">
-          <span className="pl-2 text-sm">{tool.name}</span>
-        </span>
-      </span>
-    </span>
-  )
-}
-
-function CategoryRow({ category, index }: { category: Category; index: number }) {
+function StackRow({ item, index }: { item: typeof stack[0]; index: number }) {
   const { ref, inView } = useInView(0.1)
-
-  if (category.tools.length === 0) return null
 
   return (
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
-      className="flex flex-col gap-4 py-8 lg:flex-row lg:gap-10 lg:py-10"
+      className="flex flex-col gap-2 py-8 lg:flex-row lg:gap-10 lg:py-10"
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? 'translateY(0)' : 'translateY(24px)',
@@ -85,15 +42,16 @@ function CategoryRow({ category, index }: { category: Category; index: number })
           className="text-lg leading-snug text-foreground"
           style={{ fontFamily: 'var(--font-instrument-serif)' }}
         >
-          {category.name}
+          {item.category}
         </p>
       </div>
 
-      <div className="flex flex-wrap gap-3 lg:pt-0.5">
-        {category.tools.map(tool => (
-          <ToolIcon key={tool.name} tool={tool} />
-        ))}
-      </div>
+      <p
+        className="text-sm leading-relaxed text-foreground/50 lg:pt-0.5"
+        style={{ fontFamily: 'var(--font-inter)' }}
+      >
+        {item.tools.join(', ')}
+      </p>
     </div>
   )
 }
@@ -117,8 +75,8 @@ export default function Tools() {
       </h2>
 
       <div className="divide-y divide-border">
-        {stack.map((category, i) => (
-          <CategoryRow key={category.name} category={category} index={i} />
+        {stack.map((item, i) => (
+          <StackRow key={item.category} item={item} index={i} />
         ))}
       </div>
     </section>
