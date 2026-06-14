@@ -8,6 +8,7 @@ import Education from '@/components/education'
 import Socials from '@/components/socials'
 import Interests from '@/components/interests'
 import HamburgerMenu from '@/components/hamburger-menu'
+import ThemeToggle from '@/components/theme-toggle'
 
 const navItems = [
   { label: 'About',             id: 'about' },
@@ -192,6 +193,7 @@ export default function Home() {
       </div>
 
       <HamburgerMenu show={show} />
+      <ThemeToggle show={show} />
     </>
   )
 }
