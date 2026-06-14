@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import Socials from './socials'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
 const NAV = [
   { label: 'About',             id: 'about' },
@@ -69,6 +70,9 @@ export default function HamburgerMenu({ show }: { show: boolean }) {
       {/* Hamburger / close button
           - Small screens: top-right corner
           - Large screens: bottom of sidebar */}
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
       <button
         onClick={() => setOpen(v => !v)}
         className="fixed right-6 top-6 z-46 flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-full bg-background/80 shadow-md backdrop-blur-md lg:right-10 lg:top-8"
@@ -95,6 +99,12 @@ export default function HamburgerMenu({ show }: { show: boolean }) {
           }`}
         />
       </button>
+          </TooltipTrigger>
+          <TooltipContent side="bottom">
+            {open ? 'Close' : 'Menu'}
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
 
       {/* Full-screen overlay */}
       <div

@@ -2,6 +2,7 @@
 
 import { useRef } from 'react'
 import gsap from 'gsap'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
 interface Props {
   href: string
@@ -28,17 +29,26 @@ export default function MagneticIcon({ href, label, strength = 0.35, children, c
   }
 
   return (
-    <a
-      ref={ref}
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={label}
-      className={`text-muted-foreground transition-colors duration-200 hover:text-foreground ${className}`}
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
-    >
-      {children}
-    </a>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <a
+            ref={ref}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={label}
+            className={`text-muted-foreground transition-colors duration-200 hover:text-foreground ${className}`}
+            onMouseMove={onMove}
+            onMouseLeave={onLeave}
+          >
+            {children}
+          </a>
+        </TooltipTrigger>
+        <TooltipContent side="bottom">
+          {label}
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   )
 }

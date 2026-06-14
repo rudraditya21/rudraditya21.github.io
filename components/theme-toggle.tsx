@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { Sun, Moon } from '@phosphor-icons/react'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
 export default function ThemeToggle({ show }: { show: boolean }) {
   const [dark, setDark] = useState(false)
@@ -55,18 +56,27 @@ export default function ThemeToggle({ show }: { show: boolean }) {
   }
 
   return (
-    <button
-      onClick={toggle}
-      className="fixed bottom-8 right-6 z-40 flex h-10 w-10 items-center justify-center rounded-full bg-background/80 shadow-md backdrop-blur-md"
-      style={{
-        opacity:       show ? 1 : 0,
-        pointerEvents: show ? 'auto' : 'none',
-        transition:    'opacity 600ms ease',
-      }}
-      aria-label="Toggle theme"
-    >
-      <div ref={sunRef}  className="absolute"><Sun  size={18} /></div>
-      <div ref={moonRef} className="absolute"><Moon size={18} /></div>
-    </button>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <button
+            onClick={toggle}
+            className="fixed bottom-8 right-6 z-40 flex h-10 w-10 items-center justify-center rounded-full bg-background/80 shadow-md backdrop-blur-md"
+            style={{
+              opacity:       show ? 1 : 0,
+              pointerEvents: show ? 'auto' : 'none',
+              transition:    'opacity 600ms ease',
+            }}
+            aria-label="Toggle theme"
+          >
+            <div ref={sunRef}  className="absolute"><Sun  size={18} /></div>
+            <div ref={moonRef} className="absolute"><Moon size={18} /></div>
+          </button>
+        </TooltipTrigger>
+        <TooltipContent side="left">
+          {dark ? 'Light mode' : 'Dark mode'}
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   )
 }
