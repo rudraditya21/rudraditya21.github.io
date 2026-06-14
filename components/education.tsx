@@ -1,13 +1,12 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useInView } from '@/hooks/use-in-view'
 
 type School = {
   institution: string
   abbr: string
   degree: string
   period: string
-  description: string[]
 }
 
 const schools: School[] = [
@@ -16,34 +15,14 @@ const schools: School[] = [
     abbr: 'VIT',
     degree: 'Bachelor of Technology – Computer Science',
     period: 'Sep 2022 – Aug 2026',
-    description: [],
   },
   {
     institution: 'Amity International School, Sec 46 Gurugram',
     abbr: 'AIS',
     degree: 'High School Education',
     period: 'Apr 2009 – Apr 2022',
-    description: [],
   },
 ]
-
-function useInView(threshold = 0.15) {
-  const ref = useRef<HTMLElement>(null)
-  const [inView, setInView] = useState(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setInView(true) },
-      { threshold }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [threshold])
-
-  return { ref, inView }
-}
 
 function SchoolEntry({ school, index }: { school: School; index: number }) {
   const { ref, inView } = useInView(0.1)
@@ -69,20 +48,6 @@ function SchoolEntry({ school, index }: { school: School; index: number }) {
           {school.period}
         </p>
 
-        {school.description.length > 0 && (
-          <ul className="mt-4 flex flex-col gap-2.5">
-            {school.description.map((point, i) => (
-              <li
-                key={i}
-                className="flex items-start gap-2.5 text-sm leading-relaxed text-foreground/60"
-                style={{ fontFamily: 'var(--font-inter)' }}
-              >
-                <span className="mt-1.75 h-1 w-1 shrink-0 rounded-full bg-foreground/30" />
-                <span>{point}</span>
-              </li>
-            ))}
-          </ul>
-        )}
       </div>
     </div>
   )

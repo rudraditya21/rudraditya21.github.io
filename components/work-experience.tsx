@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useInView } from '@/hooks/use-in-view'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -29,7 +29,6 @@ type Job = {
   start: Date
   end: Date | null
   location: string
-  description: string[]
 }
 
 const jobs: Job[] = [
@@ -40,7 +39,6 @@ const jobs: Job[] = [
     start: new Date(2025, 8),
     end: null,
     location: 'Remote',
-    description: [],
   },
   {
     company: 'Udyansh',
@@ -49,27 +47,8 @@ const jobs: Job[] = [
     start: new Date(2024, 2),
     end: null,
     location: 'India · Remote',
-    description: [],
   },
 ]
-
-function useInView(threshold = 0.15) {
-  const ref = useRef<HTMLElement>(null)
-  const [inView, setInView] = useState(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setInView(true) },
-      { threshold }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [threshold])
-
-  return { ref, inView }
-}
 
 function JobEntry({ job, index }: { job: Job; index: number }) {
   const { ref, inView } = useInView(0.1)
@@ -95,20 +74,6 @@ function JobEntry({ job, index }: { job: Job; index: number }) {
           {job.location}&nbsp;&nbsp;·&nbsp;&nbsp;{period(job.start, job.end)}
         </p>
 
-        {job.description.length > 0 && (
-          <ul className="mt-4 flex flex-col gap-2.5">
-            {job.description.map((point, i) => (
-              <li
-                key={i}
-                className="flex items-start gap-2.5 text-sm leading-relaxed text-foreground/60"
-                style={{ fontFamily: 'var(--font-inter)' }}
-              >
-                <span className="mt-1.75 h-1 w-1 shrink-0 rounded-full bg-foreground/30" />
-                <span>{point}</span>
-              </li>
-            ))}
-          </ul>
-        )}
       </div>
     </div>
   )

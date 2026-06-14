@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useInView } from '@/hooks/use-in-view'
 
 const interests = [
   {
@@ -50,24 +50,6 @@ const interests = [
     ],
   },
 ]
-
-function useInView(threshold = 0.15) {
-  const ref = useRef<HTMLElement>(null)
-  const [inView, setInView] = useState(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setInView(true) },
-      { threshold }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [threshold])
-
-  return { ref, inView }
-}
 
 function InterestRow({ item, index }: { item: typeof interests[0]; index: number }) {
   const { ref, inView } = useInView(0.1)
