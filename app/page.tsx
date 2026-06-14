@@ -173,6 +173,9 @@ export default function Home() {
       <div className="lg:ml-56">
         <section id="about" className="flex min-h-[90svh] items-center px-12 py-20">
           <div>
+            <div className="mb-8 w-24 sm:w-28 md:w-32 lg:hidden">
+              <BlobAvatar />
+            </div>
             <h1
               className="mb-6 leading-[0.88] tracking-tight text-[3rem] sm:text-[4rem] md:text-[6rem] lg:text-[clamp(7rem,10vw,10rem)]"
               style={{ fontFamily: 'var(--font-instrument-serif)' }}
