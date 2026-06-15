@@ -17,107 +17,15 @@ const NAV = [
   { label: 'Writing',           id: 'writing' },
 ]
 
-const BLOB_COUNT = 20
-const BLOB_SIZE  = 10.5
-
-function BlobRectangle() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const blobRefs     = useRef<(HTMLDivElement | null)[]>([])
-  const initialized  = useRef(false)
-
-  useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
-
-    function init() {
-      if (initialized.current) return
-      const w = container!.offsetWidth
-      const h = container!.offsetHeight
-      if (w === 0 || h === 0) return
-
-      initialized.current = true
-
-      const blobPx  = w * BLOB_SIZE / 100
-      const centerX = w / 2 - blobPx / 2
-      const centerY = h / 2 - blobPx / 2
-      const rangeX  = Math.max(0, centerX - 4)
-      const rangeY  = Math.max(0, centerY - 4)
-
-      function randomPos() {
-        return {
-          x: centerX + (Math.random() * 2 - 1) * rangeX,
-          y: centerY + (Math.random() * 2 - 1) * rangeY,
-        }
-      }
-
-      function wander(el: HTMLDivElement) {
-        const pos = randomPos()
-        gsap.to(el, {
-          x: pos.x, y: pos.y,
-          duration: 1.2 + Math.random() * 1.2,
-          ease: 'power1.inOut',
-          onComplete: () => wander(el),
-        })
-      }
-
-      blobRefs.current.forEach((el, i) => {
-        if (!el) return
-        const pos = randomPos()
-        gsap.set(el, { x: pos.x, y: pos.y })
-        setTimeout(() => wander(el), i * 80)
-      })
-    }
-
-    // Try immediately, then watch for when the container gains size
-    // (it may be inside a hidden overlay at mount time)
-    init()
-    const observer = new ResizeObserver(() => init())
-    observer.observe(container)
-
-    return () => {
-      observer.disconnect()
-      blobRefs.current.forEach(el => el && gsap.killTweensOf(el))
-      initialized.current = false
-    }
-  }, [])
-
-  return (
-    <div ref={containerRef} className="relative w-full overflow-hidden rounded-2xl border border-border bg-muted" style={{ height: '100%' }}>
-      <svg style={{ position: 'absolute', width: 0, height: 0 }}>
-        <defs>
-          <filter id="goo-menu">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
-            <feColorMatrix in="blur" mode="matrix"
-              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -10"
-            />
-          </filter>
-        </defs>
-      </svg>
-      <div className="absolute inset-0" style={{ filter: 'url(#goo-menu)' }}>
-        {Array.from({ length: BLOB_COUNT }, (_, i) => (
-          <div
-            key={i}
-            ref={el => { blobRefs.current[i] = el }}
-            className="absolute aspect-square rounded-full bg-foreground"
-            style={{ width: `${BLOB_SIZE}%`, top: 0, left: 0 }}
-          />
-        ))}
-      </div>
-    </div>
-  )
-}
-
 export default function HamburgerMenu({ show }: { show: boolean }) {
   const [open, setOpen]  = useState(false)
   const overlayRef       = useRef<HTMLDivElement>(null)
   const itemRefs         = useRef<(HTMLAnchorElement | null)[]>([])
   const socialsRef       = useRef<HTMLDivElement>(null)
-  const blobColRef       = useRef<HTMLDivElement>(null)
   const didMount         = useRef(false)
 
   useEffect(() => {
     gsap.set(overlayRef.current, { autoAlpha: 0 })
-    gsap.set(blobColRef.current, { opacity: 0 })
   }, [])
 
   useEffect(() => {
@@ -136,7 +44,7 @@ export default function HamburgerMenu({ show }: { show: boolean }) {
           '-=0.1'
         )
         .fromTo(
-          [socialsRef.current, blobColRef.current].filter(Boolean),
+          socialsRef.current,
           { y: 16, opacity: 0 },
           { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' },
           '-=0.2'
@@ -144,10 +52,7 @@ export default function HamburgerMenu({ show }: { show: boolean }) {
     } else {
       document.body.style.overflow = ''
       gsap.timeline()
-        .to(
-          [socialsRef.current, blobColRef.current].filter(Boolean),
-          { y: 16, opacity: 0, duration: 0.3, ease: 'power2.in' }
-        )
+        .to(socialsRef.current, { y: 16, opacity: 0, duration: 0.3, ease: 'power2.in' })
         .to(
           [...items].reverse(),
           { y: 20, opacity: 0, duration: 0.2, stagger: 0.04, ease: 'power2.in' },
@@ -190,41 +95,26 @@ export default function HamburgerMenu({ show }: { show: boolean }) {
         </Tooltip>
       </TooltipProvider>
 
-      {/* Full-screen overlay */}
       <div
         ref={overlayRef}
         className="fixed inset-0 z-45 flex flex-col bg-background px-12 pb-8 pt-20"
       >
-        {/* sm/md: flex-col + flex-1 so blob fills the vertical whitespace
-            lg+:   flex-row + flex-none so blob matches nav height (50-50 split) */}
-        <div className="flex min-h-0 flex-1 flex-col lg:flex-none lg:flex-row lg:gap-8">
+        <nav className="flex flex-col divide-y divide-border">
+          {NAV.map(({ label, id }, i) => (
+            <a
+              key={id}
+              ref={el => { itemRefs.current[i] = el }}
+              href={`#${id}`}
+              onClick={e => { e.preventDefault(); navigate(id) }}
+              className="py-2 text-xl leading-none text-foreground/60 transition-colors duration-200 hover:text-foreground sm:py-2.5 sm:text-2xl lg:py-3 lg:text-2xl"
+              style={{ fontFamily: 'var(--font-instrument-serif)' }}
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
 
-          <nav className="flex flex-col divide-y divide-border lg:flex-1">
-            {NAV.map(({ label, id }, i) => (
-              <a
-                key={id}
-                ref={el => { itemRefs.current[i] = el }}
-                href={`#${id}`}
-                onClick={e => { e.preventDefault(); navigate(id) }}
-                className="py-2 text-xl leading-none text-foreground/60 transition-colors duration-200 hover:text-foreground sm:py-2.5 sm:text-2xl lg:py-3 lg:text-2xl"
-                style={{ fontFamily: 'var(--font-instrument-serif)' }}
-              >
-                {label}
-              </a>
-            ))}
-          </nav>
-
-          {/* sm/md: flex-1 stretches to fill remaining whitespace
-              lg+:   flex-1 gives 50% width, height matches nav via flex stretch */}
-          <div ref={blobColRef} className="flex-1 py-5 lg:py-0">
-            <BlobRectangle />
-          </div>
-
-        </div>
-
-        {/* sm/md: sits naturally below the flex-1 block above (already at bottom)
-            lg+:   mt-auto pushes it to the bottom of the overlay */}
-        <div ref={socialsRef} className="pt-4 lg:mt-auto">
+        <div ref={socialsRef} className="mt-auto pt-8">
           <Socials show />
         </div>
       </div>
