@@ -52,7 +52,7 @@ export default function CommandPalette({ onCopyEmail }: { onCopyEmail: () => voi
     }
   }, [close])
 
-  // Cmd+K / Ctrl+K toggle
+  // Cmd+K / Ctrl+K toggle + custom open event (for footer button)
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
@@ -63,8 +63,13 @@ export default function CommandPalette({ onCopyEmail }: { onCopyEmail: () => voi
         })
       }
     }
+    function onOpen() { setOpen(true); setQuery(''); setSelected(0) }
     window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    window.addEventListener('open-command-palette', onOpen)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      window.removeEventListener('open-command-palette', onOpen)
+    }
   }, [])
 
   // Arrow / Enter / Escape when open
@@ -129,7 +134,7 @@ export default function CommandPalette({ onCopyEmail }: { onCopyEmail: () => voi
                   onClick={() => execute(item)}
                   onMouseEnter={() => setSelected(i)}
                   className={`flex w-full items-center justify-between px-4 py-2.5 text-left text-sm transition-colors duration-75 ${
-                    i === selected ? 'bg-foreground/[0.06] text-foreground' : 'text-foreground/50'
+                    i === selected ? 'bg-foreground/6 text-foreground' : 'text-foreground/50'
                   }`}
                   style={{ fontFamily: 'var(--font-inter)' }}
                 >

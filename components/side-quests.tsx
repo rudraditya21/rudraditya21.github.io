@@ -32,7 +32,7 @@ const quests: Quest[] = [
   },
   {
     name: 'Music',
-    items: ['Guitar'],
+    items: ['Guitar', 'Piano'],
   },
 ]
 

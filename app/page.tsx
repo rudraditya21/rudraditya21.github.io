@@ -283,8 +283,15 @@ export default function Home() {
         <div id="quests"><SideQuests /></div>
         <div id="writing"><Writing /></div>
 
-        <footer className="border-t border-border px-12 py-6 text-sm text-foreground/30" style={{ fontFamily: 'var(--font-inter)' }}>
-          © 2025 Rudraditya Thakur
+        <footer className="flex items-center justify-between border-t border-border px-12 py-6" style={{ fontFamily: 'var(--font-inter)' }}>
+          <span className="text-sm text-foreground/30">© 2025 Rudraditya Thakur</span>
+          <button
+            onClick={() => window.dispatchEvent(new Event('open-command-palette'))}
+            className="flex items-center gap-2 text-foreground/25 transition-colors duration-200 hover:text-foreground/50"
+          >
+            <span className="rounded border border-border px-1.5 py-0.5 font-mono text-xs">⌘K</span>
+            <span className="text-xs">to navigate</span>
+          </button>
         </footer>
       </div>
 
