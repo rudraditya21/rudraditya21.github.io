@@ -105,6 +105,17 @@ export default function Home() {
   const [loaded, setLoaded] = useState(false)
   const [show, setShow] = useState(false)
   const [activeSection, setActiveSection] = useState('about')
+  const [scrollProgress, setScrollProgress] = useState(0)
+
+  useEffect(() => {
+    function onScroll() {
+      const el = document.documentElement
+      const total = el.scrollHeight - el.clientHeight
+      setScrollProgress(total > 0 ? el.scrollTop / total : 0)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     if (!loaded) return
@@ -136,6 +147,12 @@ export default function Home() {
   return (
     <>
       {!loaded && <LoadingScreen onComplete={() => setLoaded(true)} />}
+
+      {/* Scroll progress bar */}
+      <div
+        className="fixed left-0 top-0 z-50 h-0.5 bg-foreground"
+        style={{ width: `${scrollProgress * 100}%` }}
+      />
 
       {/* Fixed left sidebar */}
       <aside className="fixed left-0 top-0 z-40 hidden h-screen w-56 flex-col lg:flex">
@@ -207,6 +224,10 @@ export default function Home() {
         <div id="tools"><Tools /></div>
         <div id="quests"><SideQuests /></div>
         <div id="writing"><Writing /></div>
+
+        <footer className="border-t border-border px-12 py-6 text-sm text-foreground/30" style={{ fontFamily: 'var(--font-inter)' }}>
+          © 2025 Rudraditya Thakur
+        </footer>
       </div>
 
       <HamburgerMenu show={show} />
