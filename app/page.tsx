@@ -133,6 +133,11 @@ export default function Home() {
   const [scrollProgress, setScrollProgress] = useState(0)
   const [toastVisible, setToastVisible] = useState(false)
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [shortcut, setShortcut] = useState('⌘K')
+
+  useEffect(() => {
+    if (!/Mac|iPhone|iPad|iPod/.test(navigator.platform)) setShortcut('Ctrl+K')
+  }, [])
 
   const copyEmail = useCallback(() => {
     navigator.clipboard.writeText(EMAIL)
@@ -289,7 +294,7 @@ export default function Home() {
             onClick={() => window.dispatchEvent(new Event('open-command-palette'))}
             className="flex items-center gap-2 text-foreground/25 transition-colors duration-200 hover:text-foreground/50"
           >
-            <span className="rounded border border-border px-1.5 py-0.5 font-mono text-xs">⌘K</span>
+            <span className="rounded border border-border px-1.5 py-0.5 font-mono text-xs">{shortcut}</span>
             <span className="text-xs">to navigate</span>
           </button>
         </footer>

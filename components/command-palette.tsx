@@ -22,8 +22,13 @@ export default function CommandPalette({ onCopyEmail }: { onCopyEmail: () => voi
   const [open, setOpen]         = useState(false)
   const [query, setQuery]       = useState('')
   const [selected, setSelected] = useState(0)
+  const [shortcut, setShortcut] = useState('⌘K')
   const inputRef = useRef<HTMLInputElement>(null)
   const listRef  = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!/Mac|iPhone|iPad|iPod/.test(navigator.platform)) setShortcut('Ctrl+K')
+  }, [])
 
   const allItems: Item[] = [
     ...SECTIONS.map(s => ({ kind: 'nav' as const, label: s.label, id: s.id })),
@@ -154,6 +159,7 @@ export default function CommandPalette({ onCopyEmail }: { onCopyEmail: () => voi
             <span><kbd className="font-mono">↑↓</kbd> navigate</span>
             <span><kbd className="font-mono">↵</kbd> select</span>
             <span><kbd className="font-mono">esc</kbd> close</span>
+            <span className="ml-auto"><kbd className="font-mono">{shortcut}</kbd> toggle</span>
           </div>
         </div>
       </div>
