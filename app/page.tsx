@@ -14,6 +14,7 @@ import SideQuests from '@/components/side-quests'
 import Writing from '@/components/writing'
 import Publications from '@/components/publications'
 import Tools from '@/components/tools'
+import CommandPalette from '@/components/command-palette'
 
 const navItems = [
   { label: 'About',             id: 'about' },
@@ -288,6 +289,7 @@ export default function Home() {
       </div>
 
       <Toast visible={toastVisible} />
+      <CommandPalette onCopyEmail={copyEmail} />
       <HamburgerMenu show={show} onGetInTouch={copyEmail} />
       <ThemeToggle show={show} />
     </>
