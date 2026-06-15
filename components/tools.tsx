@@ -7,12 +7,12 @@ const stack = [
     category: 'Languages',
     tools: [
       'Python', 'Rust', 'C', 'C++', 'Go', 'Java', 'JavaScript', 'TypeScript',
-      'Perl', 'SQL', 'MATLAB', 'Dart', 'Erlang', 'Assembly',
+      'Perl', 'SQL', 'Bash', 'MATLAB', 'Dart', 'Erlang', 'Assembly',
     ],
   },
   {
     category: 'Frameworks',
-    tools: ['Next.js', 'React', 'Bun', 'Tokio', 'LLVM', 'WASM'],
+    tools: ['Next.js', 'React', 'Bun', 'Tokio', 'LLVM', 'WASM', 'HTML', 'CSS'],
   },
   {
     category: 'Messaging',
@@ -24,11 +24,11 @@ const stack = [
   },
   {
     category: 'Protocols',
-    tools: ['QUIC', 'HTTP/3'],
+    tools: ['QUIC', 'HTTP/3', 'GraphQL'],
   },
   {
     category: 'Infra',
-    tools: ['Docker', 'Podman', 'Kubernetes', 'Cilium', 'AWS', 'eBPF', 'nftables', 'SearxNG', 'Prometheus', 'Grafana', 'OpenTelemetry'],
+    tools: ['Docker', 'Podman', 'Kubernetes', 'Cilium', 'AWS', 'Linux', 'eBPF', 'nftables', 'SearxNG', 'Prometheus', 'Grafana', 'OpenTelemetry'],
   },
   {
     category: 'AI / ML',
