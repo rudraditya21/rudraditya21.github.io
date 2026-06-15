@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import gsap from 'gsap'
 import LoadingScreen from '@/components/loading-screen'
 import WorkExperience from '@/components/work-experience'
@@ -68,7 +68,11 @@ function BlobAvatar() {
   }, [])
 
   return (
-    <div ref={containerRef} className="relative aspect-square w-full overflow-hidden rounded-full border border-border bg-muted shadow-md">
+    <div
+      className="relative aspect-square w-full rounded-full p-px"
+      style={{ background: 'linear-gradient(to bottom, transparent 50%, var(--border) 50%)' }}
+    >
+    <div ref={containerRef} className="relative h-full w-full overflow-hidden rounded-full bg-muted">
       {/* Gooey filter: blur → alpha threshold → blobs merge when touching */}
       <svg style={{ position: 'absolute', width: 0, height: 0 }}>
         <defs>
@@ -98,6 +102,26 @@ function BlobAvatar() {
         ))}
       </div>
     </div>
+    </div>
+  )
+}
+
+const EMAIL = 'mr.rudradityathakur@gmail.com'
+
+function Toast({ visible }: { visible: boolean }) {
+  return (
+    <div
+      className="fixed bottom-6 right-6 z-50 rounded-lg bg-foreground px-4 py-2.5 text-sm text-background"
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(6px)',
+        transition: 'opacity 250ms ease, transform 250ms ease',
+        pointerEvents: 'none',
+        fontFamily: 'var(--font-inter)',
+      }}
+    >
+      Mail copied
+    </div>
   )
 }
 
@@ -106,6 +130,15 @@ export default function Home() {
   const [show, setShow] = useState(false)
   const [activeSection, setActiveSection] = useState('about')
   const [scrollProgress, setScrollProgress] = useState(0)
+  const [toastVisible, setToastVisible] = useState(false)
+  const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const copyEmail = useCallback(() => {
+    navigator.clipboard.writeText(EMAIL)
+    setToastVisible(true)
+    if (toastTimer.current) clearTimeout(toastTimer.current)
+    toastTimer.current = setTimeout(() => setToastVisible(false), 2000)
+  }, [])
 
   useEffect(() => {
     function onScroll() {
@@ -185,9 +218,33 @@ export default function Home() {
         </nav>
       </aside>
 
-      {/* Fixed top-right socials */}
-      <div className="fixed right-24 top-8 z-40 hidden rounded-full bg-background/70 px-4 py-2.5 shadow-md backdrop-blur-md lg:block">
-        <Socials show={show} />
+      {/* Fixed top-right: Get in Touch + Socials — lg only */}
+      <div className="fixed right-24 top-8 z-40 hidden items-center gap-3 lg:flex">
+        <div
+          className="rounded-full p-px"
+          style={{
+            background: 'linear-gradient(to bottom, transparent 50%, var(--border) 50%)',
+            opacity: show ? 1 : 0,
+            pointerEvents: show ? 'auto' : 'none',
+            transition: 'opacity 600ms ease',
+          }}
+        >
+          <button
+            onClick={copyEmail}
+            className="rounded-full bg-background/70 px-4 py-2.5 text-sm text-foreground/70 backdrop-blur-md transition-colors duration-200 hover:text-foreground"
+            style={{ fontFamily: 'var(--font-inter)' }}
+          >
+            Get in Touch
+          </button>
+        </div>
+        <div
+          className="rounded-full p-px"
+          style={{ background: 'linear-gradient(to bottom, transparent 50%, var(--border) 50%)' }}
+        >
+          <div className="rounded-full bg-background/70 px-4 py-2.5 backdrop-blur-md">
+            <Socials show={show} />
+          </div>
+        </div>
       </div>
 
       {/* Main content */}
@@ -230,7 +287,8 @@ export default function Home() {
         </footer>
       </div>
 
-      <HamburgerMenu show={show} />
+      <Toast visible={toastVisible} />
+      <HamburgerMenu show={show} onGetInTouch={copyEmail} />
       <ThemeToggle show={show} />
     </>
   )

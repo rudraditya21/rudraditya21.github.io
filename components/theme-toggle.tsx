@@ -58,21 +58,26 @@ export default function ThemeToggle({ show }: { show: boolean }) {
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger asChild>
-          <button
-            onClick={toggle}
-            className="fixed bottom-8 right-6 z-40 flex h-10 w-10 items-center justify-center rounded-full bg-background/80 shadow-md backdrop-blur-md"
-            style={{
-              opacity:       show ? 1 : 0,
-              pointerEvents: show ? 'auto' : 'none',
-              transition:    'opacity 600ms ease',
-            }}
-            aria-label="Toggle theme"
-          >
-            <div ref={sunRef}  className="absolute"><Sun  size={18} /></div>
-            <div ref={moonRef} className="absolute"><Moon size={18} /></div>
-          </button>
-        </TooltipTrigger>
+        <div
+          className="fixed bottom-8 right-6 z-40 rounded-full p-px"
+          style={{
+            background: 'linear-gradient(to bottom, transparent 50%, var(--border) 50%)',
+            opacity:       show ? 1 : 0,
+            pointerEvents: show ? 'auto' : 'none',
+            transition:    'opacity 600ms ease',
+          }}
+        >
+          <TooltipTrigger asChild>
+            <button
+              onClick={toggle}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-background/80 backdrop-blur-md"
+              aria-label="Toggle theme"
+            >
+              <div ref={sunRef}  className="absolute"><Sun  size={18} /></div>
+              <div ref={moonRef} className="absolute"><Moon size={18} /></div>
+            </button>
+          </TooltipTrigger>
+        </div>
         <TooltipContent side="left">
           {dark ? 'Light mode' : 'Dark mode'}
         </TooltipContent>

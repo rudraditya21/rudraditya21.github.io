@@ -17,7 +17,7 @@ const NAV = [
   { label: 'Writing',           id: 'writing' },
 ]
 
-export default function HamburgerMenu({ show }: { show: boolean }) {
+export default function HamburgerMenu({ show, onGetInTouch }: { show: boolean; onGetInTouch: () => void }) {
   const [open, setOpen]  = useState(false)
   const overlayRef       = useRef<HTMLDivElement>(null)
   const itemRefs         = useRef<(HTMLAnchorElement | null)[]>([])
@@ -73,22 +73,27 @@ export default function HamburgerMenu({ show }: { show: boolean }) {
     <>
       <TooltipProvider>
         <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              onClick={() => setOpen(v => !v)}
-              className="fixed right-6 top-6 z-46 flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-full bg-background/80 shadow-md backdrop-blur-md lg:right-10 lg:top-8"
-              style={{
-                opacity: show ? 1 : 0,
-                pointerEvents: show ? 'auto' : 'none',
-                transition: 'opacity 600ms ease',
-              }}
-              aria-label={open ? 'Close menu' : 'Open menu'}
-            >
-              <span className={`block h-px w-5 origin-center bg-foreground transition-all duration-300 ${open ? 'translate-y-1.75 rotate-45' : ''}`} />
-              <span className={`block h-px w-5 bg-foreground transition-all duration-300 ${open ? 'opacity-0' : ''}`} />
-              <span className={`block h-px w-5 origin-center bg-foreground transition-all duration-300 ${open ? '-translate-y-1.75 -rotate-45' : ''}`} />
-            </button>
-          </TooltipTrigger>
+          <div
+            className="fixed right-6 top-6 z-46 rounded-full p-px lg:right-10 lg:top-8"
+            style={{
+              background: 'linear-gradient(to bottom, transparent 50%, var(--border) 50%)',
+              opacity: show ? 1 : 0,
+              pointerEvents: show ? 'auto' : 'none',
+              transition: 'opacity 600ms ease',
+            }}
+          >
+            <TooltipTrigger asChild>
+              <button
+                onClick={() => setOpen(v => !v)}
+                className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-full bg-background/80 backdrop-blur-md"
+                aria-label={open ? 'Close menu' : 'Open menu'}
+              >
+                <span className={`block h-px w-5 origin-center bg-foreground transition-all duration-300 ${open ? 'translate-y-1.75 rotate-45' : ''}`} />
+                <span className={`block h-px w-5 bg-foreground transition-all duration-300 ${open ? 'opacity-0' : ''}`} />
+                <span className={`block h-px w-5 origin-center bg-foreground transition-all duration-300 ${open ? '-translate-y-1.75 -rotate-45' : ''}`} />
+              </button>
+            </TooltipTrigger>
+          </div>
           <TooltipContent side="bottom">
             {open ? 'Close' : 'Menu'}
           </TooltipContent>
@@ -115,6 +120,13 @@ export default function HamburgerMenu({ show }: { show: boolean }) {
         </nav>
 
         <div ref={socialsRef} className="mt-auto pt-8">
+          <button
+            onClick={onGetInTouch}
+            className="mb-5 block text-sm text-foreground/40 transition-colors duration-200 hover:text-foreground"
+            style={{ fontFamily: 'var(--font-inter)' }}
+          >
+            Get in Touch
+          </button>
           <Socials show />
         </div>
       </div>
