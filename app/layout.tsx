@@ -22,8 +22,22 @@ const instrumentSerif = Instrument_Serif({
 })
 
 export const metadata: Metadata = {
-  title: "Rudraditya Thakur",
-  description: "Turning caffeine into products.",
+  metadataBase: new URL('https://rudraditya21.github.io'),
+  title: 'Rudraditya Thakur',
+  description: 'Turning caffeine into products.',
+  openGraph: {
+    title: 'Rudraditya Thakur',
+    description: 'Turning caffeine into products.',
+    url: 'https://rudraditya21.github.io',
+    siteName: 'Rudraditya Thakur',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Rudraditya Thakur',
+    description: 'Turning caffeine into products.',
+  },
 };
 
 export default function RootLayout({
