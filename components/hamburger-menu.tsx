@@ -14,7 +14,7 @@ const NAV = [
   { label: 'Areas of Interest', id: 'interests' },
   { label: 'Tools & Tech',      id: 'tools' },
   { label: 'Side Quests',       id: 'quests' },
-  { label: 'Writing',           id: 'writing' },
+  { label: 'Blogs',             id: 'writing' },
 ]
 
 export default function HamburgerMenu({ show, onGetInTouch }: { show: boolean; onGetInTouch: () => void }) {

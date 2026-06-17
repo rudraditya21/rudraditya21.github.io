@@ -58,7 +58,7 @@ export default function Writing() {
           transition: 'opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
-        Writing
+        Blogs
       </h2>
 
       <div className="divide-y divide-border">

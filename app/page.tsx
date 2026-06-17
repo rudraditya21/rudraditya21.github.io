@@ -25,7 +25,7 @@ const navItems = [
   { label: 'Areas of Interest', id: 'interests' },
   { label: 'Tools & Tech',      id: 'tools' },
   { label: 'Side Quests',       id: 'quests' },
-  { label: 'Writing',           id: 'writing' },
+  { label: 'Blogs',             id: 'writing' },
 ]
 
 const BLOB_COUNT = 9
