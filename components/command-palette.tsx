@@ -11,7 +11,7 @@ const SECTIONS = [
   { label: 'Areas of Interest', id: 'interests'     },
   { label: 'Tools & Tech',      id: 'tools'         },
   { label: 'Side Quests',       id: 'quests'        },
-  { label: 'Writing',           id: 'writing'       },
+  { label: 'Blogs',             id: 'writing'       },
 ]
 
 type NavItem    = { kind: 'nav';    label: string; id: string }
