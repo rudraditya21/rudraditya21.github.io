@@ -1,167 +1,55 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import gsap from 'gsap'
 import { useInView } from '@/hooks/use-in-view'
 import { ArrowUpRight } from '@phosphor-icons/react'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
-const TABS = ['Medium', 'Substack'] as const
-type Tab = (typeof TABS)[number]
+const posts = [
+  {
+    title: 'Inside the Architecture of ClickHouse',
+    href: 'https://medium.com/@rudraditya.thakur21/inside-the-architecture-of-clickhouse-0c15d41d69fe',
+  },
+]
 
-type Post = {
-  title: string
-  description: string
-  href: string
-}
+function PostRow({ post, index }: { post: typeof posts[0]; index: number }) {
+  const { ref, inView } = useInView(0.1)
 
-const data: Record<Tab, Post[]> = {
-  Medium: [
-    {
-      title: 'Blog 1',
-      description: 'Short description of what this blog post is about and what the reader will learn.',
-      href: '#',
-    },
-    {
-      title: 'Blog 2',
-      description: 'Short description of what this blog post is about and what the reader will learn.',
-      href: '#',
-    },
-  ],
-  Substack: [
-    {
-      title: 'Blog 1',
-      description: 'Short description of what this newsletter post is about and what the reader will learn.',
-      href: '#',
-    },
-    {
-      title: 'Blog 2',
-      description: 'Short description of what this newsletter post is about and what the reader will learn.',
-      href: '#',
-    },
-  ],
-}
-
-function PostRow({ post, tab }: { post: Post; tab: Tab }) {
   return (
-    <div className="flex flex-col gap-2 py-8 lg:flex-row lg:gap-10 lg:py-10">
-      <div className="lg:w-52 lg:shrink-0">
-        <p
-          className="text-lg leading-snug text-foreground"
-          style={{ fontFamily: 'var(--font-instrument-serif)' }}
-        >
-          {post.title}
-        </p>
-        <div className="mt-2 text-muted-foreground">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <a
-                  href={post.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-start gap-0.5 text-xs font-medium uppercase tracking-wider underline underline-offset-2 transition-colors duration-200 hover:text-foreground"
-                  style={{ fontFamily: 'var(--font-instrument-serif)' }}
-                >
-                  {tab === 'Medium' ? 'Read on Medium' : 'Read on Substack'}<ArrowUpRight size={10} />
-                </a>
-              </TooltipTrigger>
-              <TooltipContent side="right">
-                Read Blog
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
-      </div>
-
+    <div
+      ref={ref as React.RefObject<HTMLDivElement>}
+      className="flex flex-col gap-2 py-5 lg:flex-row lg:items-center lg:gap-10 lg:py-6"
+      style={{
+        opacity: inView ? 1 : 0,
+        transform: inView ? 'translateY(0)' : 'translateY(24px)',
+        transition: `opacity 700ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 60}ms, transform 700ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 60}ms`,
+      }}
+    >
       <p
-        className="text-sm leading-relaxed text-foreground/50 lg:pt-0.5"
+        className="flex-1 text-lg leading-snug text-foreground"
+        style={{ fontFamily: 'var(--font-instrument-serif)' }}
+      >
+        {post.title}
+      </p>
+
+      <a
+        href={post.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-0.5 text-xs font-medium uppercase tracking-wider text-foreground/40 underline underline-offset-2 transition-colors duration-200 hover:text-foreground lg:shrink-0"
         style={{ fontFamily: 'var(--font-inter)' }}
       >
-        {post.description}
-      </p>
+        Read on Medium<ArrowUpRight size={10} />
+      </a>
     </div>
   )
 }
 
-const PER_PAGE = 4
-
 export default function Writing() {
-  const [activeTab, setActiveTab] = useState<Tab>('Medium')
-  const [page, setPage] = useState(0)
-  const tabRefs      = useRef<(HTMLButtonElement | null)[]>([])
-  const indicatorRef = useRef<HTMLDivElement>(null)
-  const contentRef   = useRef<HTMLDivElement>(null)
-  const { ref: headingRef, inView } = useInView(0.15)
-
-  useEffect(() => {
-    const first = tabRefs.current[0]
-    if (!first || !indicatorRef.current) return
-    gsap.set(indicatorRef.current, {
-      x: first.offsetLeft,
-      width: first.offsetWidth,
-      opacity: 1,
-    })
-  }, [])
-
-  function switchTab(tab: Tab) {
-    if (tab === activeTab) return
-
-    const idx = TABS.indexOf(tab)
-    const btn = tabRefs.current[idx]
-    if (btn) {
-      gsap.to(indicatorRef.current, {
-        x: btn.offsetLeft,
-        width: btn.offsetWidth,
-        duration: 0.35,
-        ease: 'power3.out',
-      })
-    }
-
-    gsap.to(contentRef.current, {
-      opacity: 0,
-      y: 8,
-      duration: 0.15,
-      ease: 'power2.in',
-      onComplete: () => {
-        setActiveTab(tab)
-        setPage(0)
-        gsap.to(contentRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 0.28,
-          ease: 'power2.out',
-        })
-      },
-    })
-  }
-
-  function changePage(next: number) {
-    gsap.to(contentRef.current, {
-      opacity: 0,
-      y: 8,
-      duration: 0.15,
-      ease: 'power2.in',
-      onComplete: () => {
-        setPage(next)
-        gsap.to(contentRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 0.28,
-          ease: 'power2.out',
-        })
-      },
-    })
-  }
-
-  const items      = data[activeTab]
-  const totalPages = Math.ceil(items.length / PER_PAGE)
-  const paged      = items.slice(page * PER_PAGE, (page + 1) * PER_PAGE)
+  const { ref, inView } = useInView(0.15)
 
   return (
     <section className="min-h-svh px-12 py-16 md:py-24">
       <h2
-        ref={headingRef as React.RefObject<HTMLHeadingElement>}
+        ref={ref as React.RefObject<HTMLHeadingElement>}
         className="mb-10 text-5xl tracking-tight"
         style={{
           fontFamily: 'var(--font-instrument-serif)',
@@ -173,63 +61,10 @@ export default function Writing() {
         Writing
       </h2>
 
-      {/* Tab bar */}
-      <div className="relative mb-2 flex gap-8 border-b border-border">
-        {TABS.map((tab, i) => (
-          <button
-            key={tab}
-            ref={el => { tabRefs.current[i] = el }}
-            onClick={() => switchTab(tab)}
-            className="pb-3 text-sm transition-colors duration-200"
-            style={{
-              fontFamily: 'var(--font-inter)',
-              color: activeTab === tab ? 'var(--foreground)' : 'var(--muted-foreground)',
-            }}
-          >
-            {tab}
-          </button>
+      <div className="divide-y divide-border">
+        {posts.map((post, i) => (
+          <PostRow key={post.title} post={post} index={i} />
         ))}
-        <div
-          ref={indicatorRef}
-          className="absolute bottom-0 h-px bg-foreground"
-          style={{ opacity: 0, width: 0 }}
-        />
-      </div>
-
-      {/* Content + Pagination pinned together */}
-      <div className="flex min-h-128 flex-col">
-        <div ref={contentRef} className="divide-y divide-border">
-          {paged.map(post => (
-            <PostRow key={post.title} post={post} tab={activeTab} />
-          ))}
-        </div>
-
-        {totalPages > 1 && (
-          <div className="mt-auto pt-8 flex items-center gap-6">
-            <button
-              onClick={() => changePage(page - 1)}
-              disabled={page === 0}
-              className="text-xs font-medium uppercase tracking-wider text-muted-foreground transition-colors duration-200 hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed"
-              style={{ fontFamily: 'var(--font-instrument-serif)' }}
-            >
-              ← Prev
-            </button>
-            <span
-              className="text-xs text-muted-foreground"
-              style={{ fontFamily: 'var(--font-inter)' }}
-            >
-              {page + 1} / {totalPages}
-            </span>
-            <button
-              onClick={() => changePage(page + 1)}
-              disabled={page === totalPages - 1}
-              className="text-xs font-medium uppercase tracking-wider text-muted-foreground transition-colors duration-200 hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed"
-              style={{ fontFamily: 'var(--font-instrument-serif)' }}
-            >
-              Next →
-            </button>
-          </div>
-        )}
       </div>
     </section>
   )
