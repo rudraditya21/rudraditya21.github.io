@@ -8,6 +8,10 @@ const posts = [
     title: 'Inside the Architecture of ClickHouse',
     href: 'https://medium.com/@rudraditya.thakur21/inside-the-architecture-of-clickhouse-0c15d41d69fe',
   },
+  {
+    title: 'Why Google Needed Atomic Clocks to Build a Database',
+    href: 'https://medium.com/@rudraditya.thakur21/why-google-needed-atomic-clocks-to-build-a-database-8992f9364e56',
+  },
 ]
 
 function PostRow({ post, index }: { post: typeof posts[0]; index: number }) {
