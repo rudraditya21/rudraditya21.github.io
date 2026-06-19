@@ -31,6 +31,10 @@ const stack = [
     tools: ['Docker', 'Podman', 'Kubernetes', 'Cilium', 'AWS', 'Linux', 'eBPF', 'nftables', 'SearxNG', 'Prometheus', 'Grafana', 'OpenTelemetry'],
   },
   {
+    category: 'Kernel',
+    tools: ['XDP', 'netfilter', 'tc', 'perf', 'ftrace', 'bpftrace', 'kprobes'],
+  },
+  {
     category: 'AI / ML',
     tools: ['PyTorch', 'TensorFlow', 'JAX', 'LangChain', 'LangGraph', 'Claude', 'Codex'],
   },
