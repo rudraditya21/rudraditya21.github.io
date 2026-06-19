@@ -38,7 +38,7 @@ function PublicationRow({ pub, index }: { pub: Publication; index: number }) {
       }}
     >
       <div className="lg:w-52 lg:shrink-0">
-        <p className="text-sm text-foreground" style={{ fontFamily: 'var(--font-instrument-serif)' }}>
+        <p className="text-xl leading-snug text-foreground lg:text-2xl" style={{ fontFamily: 'var(--font-instrument-serif)' }}>
           {pub.publisher} – {pub.year}
         </p>
         {pub.href && (
@@ -67,7 +67,7 @@ function PublicationRow({ pub, index }: { pub: Publication; index: number }) {
 
       <div className="lg:pt-0.5">
         <p
-          className="text-lg leading-snug text-foreground"
+          className="text-xl leading-snug text-foreground lg:text-2xl"
           style={{ fontFamily: 'var(--font-instrument-serif)' }}
         >
           {pub.title}

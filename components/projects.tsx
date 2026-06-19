@@ -118,7 +118,7 @@ function ProjectRow({ project }: { project: Project }) {
     <div className="flex flex-col gap-2 py-8 lg:flex-row lg:gap-10 lg:py-10">
       <div className="lg:w-52 lg:shrink-0">
         <p
-          className="text-lg leading-snug text-foreground"
+          className="text-xl leading-snug text-foreground lg:text-2xl"
           style={{ fontFamily: 'var(--font-instrument-serif)' }}
         >
           {project.name}

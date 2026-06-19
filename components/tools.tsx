@@ -55,7 +55,7 @@ function StackRow({ item, index }: { item: typeof stack[0]; index: number }) {
     >
       <div className="lg:w-52 lg:shrink-0">
         <p
-          className="text-lg leading-snug text-foreground"
+          className="text-xl leading-snug text-foreground lg:text-2xl"
           style={{ fontFamily: 'var(--font-instrument-serif)' }}
         >
           {item.category}

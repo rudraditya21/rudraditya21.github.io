@@ -38,7 +38,7 @@ function SchoolEntry({ school, index }: { school: School; index: number }) {
       }}
     >
       <div className="flex flex-col gap-0.5">
-        <p className="text-base font-semibold" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
+        <p className="text-xl leading-snug text-foreground lg:text-2xl" style={{ fontFamily: 'var(--font-instrument-serif)' }}>
           {school.institution}
         </p>
         <p className="text-sm text-foreground/70" style={{ fontFamily: 'var(--font-inter)' }}>

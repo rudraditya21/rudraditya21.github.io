@@ -67,7 +67,7 @@ function InterestRow({ item, index }: { item: typeof interests[0]; index: number
       {/* Domain name */}
       <div className="lg:w-52 lg:shrink-0">
         <p
-          className="text-lg leading-snug text-foreground"
+          className="text-xl leading-snug text-foreground lg:text-2xl"
           style={{ fontFamily: 'var(--font-instrument-serif)' }}
         >
           {item.domain}

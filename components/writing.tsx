@@ -1,7 +1,7 @@
 'use client'
 
 import { useInView } from '@/hooks/use-in-view'
-import { ArrowUpRight } from '@phosphor-icons/react'
+import { ArrowUpRight, ArrowRight } from '@phosphor-icons/react'
 import { posts } from '@/lib/posts'
 
 function PostRow({ post, index }: { post: typeof posts[0]; index: number }) {
@@ -18,7 +18,7 @@ function PostRow({ post, index }: { post: typeof posts[0]; index: number }) {
       }}
     >
       <p
-        className="flex-1 text-lg leading-snug text-foreground"
+        className="flex-1 text-xl leading-snug text-foreground lg:text-2xl"
         style={{ fontFamily: 'var(--font-instrument-serif)' }}
       >
         {post.title}
@@ -59,6 +59,22 @@ export default function Writing() {
         {posts.map((post, i) => (
           <PostRow key={post.title} post={post} index={i} />
         ))}
+      </div>
+
+      <div className="border-t border-border py-5 lg:py-6">
+        <a
+          href="https://medium.com/@rudraditya.thakur21"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center text-xl leading-snug text-foreground underline underline-offset-4 lg:text-2xl"
+          style={{ fontFamily: 'var(--font-instrument-serif)' }}
+        >
+          More on Medium
+          <ArrowRight
+            size={20}
+            className="ml-1.5 -translate-x-2 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+          />
+        </a>
       </div>
     </section>
   )

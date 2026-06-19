@@ -102,7 +102,7 @@ function JobEntry({ job, index }: { job: Job; index: number }) {
       }}
     >
       <div className="lg:w-52 lg:shrink-0">
-        <p className="text-lg leading-snug text-foreground" style={{ fontFamily: 'var(--font-instrument-serif)' }}>
+        <p className="text-xl leading-snug text-foreground lg:text-2xl" style={{ fontFamily: 'var(--font-instrument-serif)' }}>
           {job.company}
         </p>
         <p className="mt-0.5 text-sm text-foreground/70" style={{ fontFamily: 'var(--font-inter)' }}>
