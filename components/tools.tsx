@@ -12,7 +12,7 @@ const stack = [
   },
   {
     category: 'Frameworks',
-    tools: ['Next.js', 'React', 'Bun', 'Tokio', 'LLVM', 'WASM', 'HTML', 'CSS'],
+    tools: ['Next.js', 'React', 'Flutter', 'Bun', 'Tokio', 'LLVM', 'WASM', 'HTML', 'CSS'],
   },
   {
     category: 'Messaging',

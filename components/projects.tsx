@@ -97,6 +97,12 @@ const data: Record<Tab, Project[]> = {
   ],
   'For Fun': [
     {
+      name: 'Grind',
+      description: 'A Flutter social accountability app for tracking daily tasks and routines, visualizing streaks, and staying consistent.',
+      stack: ['Flutter', 'Dart'],
+      github: 'https://github.com/rudraditya21/grind',
+    },
+    {
       name: 'Typy',
       description: 'Mechanical keyboard with sound. Desktop only.',
       stack: ['Next.js', 'TypeScript', 'TailwindCSS'],
