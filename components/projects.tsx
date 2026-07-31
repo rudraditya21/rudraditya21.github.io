@@ -18,14 +18,7 @@ type Project = {
 }
 
 const data: Record<Tab, Project[]> = {
-  Projects: [
-    {
-      name: 'Remnant DB',
-      description: 'Open-source labs for ethical hacking — spin up realistic environments with Docker or Podman, learn by doing, and tear them down when you are done.',
-      stack: ['Docker', 'Podman'],
-      github: 'https://github.com/Remnant-DB',
-    },
-  ],
+  // Projects: [],
   Experiments: [
     {
       name: 'Lattice',
