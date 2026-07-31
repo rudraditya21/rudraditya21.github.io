@@ -18,7 +18,7 @@ type Project = {
 }
 
 const data: Record<Tab, Project[]> = {
-  // Projects: [],
+  Projects: [],
   Experiments: [
     {
       name: 'Lattice',
