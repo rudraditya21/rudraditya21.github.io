@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { useInView } from '@/hooks/use-in-view'
-import { ArrowUpRight } from '@phosphor-icons/react'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { GithubLogoIcon, BrowserIcon } from '@phosphor-icons/react'
+import Link from 'next/link'
 
-const TABS = ['Projects', 'Experiments', 'For Fun'] as const
+const TABS = ['Projects', 'Products', 'Experiments', 'Machine Learning', 'For Fun'] as const
 type Tab = (typeof TABS)[number]
 
 type Project = {
@@ -18,82 +18,99 @@ type Project = {
 }
 
 const data: Record<Tab, Project[]> = {
-  Projects: [],
+  Projects: [
+    {
+      name: 'DockUI',
+      description: 'Terminal dashboard for day-to-day Docker management, including container inspection, logs, compose projects, and resource cleanup from a TUI.',
+      stack: ['Rust', 'Docker', 'TUI'],
+      github: 'https://github.com/rudraditya21/dockui',
+    },
+  ],
+  Products: [
+    {
+      name: 'Gymm',
+      description: 'Workout tracking app for logging sessions, managing exercises and routines, reviewing history, and backing up data.',
+      stack: ['Flutter', 'Dart', 'Riverpod', 'Hive'],
+      github: 'https://github.com/rudraditya21/gymm',
+    },
+    {
+      name: 'Grind',
+      description: 'Social accountability app for tracking daily tasks and routines, building streaks, and reviewing progress with analytics.',
+      stack: ['Flutter', 'Dart', 'Hive', 'fl_chart'],
+      github: 'https://github.com/rudraditya21/grind',
+    },
+  ],
   Experiments: [
     {
-      name: 'Lattice',
-      description: 'Small scientific computing language with reproducible numerics, a REPL, strict typing, a full numeric tower, and GPU backends (OpenCL, CUDA, HIP, Metal).',
-      stack: ['C++', 'Objective-C++', 'CMake', 'OpenCL', 'CUDA', 'HIP', 'Metal'],
-      github: 'https://github.com/rudraditya21/lattice',
+      name: '16bit.cpu',
+      description: 'Small C project that emulates a custom 16-bit CPU and includes a tiny assembler.',
+      stack: ['C'],
+      github: 'https://github.com/rudraditya21/16bit.cpu',
     },
     {
-      name: '8051',
-      description: 'Full MCS-51/8051 microcontroller implementation with CPU core, internal RAM/SFRs, timers, serial port, interrupt controller, and a Verilator testbench.',
-      stack: ['SystemVerilog', 'Verilator'],
-      github: 'https://github.com/rudraditya21/8051',
-    },
-    {
-      name: 'Moonlight',
-      description: 'Modular security framework with a deterministic control plane for running modules, managing sessions, tracking campaigns, and generating advisory plans.',
-      stack: ['Rust'],
-      github: 'https://github.com/rudraditya21/moonlight',
+      name: 'rustchain',
+      description: 'Production-style minimal blockchain node in Rust with deterministic primitives, signed transactions, persistent storage, TCP P2P sync, JSON-RPC, and a CLI.',
+      stack: ['Rust', 'Tokio', 'Axum', 'sled'],
+      github: 'https://github.com/rudraditya21/rustchain',
     },
     {
       name: 'Aegis',
-      description: 'High-performance firewall and IDS workspace with persistent configuration under /etc/aegis.',
+      description: 'High-performance Rust firewall and IDS workspace with persistent system configuration.',
       stack: ['Rust'],
       github: 'https://github.com/rudraditya21/aegis',
     },
     {
+      name: '8051',
+      description: 'Full MCS-51/8051 microcontroller implementation in SystemVerilog with CPU core, peripherals, interrupt controller, and a Verilator testbench.',
+      stack: ['SystemVerilog', 'Verilator'],
+      github: 'https://github.com/rudraditya21/8051',
+    },
+    {
+      name: 'Lattice',
+      description: 'Small scientific computing language for reproducible numerics and statistical workflows with strict typing, tensors, a REPL, and optional GPU backends.',
+      stack: ['C', 'OpenCL', 'CUDA', 'Metal'],
+      github: 'https://github.com/rudraditya21/lattice',
+    },
+    {
+      name: 'Moonlight',
+      description: 'Rust-based modular security framework with a deterministic control plane for modules, sessions, campaigns, objectives, and advisory plans.',
+      stack: ['Rust'],
+      github: 'https://github.com/rudraditya21/moonlight',
+    },
+  ],
+  'Machine Learning': [
+    {
+      name: 'ViT-PyTorch',
+      description: 'Complete Vision Transformer implementation from scratch in PyTorch with CIFAR-10 training, schedulers, checkpointing, and unit tests.',
+      stack: ['PyTorch', 'Python'],
+      github: 'https://github.com/rudraditya21/vit-pytorch',
+    },
+    {
+      name: 'AlexNet.CPP',
+      description: 'From-scratch C++17 AlexNet inference engine with custom tensor operations and layer implementations including Conv2D, ReLU, LRN, pooling, and softmax.',
+      stack: ['C++', 'OpenMP'],
+      github: 'https://github.com/rudraditya21/alexnet.cpp',
+    },
+    {
       name: 'minAlphaFold2',
-      description: 'Minimal re-implementation of AlphaFold2\'s model and training pipeline.',
+      description: 'Compact educational AlphaFold2-style implementation with a minimal Evoformer, structure module, AF2 losses, and a PDB-based training pipeline.',
       stack: ['Python', 'PyTorch'],
       github: 'https://github.com/rudraditya21/minAlphaFold2',
     },
     {
-      name: 'Rust Chain',
-      description: 'Production-style minimal blockchain node.',
-      stack: ['Rust'],
-      github: 'https://github.com/rudraditya21/rustchain',
-    },
-    {
-      name: '16bit.cpu',
-      description: 'Custom 16-bit CPU emulator with a tiny assembler.',
-      stack: ['C', 'Makefile'],
-      github: 'https://github.com/rudraditya21/16bit.cpu',
-    },
-    {
-      name: 'Alexnet.cpp',
-      description: 'AlexNet implemented from scratch.',
-      stack: ['C++', 'Makefile'],
-      github: 'https://github.com/rudraditya21/alexnet.cpp',
-    },
-    {
-      name: 'JAX CNN Examples',
-      description: 'CNN model zoo with 60+ architectures and training sanity checks across 25+ datasets.',
-      stack: ['Python', 'JAX'],
+      name: 'JAX-CNN-Examples',
+      description: 'Minimal JAX CNN model zoo with dozens of vision architectures, broad dataset support, and a quick training sanity-check CLI.',
+      stack: ['JAX', 'Python'],
       github: 'https://github.com/rudraditya21/jax-cnn-examples',
-    },
-    {
-      name: 'Texedo',
-      description: 'Local, open-source LaTeX editor inspired by Overleaf.',
-      stack: ['Next.js', 'TypeScript', 'PostgreSQL', 'MinIO'],
-      github: 'https://github.com/rudraditya21/texedo',
-    },
-    {
-      name: 'Devops.Scripts',
-      description: 'Production-grade DevOps automation library organized by domain, with strict standards for script quality, safety, and documentation.',
-      stack: ['Bash', 'Shell'],
-      github: 'https://github.com/rudraditya21/devops.scripts',
-      live: 'https://rudraditya21.github.io/devops.scripts/',
     },
   ],
   'For Fun': [
     {
-      name: 'Grind',
-      description: 'A Flutter social accountability app for tracking daily tasks and routines, visualizing streaks, and staying consistent.',
-      stack: ['Flutter', 'Dart'],
-      github: 'https://github.com/rudraditya21/grind',
+      name: 'Sudoku',
+      description: 'Enter a puzzle and let the solver find the solution instantly.',
+      stack: ['Next.js', 'TypeScript', 'TailwindCSS'],
+      github: 'https://github.com/rudraditya21/sudoku',
+      live: 'https://rudraditya21.github.io/sudoku/',
     },
     {
       name: 'Typy',
@@ -124,63 +141,25 @@ function ProjectRow({ project }: { project: Project }) {
         </p>
         <div className="mt-2 flex items-center gap-3 text-muted-foreground">
           {project.github && (
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-start gap-0.5 text-xs font-medium uppercase tracking-wider underline underline-offset-2 transition-colors duration-200 hover:text-foreground"
-                    style={{ fontFamily: 'var(--font-instrument-serif)' }}
-                  >
-                    GitHub<ArrowUpRight size={10} />
-                  </a>
-                </TooltipTrigger>
-                <TooltipContent side="bottom">
-                  Source Code
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            <Link className="text-md border border-border py-1 px-1 rounded-2xl bg-foreground text-background" href={project.github} target='_blank'><GithubLogoIcon /></Link>
           )}
           {project.live && (
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-start gap-0.5 text-xs font-medium uppercase tracking-wider underline underline-offset-2 transition-colors duration-200 hover:text-foreground"
-                    style={{ fontFamily: 'var(--font-instrument-serif)' }}
-                  >
-                    Visit<ArrowUpRight size={10} />
-                  </a>
-                </TooltipTrigger>
-                <TooltipContent side="bottom">
-                  View Website
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            <Link className="text-md border border-border py-1 px-1 rounded-2xl bg-foreground text-background" href={project.live} target='_blank'><BrowserIcon /></Link>
           )}
         </div>
       </div>
 
       <div className="flex flex-col gap-1.5 lg:pt-0.5">
-        <p
-          className="text-sm leading-relaxed text-foreground/50"
-          style={{ fontFamily: 'var(--font-inter)' }}
-        >
+        <p className="text-sm leading-relaxed text-foreground" style={{ fontFamily: 'var(--font-inter)' }}>
           {project.description}
         </p>
-        <p
-          className="text-xs text-foreground/30"
-          style={{ fontFamily: 'var(--font-inter)' }}
-        >
-          {project.stack.join(', ')}
+        <p className="text-xs text-foreground/60 space-x-4" style={{ fontFamily: 'var(--font-inter)' }}>
+          {project.stack.map((tech) => (
+            <span key={tech}>{`#${tech}`}</span>
+          ))}
         </p>
       </div>
-    </div>
+    </div >
   )
 }
 
@@ -189,9 +168,9 @@ const PER_PAGE = 4
 export default function Projects() {
   const [activeTab, setActiveTab] = useState<Tab>('Projects')
   const [page, setPage] = useState(0)
-  const tabRefs      = useRef<(HTMLButtonElement | null)[]>([])
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([])
   const indicatorRef = useRef<HTMLDivElement>(null)
-  const contentRef   = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
   const { ref: headingRef, inView } = useInView(0.15)
 
   useEffect(() => {
@@ -254,9 +233,9 @@ export default function Projects() {
     })
   }
 
-  const items      = data[activeTab]
+  const items = data[activeTab]
   const totalPages = Math.ceil(items.length / PER_PAGE)
-  const paged      = items.slice(page * PER_PAGE, (page + 1) * PER_PAGE)
+  const paged = items.slice(page * PER_PAGE, (page + 1) * PER_PAGE)
 
   return (
     <section className="min-h-svh px-12 py-16 md:py-24">
@@ -297,7 +276,7 @@ export default function Projects() {
       </div>
 
       {/* Content + Pagination pinned together */}
-      <div className="flex min-h-[32rem] flex-col">
+      <div className="flex min-h-128 flex-col">
         <div ref={contentRef} className="divide-y divide-border">
           {paged.map(project => (
             <ProjectRow key={project.name} project={project} />
@@ -306,30 +285,30 @@ export default function Projects() {
 
         {/* Pagination always at bottom of the fixed-height area */}
         {totalPages > 1 && (
-        <div className="mt-auto pt-8 flex items-center gap-6">
-          <button
-            onClick={() => changePage(page - 1)}
-            disabled={page === 0}
-            className="text-xs font-medium uppercase tracking-wider text-muted-foreground transition-colors duration-200 hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed"
-            style={{ fontFamily: 'var(--font-instrument-serif)' }}
-          >
-            ← Prev
-          </button>
-          <span
-            className="text-xs text-muted-foreground"
-            style={{ fontFamily: 'var(--font-inter)' }}
-          >
-            {page + 1} / {totalPages}
-          </span>
-          <button
-            onClick={() => changePage(page + 1)}
-            disabled={page === totalPages - 1}
-            className="text-xs font-medium uppercase tracking-wider text-muted-foreground transition-colors duration-200 hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed"
-            style={{ fontFamily: 'var(--font-instrument-serif)' }}
-          >
-            Next →
-          </button>
-        </div>
+          <div className="mt-auto pt-8 flex items-center gap-6">
+            <button
+              onClick={() => changePage(page - 1)}
+              disabled={page === 0}
+              className="text-xs font-medium uppercase tracking-wider text-muted-foreground transition-colors duration-200 hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed"
+              style={{ fontFamily: 'var(--font-instrument-serif)' }}
+            >
+              ← Prev
+            </button>
+            <span
+              className="text-xs text-muted-foreground"
+              style={{ fontFamily: 'var(--font-inter)' }}
+            >
+              {page + 1} / {totalPages}
+            </span>
+            <button
+              onClick={() => changePage(page + 1)}
+              disabled={page === totalPages - 1}
+              className="text-xs font-medium uppercase tracking-wider text-muted-foreground transition-colors duration-200 hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed"
+              style={{ fontFamily: 'var(--font-instrument-serif)' }}
+            >
+              Next →
+            </button>
+          </div>
         )}
       </div>
     </section>
