@@ -25,6 +25,12 @@ const data: Record<Tab, Project[]> = {
       stack: ['Rust', 'Docker', 'TUI'],
       github: 'https://github.com/rudraditya21/dockui',
     },
+    {
+      name: 'Devops.Scripts',
+      description: 'Production-grade DevOps automation library organized by domain with strict standards for script quality, safety, and documentation.',
+      stack: ['DevOps', 'Automation'],
+      github: 'https://github.com/rudraditya21/devops.scripts',
+    },
   ],
   Products: [
     {
@@ -38,6 +44,18 @@ const data: Record<Tab, Project[]> = {
       description: 'Social accountability app for tracking daily tasks and routines, building streaks, and reviewing progress with analytics.',
       stack: ['Flutter', 'Dart', 'Hive', 'fl_chart'],
       github: 'https://github.com/rudraditya21/grind',
+    },
+    {
+      name: 'Glyph',
+      description: 'Open-source visual workflow and diagram editor with a canvas-based node system, searchable catalog, history, and extensible architecture.',
+      stack: ['Next.js', 'Canvas'],
+      github: 'https://github.com/rudraditya21/glyph',
+    },
+    {
+      name: 'Texedo',
+      description: 'Local open-source LaTeX editor inspired by Overleaf, built with Next.js, Postgres, and MinIO.',
+      stack: ['Next.js', 'Postgres', 'MinIO'],
+      github: 'https://github.com/rudraditya21/texedo',
     },
   ],
   Experiments: [
