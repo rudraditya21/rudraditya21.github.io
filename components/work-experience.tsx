@@ -37,24 +37,6 @@ type Job = {
 
 const jobs: Job[] = [
   {
-    company: 'CloudArmour',
-    abbr: 'CA',
-    role: 'Kernel Developer',
-    start: new Date(2025, 6),
-    end: null,
-    location: 'India · Remote',
-    href: 'https://cloudarmour.io/',
-    description: [
-      'Led kernel-space architecture efforts for networking and security infrastructure deployed across Linux environments.',
-      'Drove performance optimization initiatives for kernel-level networking components through profiling, tracing, and low-level system analysis.',
-      'Improved system throughput, latency, and resource efficiency by identifying and resolving bottlenecks in kernel-integrated networking workloads.',
-      'Maintained compatibility across multiple Linux kernel releases by adapting to kernel API, subsystem, and behavioral changes.',
-      'Diagnosed and resolved complex kernel-level issues involving networking, concurrency, and system performance in production environments.',
-      'Collaborated with systems and platform teams to deliver reliable, scalable, and production-ready kernel infrastructure.',
-      'Contributed to the design and evolution of network security infrastructure with a focus on performance, reliability, and maintainability.',
-    ],
-  },
-  {
     company: 'Supernova Labs',
     abbr: 'SL',
     role: 'Maintainer & Core Developer',
@@ -69,6 +51,24 @@ const jobs: Job[] = [
       'Built health monitoring and backend orchestration capabilities to improve service availability during failures and degraded network conditions.',
       'Integrated observability tooling using Prometheus and OpenTelemetry for metrics collection, tracing, and operational visibility.',
       'Participated in performance analysis, failure testing, and runtime optimization to improve system stability, fault tolerance, and reliability.',
+    ],
+  },
+  {
+    company: 'CloudArmour',
+    abbr: 'CA',
+    role: 'Kernel Developer',
+    start: new Date(2025, 6),
+    end: new Date(2026, 6),
+    location: 'India · Remote',
+    href: 'https://cloudarmour.io/',
+    description: [
+      'Led kernel-space architecture efforts for networking and security infrastructure deployed across Linux environments.',
+      'Drove performance optimization initiatives for kernel-level networking components through profiling, tracing, and low-level system analysis.',
+      'Improved system throughput, latency, and resource efficiency by identifying and resolving bottlenecks in kernel-integrated networking workloads.',
+      'Maintained compatibility across multiple Linux kernel releases by adapting to kernel API, subsystem, and behavioral changes.',
+      'Diagnosed and resolved complex kernel-level issues involving networking, concurrency, and system performance in production environments.',
+      'Collaborated with systems and platform teams to deliver reliable, scalable, and production-ready kernel infrastructure.',
+      'Contributed to the design and evolution of network security infrastructure with a focus on performance, reliability, and maintainability.',
     ],
   },
   {
