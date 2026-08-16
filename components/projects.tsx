@@ -271,26 +271,28 @@ export default function Projects() {
       </h2>
 
       {/* Tab bar */}
-      <div className="relative mb-2 flex gap-8 border-b border-border">
-        {TABS.map((tab, i) => (
-          <button
-            key={tab}
-            ref={el => { tabRefs.current[i] = el }}
-            onClick={() => switchTab(tab)}
-            className="pb-3 text-sm transition-colors duration-200"
-            style={{
-              fontFamily: 'var(--font-inter)',
-              color: activeTab === tab ? 'var(--foreground)' : 'var(--muted-foreground)',
-            }}
-          >
-            {tab}
-          </button>
-        ))}
-        <div
-          ref={indicatorRef}
-          className="absolute bottom-0 h-px bg-foreground"
-          style={{ opacity: 0, width: 0 }}
-        />
+      <div className="mb-2 overflow-x-auto">
+        <div className="relative inline-flex min-w-max gap-8 border-b border-border pr-4">
+          {TABS.map((tab, i) => (
+            <button
+              key={tab}
+              ref={el => { tabRefs.current[i] = el }}
+              onClick={() => switchTab(tab)}
+              className="shrink-0 pb-3 text-sm transition-colors duration-200"
+              style={{
+                fontFamily: 'var(--font-inter)',
+                color: activeTab === tab ? 'var(--foreground)' : 'var(--muted-foreground)',
+              }}
+            >
+              {tab}
+            </button>
+          ))}
+          <div
+            ref={indicatorRef}
+            className="absolute bottom-0 h-px bg-foreground"
+            style={{ opacity: 0, width: 0 }}
+          />
+        </div>
       </div>
 
       {/* Content + Pagination pinned together */}
