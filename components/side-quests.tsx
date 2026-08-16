@@ -36,71 +36,78 @@ const quests: Quest[] = [
   },
 ]
 
+function getQuestCardClassName(index: number) {
+  switch (index) {
+    case 0:
+      return 'lg:col-span-3 lg:row-span-2'
+    case 1:
+      return 'lg:col-span-3 lg:row-span-1'
+    case 2:
+      return 'lg:col-span-2 lg:row-span-1'
+    default:
+      return 'lg:col-span-1 lg:row-span-1'
+  }
+}
+
 function QuestRow({ quest, index }: { quest: Quest; index: number }) {
   const { ref, inView } = useInView(0.1)
 
   return (
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
-      className="flex flex-col gap-2 py-8 lg:flex-row lg:gap-10 lg:py-10"
+      className={`rounded-[2rem] border border-border bg-background/70 p-6 backdrop-blur-sm sm:p-7 lg:p-8 ${getQuestCardClassName(index)}`}
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? 'translateY(0)' : 'translateY(24px)',
         transition: `opacity 700ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 60}ms, transform 700ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 60}ms`,
       }}
     >
-      <div className="lg:w-52 lg:shrink-0">
+      <div className="flex h-full flex-col gap-6">
         <p
-          className="text-xl leading-snug text-foreground lg:text-2xl"
+          className="text-2xl leading-snug text-foreground lg:text-3xl"
           style={{ fontFamily: 'var(--font-instrument-serif)' }}
         >
           {quest.name}
         </p>
-      </div>
 
-      <div className="lg:pt-0.5">
         {quest.links && (
-          <div className="flex flex-col gap-3 lg:flex-row lg:gap-12">
-            {quest.links.map(link => (
-              <div key={link.href} className="flex items-center gap-2">
-                <span className="h-1 w-1 shrink-0 rounded-full bg-foreground/30" />
-                <span className="text-sm text-foreground/50" style={{ fontFamily: 'var(--font-inter)' }}>
-                  {link.name && <>{link.name} (</>}
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <a
-                          href={link.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-0.5 font-medium underline underline-offset-2 text-muted-foreground transition-colors duration-200 hover:text-foreground"
-                        >
-                          {link.label}<ArrowUpRight size={10} />
-                        </a>
-                      </TooltipTrigger>
-                      <TooltipContent side="bottom">
-                        {link.name ? `${link.name} ${link.label}` : link.label}
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                  {link.name && <>)</>}
-                </span>
+          <div className="flex flex-col gap-2 text-sm text-foreground/50 lg:flex-row lg:flex-wrap lg:items-center lg:gap-y-2" style={{ fontFamily: 'var(--font-inter)' }}>
+            {quest.links.map((link, index) => (
+              <div key={link.href} className="inline-flex items-center">
+                {index > 0 && <span className="hidden px-2 text-foreground/25 lg:inline">|</span>}
+                {link.name && <span className="mr-1">{link.name}</span>}
+                {link.name && <span className="mr-1 text-foreground/30">/</span>}
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-0.5 font-medium underline underline-offset-2 text-muted-foreground transition-colors duration-200 hover:text-foreground"
+                      >
+                        {link.label}<ArrowUpRight size={10} />
+                      </a>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom">
+                      {link.name ? `${link.name} ${link.label}` : link.label}
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
             ))}
           </div>
         )}
 
         {quest.items && (
-          <div className="grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-x-12 lg:gap-y-3">
-            {quest.items.map(item => (
-              <div key={item} className="flex items-center gap-2">
-                <span className="h-1 w-1 shrink-0 rounded-full bg-foreground/30" />
-                <span
-                  className="text-sm text-foreground/50"
-                  style={{ fontFamily: 'var(--font-inter)' }}
-                >
-                  {item}
-                </span>
+          <div
+            className="flex flex-col gap-2 text-sm text-foreground/50 lg:flex-row lg:flex-wrap lg:items-center lg:gap-y-2"
+            style={{ fontFamily: 'var(--font-inter)' }}
+          >
+            {quest.items.map((item, index) => (
+              <div key={item} className="inline-flex items-center">
+                {index > 0 && <span className="hidden px-2 text-foreground/25 lg:inline">|</span>}
+                <span>{item}</span>
               </div>
             ))}
           </div>
@@ -128,7 +135,7 @@ export default function SideQuests() {
         Side Quests
       </h2>
 
-      <div className="divide-y divide-border">
+      <div className="grid grid-cols-1 gap-4 lg:auto-rows-[minmax(12rem,auto)] lg:grid-cols-6">
         {quests.map((quest, i) => (
           <QuestRow key={quest.name} quest={quest} index={i} />
         ))}
