@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, DM_Sans, Unbounded } from "next/font/google";
+import { DM_Sans, Unbounded } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
-
-const spaceGrotesk = Space_Grotesk({
-  weight: ['400', '500', '600', '700'],
-  subsets: ['latin'],
-  variable: '--font-space-grotesk',
-})
 
 const dmSans = DM_Sans({
   weight: ['300', '400', '500', '600', '700'],
@@ -46,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${dmSans.variable} ${unbounded.variable}`}>
+    <html lang="en" className={`${dmSans.variable} ${unbounded.variable}`}>
       <body className="font-sans antialiased">
         <TooltipProvider>{children}</TooltipProvider>
       </body>
