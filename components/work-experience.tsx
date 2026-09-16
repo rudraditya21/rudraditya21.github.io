@@ -2,7 +2,6 @@
 
 import { useInView } from '@/hooks/use-in-view'
 import { ArrowUpRight } from '@phosphor-icons/react'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -94,51 +93,38 @@ function JobEntry({ job, index }: { job: Job; index: number }) {
   return (
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
-      className="flex flex-col gap-2 py-8 lg:flex-row lg:gap-10 lg:py-10"
+      className="py-8 lg:py-10"
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? 'translateY(0)' : 'translateY(24px)',
         transition: `opacity 700ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 60}ms, transform 700ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 60}ms`,
       }}
     >
-      <div className="lg:w-52 lg:shrink-0">
+      <div className="flex items-center justify-between gap-6">
         <p className="text-xl leading-snug text-foreground lg:text-2xl" style={{ fontFamily: 'var(--font-unbounded)' }}>
           {job.company}
         </p>
-        <p className="mt-0.5 text-sm text-foreground/70" style={{ fontFamily: 'var(--font-inter)' }}>
-          {job.role}
-        </p>
-        <p className="mt-0.5 text-xs text-muted-foreground" style={{ fontFamily: 'var(--font-inter)' }}>
-          {job.location}
-        </p>
-        <p className="text-xs text-muted-foreground" style={{ fontFamily: 'var(--font-inter)' }}>
-          {period(job.start, job.end)}
-        </p>
         {job.href && (
-          <div className="mt-2">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <a
-                    href={job.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-0.5 text-xs font-medium uppercase tracking-wider underline underline-offset-2 text-muted-foreground transition-colors duration-200 hover:text-foreground"
-                    style={{ fontFamily: 'var(--font-unbounded)' }}
-                  >
-                    Visit<ArrowUpRight size={10} />
-                  </a>
-                </TooltipTrigger>
-                <TooltipContent side="right">
-                  Visit Website
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
+          <a
+            href={job.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex shrink-0 items-center gap-0.5 text-xs font-medium uppercase tracking-wider text-foreground/60 underline underline-offset-2 transition-colors duration-200 hover:text-foreground"
+            style={{ fontFamily: 'var(--font-inter)' }}
+          >
+            Website<ArrowUpRight size={10} />
+          </a>
         )}
       </div>
 
-      <ul className="flex flex-col gap-2 lg:pt-0.5" style={{ fontFamily: 'var(--font-inter)' }}>
+      <div className="mt-3" style={{ fontFamily: 'var(--font-inter)' }}>
+        <p className="text-sm text-foreground/75">
+          {job.role} <span className="text-foreground/40">— {period(job.start, job.end)}</span>
+        </p>
+        <p className="mt-1 text-xs text-muted-foreground">{job.location}</p>
+      </div>
+
+      <ul className="mt-6 flex flex-col gap-2" style={{ fontFamily: 'var(--font-inter)' }}>
         {job.description.map((point, i) => (
           <li key={i} className="flex items-start gap-2 text-sm leading-relaxed text-foreground/50">
             <span className="mt-2.25 h-1 w-1 shrink-0 rounded-full bg-foreground/30" />
