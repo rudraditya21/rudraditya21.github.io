@@ -147,37 +147,54 @@ const data: Record<Tab, Project[]> = {
   ],
 }
 
-function ProjectRow({ project }: { project: Project }) {
+function ProjectCard({ project }: { project: Project }) {
   return (
-    <div className="flex flex-col gap-2 py-8 lg:flex-row lg:gap-10 lg:py-10">
-      <div className="lg:w-52 lg:shrink-0">
+    <article className="group flex min-h-56 flex-col rounded-2xl border border-border p-6 transition-colors duration-300 hover:bg-foreground sm:p-7">
+      <div className="flex items-start justify-between gap-4">
         <p
-          className="text-xl leading-snug text-foreground lg:text-2xl"
+          className="text-lg leading-snug text-foreground transition-colors duration-300 group-hover:text-background sm:text-xl"
           style={{ fontFamily: 'var(--font-unbounded)' }}
         >
           {project.name}
         </p>
-        <div className="mt-2 flex items-center gap-3 text-muted-foreground">
+        <div className="flex shrink-0 items-center gap-2">
           {project.github && (
-            <Link className="text-md border border-border py-1 px-1 rounded-2xl bg-foreground text-background" href={project.github} target='_blank'><GithubLogoIcon /></Link>
+            <Link
+              className="text-foreground/60 transition-colors duration-300 hover:text-foreground group-hover:text-background/75 group-hover:hover:text-background"
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${project.name} on GitHub`}
+            >
+              <GithubLogoIcon size={20} />
+            </Link>
           )}
           {project.live && (
-            <Link className="text-md border border-border py-1 px-1 rounded-2xl bg-foreground text-background" href={project.live} target='_blank'><BrowserIcon /></Link>
+            <Link
+              className="text-foreground/60 transition-colors duration-300 hover:text-foreground group-hover:text-background/75 group-hover:hover:text-background"
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Visit ${project.name}`}
+            >
+              <BrowserIcon size={20} />
+            </Link>
           )}
         </div>
       </div>
 
-      <div className="flex flex-col gap-1.5 lg:pt-0.5">
-        <p className="text-sm leading-relaxed text-foreground" style={{ fontFamily: 'var(--font-inter)' }}>
-          {project.description}
-        </p>
-        <p className="text-xs text-foreground/60 space-x-4" style={{ fontFamily: 'var(--font-inter)' }}>
-          {project.stack.map((tech) => (
-            <span key={tech}>{`#${tech}`}</span>
-          ))}
-        </p>
+      <p className="mt-6 flex-1 text-sm leading-relaxed text-foreground/60 transition-colors duration-300 group-hover:text-background/75" style={{ fontFamily: 'var(--font-inter)' }}>
+        {project.description}
+      </p>
+
+      <div className="mt-6 flex flex-wrap gap-2" style={{ fontFamily: 'var(--font-inter)' }}>
+        {project.stack.map((tech) => (
+          <span key={tech} className="rounded-full border border-border px-2.5 py-1 text-xs text-foreground/65 transition-colors duration-300 group-hover:border-background/30 group-hover:text-background/80">
+            {tech}
+          </span>
+        ))}
       </div>
-    </div >
+    </article>
   )
 }
 
@@ -272,13 +289,13 @@ export default function Projects() {
 
       {/* Tab bar */}
       <div className="mb-2 overflow-x-auto">
-        <div className="relative inline-flex min-w-max gap-8 border-b border-border pr-4">
+        <div className="relative inline-flex min-w-max gap-8">
           {TABS.map((tab, i) => (
             <button
               key={tab}
               ref={el => { tabRefs.current[i] = el }}
               onClick={() => switchTab(tab)}
-              className="shrink-0 pb-3 text-sm transition-colors duration-200"
+              className="relative z-10 shrink-0 py-2 text-left text-sm transition-colors duration-200"
               style={{
                 fontFamily: 'var(--font-inter)',
                 color: activeTab === tab ? 'var(--foreground)' : 'var(--muted-foreground)',
@@ -297,9 +314,9 @@ export default function Projects() {
 
       {/* Content + Pagination pinned together */}
       <div className="flex min-h-128 flex-col">
-        <div ref={contentRef} className="divide-y divide-border">
+        <div ref={contentRef} className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {paged.map(project => (
-            <ProjectRow key={project.name} project={project} />
+            <ProjectCard key={project.name} project={project} />
           ))}
         </div>
 
