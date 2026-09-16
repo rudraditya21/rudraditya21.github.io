@@ -6,7 +6,6 @@ import WorkExperience from '@/components/work-experience'
 import Education from '@/components/education'
 import Socials from '@/components/socials'
 import Interests from '@/components/interests'
-import HamburgerMenu from '@/components/hamburger-menu'
 import ThemeToggle from '@/components/theme-toggle'
 import Projects from '@/components/projects'
 import SideQuests from '@/components/side-quests'
@@ -14,18 +13,6 @@ import Writing from '@/components/writing'
 import Publications from '@/components/publications'
 import Tools from '@/components/tools'
 import CommandPalette from '@/components/command-palette'
-
-const navItems = [
-  { label: 'About',             id: 'about' },
-  { label: 'Projects',          id: 'projects' },
-  { label: 'Work Experience',   id: 'experience' },
-  { label: 'Education',         id: 'education' },
-  { label: 'Publications',      id: 'publications' },
-  { label: 'Areas of Interest', id: 'interests' },
-  { label: 'Tools & Tech',      id: 'tools' },
-  { label: 'Side Quests',       id: 'quests' },
-  { label: 'Blogs',             id: 'writing' },
-]
 
 const EMAIL = 'mr.rudradityathakur@gmail.com'
 
@@ -49,7 +36,6 @@ function Toast({ visible }: { visible: boolean }) {
 export default function Home() {
   const [loaded, setLoaded] = useState(false)
   const [show, setShow] = useState(false)
-  const [activeSection, setActiveSection] = useState('about')
   const [scrollProgress, setScrollProgress] = useState(0)
   const [toastVisible, setToastVisible] = useState(false)
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -82,21 +68,6 @@ export default function Home() {
     return () => clearTimeout(t)
   }, [loaded])
 
-  useEffect(() => {
-    if (!loaded) return
-    const observers = navItems.map(({ id }) => {
-      const el = document.getElementById(id)
-      if (!el) return null
-      const observer = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveSection(id) },
-        { threshold: 0, rootMargin: '0px 0px -60% 0px' }
-      )
-      observer.observe(el)
-      return observer
-    })
-    return () => observers.forEach(o => o?.disconnect())
-  }, [loaded])
-
   const fadeUp = (delay: number): React.CSSProperties => ({
     opacity: show ? 1 : 0,
     transform: show ? 'translateY(0)' : 'translateY(28px)',
@@ -112,33 +83,6 @@ export default function Home() {
         className="fixed left-0 top-0 z-50 h-0.5 bg-foreground"
         style={{ width: `${scrollProgress * 100}%` }}
       />
-
-      {/* Fixed left sidebar */}
-      <aside className="fixed left-0 top-0 z-40 hidden h-screen w-56 flex-col lg:flex">
-        <nav className="my-auto flex flex-col gap-5 px-8">
-          {navItems.map(({ label, id }) => {
-            const active = activeSection === id
-            return (
-              <a
-                key={id}
-                href={`#${id}`}
-                className="flex items-center gap-3 text-lg transition-colors duration-200"
-                style={{
-                  fontFamily: 'var(--font-unbounded)',
-                  color: active ? 'var(--foreground)' : 'var(--muted-foreground)',
-                  fontWeight: 400,
-                }}
-              >
-                <span
-                  className="h-px shrink-0 bg-current transition-all duration-300"
-                  style={{ width: active ? 28 : 14 }}
-                />
-                {label}
-              </a>
-            )
-          })}
-        </nav>
-      </aside>
 
       {/* Fixed top-right: Get in Touch + Socials — lg only */}
       <div className="fixed right-24 top-8 z-40 hidden items-center gap-3 lg:flex">
@@ -170,7 +114,7 @@ export default function Home() {
       </div>
 
       {/* Main content */}
-      <div className="lg:ml-56">
+      <div>
         <section id="about" className="flex min-h-svh items-center px-12 py-20">
           <div>
             <h1
@@ -187,7 +131,6 @@ export default function Home() {
             >
               Turning <span className="relative inline-block">caffeine
                 <svg className="pointer-events-none absolute -bottom-[0.55em] -left-[4%] h-[0.52em] w-[110%] text-foreground/75" viewBox="0 0 100 20" fill="none" preserveAspectRatio="none" aria-hidden="true">
-                  <path d="M3 6C20 2 34 8 51 4s29 1 46-2" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" />
                   <path d="M7 15c18-4 33 1 48-2s27 1 40-3" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
                 </svg>
               </span> into <span className="relative inline-block">products
@@ -224,7 +167,6 @@ export default function Home() {
 
       <Toast visible={toastVisible} />
       <CommandPalette onCopyEmail={copyEmail} />
-      <HamburgerMenu show={show} onGetInTouch={copyEmail} />
       <ThemeToggle show={show} />
     </>
   )
