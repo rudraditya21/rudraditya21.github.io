@@ -1,6 +1,5 @@
 'use client'
 
-import { useInView } from '@/hooks/use-in-view'
 import { ArrowUpRight } from '@phosphor-icons/react'
 
 type Publication = {
@@ -24,18 +23,8 @@ const publications: Publication[] = [
 ]
 
 function FeaturedPublication({ pub }: { pub: Publication }) {
-  const { ref, inView } = useInView(0.1)
-
   return (
-    <article
-      ref={ref as React.RefObject<HTMLDivElement>}
-      className="rounded-2xl border border-border p-6 sm:p-8"
-      style={{
-        opacity: inView ? 1 : 0,
-        transform: inView ? 'translateY(0)' : 'translateY(24px)',
-        transition: 'opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)',
-      }}
-    >
+    <article className="rounded-2xl border border-border p-6 sm:p-8">
       <h3 className="text-lg leading-snug text-foreground sm:text-xl" style={{ fontFamily: 'var(--font-unbounded)' }}>
         {pub.title}
       </h3>
@@ -82,20 +71,13 @@ function PublicationIndexRow({ pub }: { pub: Publication }) {
 }
 
 export default function Publications() {
-  const { ref, inView } = useInView(0.15)
   const [featured, ...index] = publications
 
   return (
     <section className="px-12 py-16 md:py-24">
       <h2
-        ref={ref as React.RefObject<HTMLHeadingElement>}
         className="mb-10 whitespace-nowrap leading-[0.88] tracking-tight text-[clamp(1.15rem,calc((100vw-20rem)/18),3rem)]"
-        style={{
-          fontFamily: 'var(--font-unbounded)',
-          opacity: inView ? 1 : 0,
-          transform: inView ? 'translateY(0)' : 'translateY(20px)',
-          transition: 'opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)',
-        }}
+        style={{ fontFamily: 'var(--font-unbounded)' }}
       >
         Publications
       </h2>

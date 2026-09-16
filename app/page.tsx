@@ -38,7 +38,6 @@ function Toast({ visible }: { visible: boolean }) {
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false)
-  const [show, setShow] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
   const [toastVisible, setToastVisible] = useState(false)
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -60,18 +59,6 @@ export default function Home() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  useEffect(() => {
-    if (!loaded) return
-    const t = setTimeout(() => setShow(true), 80)
-    return () => clearTimeout(t)
-  }, [loaded])
-
-  const fadeUp = (delay: number): React.CSSProperties => ({
-    opacity: show ? 1 : 0,
-    transform: show ? 'translateY(0)' : 'translateY(28px)',
-    transition: `opacity 900ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, transform 900ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
-  })
-
   return (
     <>
       {!loaded && <LoadingScreen onComplete={() => setLoaded(true)} />}
@@ -90,13 +77,12 @@ export default function Home() {
               className="mb-6 whitespace-nowrap leading-[0.88] tracking-tight text-[clamp(1.15rem,calc((100vw-20rem)/18),3rem)]"
               style={{ fontFamily: 'var(--font-unbounded)' }}
             >
-              <span style={fadeUp(0)}>Rudraditya</span>{' '}
-              <span style={fadeUp(130)}>Thakur</span>
+              Rudraditya Thakur
             </h1>
 
             <p
               className="text-base leading-relaxed text-foreground/60"
-              style={{ fontFamily: 'var(--font-inter)', ...fadeUp(260) }}
+              style={{ fontFamily: 'var(--font-inter)' }}
             >
               Turning <span className="relative inline-block">caffeine
                 <svg className="pointer-events-none absolute -bottom-[0.55em] -left-[4%] h-[0.52em] w-[110%] text-foreground/75" viewBox="0 0 100 20" fill="none" preserveAspectRatio="none" aria-hidden="true">
@@ -109,9 +95,9 @@ export default function Home() {
                 </svg>
               </span>.
               <br /><br />
-              I'm drawn to the hard parts of computing — the parts where you have to understand the hardware, the protocol, or the math to get it right. I work across systems programming, compiler design, blockchain internals, and security, with a published research background in deep learning.
+              I&apos;m drawn to the hard parts of computing — the parts where you have to understand the hardware, the protocol, or the math to get it right. I work across systems programming, compiler design, blockchain internals, and security, with a published research background in deep learning.
             </p>
-            <div className="mt-14 grid grid-cols-1 gap-4 lg:grid-cols-2" style={fadeUp(480)}>
+            <div className="mt-14 grid grid-cols-1 gap-4 lg:grid-cols-2">
               <section className="rounded-2xl bg-foreground p-6 text-background sm:p-8">
                 <h2 className="text-xl tracking-tight sm:text-2xl" style={{ fontFamily: 'var(--font-unbounded)' }}>
                   Beyond the code
@@ -152,25 +138,25 @@ export default function Home() {
           >
             Contact
           </h2>
-          <div className="flex flex-col items-start gap-3">
-            <div className="w-fit rounded-full border border-border">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="w-full rounded-full border border-border sm:w-fit">
               <button
                 onClick={copyEmail}
-                className="rounded-full bg-background/70 px-4 py-2.5 text-sm text-foreground backdrop-blur-md transition-colors duration-200 hover:bg-foreground/8"
+                className="w-full rounded-full bg-background/70 px-4 py-2.5 text-sm text-foreground backdrop-blur-md transition-colors duration-200 hover:bg-foreground/8"
                 style={{ fontFamily: 'var(--font-inter)' }}
               >
                 Get in Touch
               </button>
             </div>
-            <div className="rounded-full border border-border bg-background/70 px-4 py-2.5 backdrop-blur-md">
-              <Socials show={show} bright />
+            <div className="flex w-full min-w-0 items-center justify-center rounded-full border border-border bg-background/70 px-2 py-2 backdrop-blur-md sm:w-fit sm:px-4 sm:py-2.5">
+              <Socials bright compactOnMobile />
             </div>
           </div>
         </section>
       </main>
 
       <Toast visible={toastVisible} />
-      <ThemeToggle show={show} />
+      <ThemeToggle />
     </>
   )
 }

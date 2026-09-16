@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
-import { useInView } from '@/hooks/use-in-view'
 import { GithubLogoIcon, BrowserIcon } from '@phosphor-icons/react'
 import Link from 'next/link'
 
@@ -206,7 +205,6 @@ export default function Projects() {
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([])
   const indicatorRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
-  const { ref: headingRef, inView } = useInView(0.15)
 
   useEffect(() => {
     const first = tabRefs.current[0]
@@ -275,14 +273,8 @@ export default function Projects() {
   return (
     <section className="px-12 py-16 md:py-24">
       <h2
-        ref={headingRef as React.RefObject<HTMLHeadingElement>}
         className="mb-10 whitespace-nowrap leading-[0.88] tracking-tight text-[clamp(1.15rem,calc((100vw-20rem)/18),3rem)]"
-        style={{
-          fontFamily: 'var(--font-unbounded)',
-          opacity: inView ? 1 : 0,
-          transform: inView ? 'translateY(0)' : 'translateY(20px)',
-          transition: 'opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)',
-        }}
+        style={{ fontFamily: 'var(--font-unbounded)' }}
       >
         Projects
       </h2>

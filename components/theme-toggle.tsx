@@ -5,7 +5,7 @@ import gsap from 'gsap'
 import { Sun, Moon } from '@phosphor-icons/react'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
-export default function ThemeToggle({ show }: { show: boolean }) {
+export default function ThemeToggle() {
   const [dark, setDark] = useState(false)
   const sunRef  = useRef<HTMLDivElement>(null)
   const moonRef = useRef<HTMLDivElement>(null)
@@ -60,12 +60,7 @@ export default function ThemeToggle({ show }: { show: boolean }) {
       <Tooltip>
         <div
           className="fixed bottom-8 right-6 z-40 rounded-full p-px"
-          style={{
-            background: 'linear-gradient(to bottom, transparent 50%, var(--border) 50%)',
-            opacity:       show ? 1 : 0,
-            pointerEvents: show ? 'auto' : 'none',
-            transition:    'opacity 600ms ease',
-          }}
+          style={{ background: 'linear-gradient(to bottom, transparent 50%, var(--border) 50%)' }}
         >
           <TooltipTrigger asChild>
             <button

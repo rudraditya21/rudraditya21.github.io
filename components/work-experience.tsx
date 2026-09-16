@@ -1,6 +1,5 @@
 'use client'
 
-import { useInView } from '@/hooks/use-in-view'
 import { ArrowUpRight } from '@phosphor-icons/react'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -87,19 +86,9 @@ const jobs: Job[] = [
   },
 ]
 
-function JobEntry({ job, index }: { job: Job; index: number }) {
-  const { ref, inView } = useInView(0.1)
-
+function JobEntry({ job }: { job: Job }) {
   return (
-    <div
-      ref={ref as React.RefObject<HTMLDivElement>}
-      className="py-8 lg:py-10"
-      style={{
-        opacity: inView ? 1 : 0,
-        transform: inView ? 'translateY(0)' : 'translateY(24px)',
-        transition: `opacity 700ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 60}ms, transform 700ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 60}ms`,
-      }}
-    >
+    <div className="py-8 lg:py-10">
       <div className="flex items-center justify-between gap-6">
         <p className="text-xl leading-snug text-foreground lg:text-2xl" style={{ fontFamily: 'var(--font-unbounded)' }}>
           {job.company}
@@ -137,26 +126,18 @@ function JobEntry({ job, index }: { job: Job; index: number }) {
 }
 
 export default function WorkExperience() {
-  const { ref, inView } = useInView(0.15)
-
   return (
     <section className="px-12 py-16 md:py-24">
       <h2
-        ref={ref as React.RefObject<HTMLHeadingElement>}
         className="mb-10 whitespace-nowrap leading-[0.88] tracking-tight text-[clamp(1.15rem,calc((100vw-20rem)/18),3rem)]"
-        style={{
-          fontFamily: 'var(--font-unbounded)',
-          opacity: inView ? 1 : 0,
-          transform: inView ? 'translateY(0)' : 'translateY(20px)',
-          transition: 'opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)',
-        }}
+        style={{ fontFamily: 'var(--font-unbounded)' }}
       >
         Work Experience
       </h2>
 
       <div className="divide-y divide-border">
-        {jobs.map((job, i) => (
-          <JobEntry key={job.company} job={job} index={i} />
+        {jobs.map((job) => (
+          <JobEntry key={job.company} job={job} />
         ))}
       </div>
     </section>

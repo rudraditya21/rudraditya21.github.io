@@ -1,7 +1,5 @@
 'use client'
 
-import { useInView } from '@/hooks/use-in-view'
-
 type School = {
   institution: string
   degree: string
@@ -21,19 +19,9 @@ const schools: School[] = [
   },
 ]
 
-function SchoolEntry({ school, index }: { school: School; index: number }) {
-  const { ref, inView } = useInView(0.1)
-
+function SchoolEntry({ school }: { school: School }) {
   return (
-    <div
-      ref={ref as React.RefObject<HTMLDivElement>}
-      className="py-8 lg:py-10"
-      style={{
-        opacity: inView ? 1 : 0,
-        transform: inView ? 'translateY(0)' : 'translateY(32px)',
-        transition: `opacity 800ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 100}ms, transform 800ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 100}ms`,
-      }}
-    >
+    <div className="py-8 lg:py-10">
       <div className="flex flex-col gap-1">
         <p className="text-xl leading-snug text-foreground sm:text-2xl" style={{ fontFamily: 'var(--font-unbounded)' }}>
           {school.institution}
@@ -51,26 +39,18 @@ function SchoolEntry({ school, index }: { school: School; index: number }) {
 }
 
 export default function Education() {
-  const { ref, inView } = useInView(0.15)
-
   return (
     <section className="px-12 py-16 md:py-24">
       <h2
-        ref={ref as React.RefObject<HTMLHeadingElement>}
         className="mb-10 whitespace-nowrap leading-[0.88] tracking-tight text-[clamp(1.15rem,calc((100vw-20rem)/18),3rem)]"
-        style={{
-          fontFamily: 'var(--font-unbounded)',
-          opacity: inView ? 1 : 0,
-          transform: inView ? 'translateY(0)' : 'translateY(20px)',
-          transition: 'opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)',
-        }}
+        style={{ fontFamily: 'var(--font-unbounded)' }}
       >
         Education
       </h2>
 
       <div className="divide-y divide-border">
-        {schools.map((school, i) => (
-          <SchoolEntry key={school.institution} school={school} index={i} />
+        {schools.map((school) => (
+          <SchoolEntry key={school.institution} school={school} />
         ))}
       </div>
     </section>

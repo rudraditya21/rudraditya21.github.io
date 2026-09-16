@@ -60,15 +60,10 @@ function KaggleIcon({ size = 20 }: { size?: number }) {
   )
 }
 
-export default function Socials({ show, bright = false }: { show: boolean; bright?: boolean }) {
+export default function Socials({ bright = false, compactOnMobile = false }: { bright?: boolean; compactOnMobile?: boolean }) {
   return (
     <div
-      className="flex items-center gap-5"
-      style={{
-        opacity: show ? 1 : 0,
-        transform: show ? 'translateY(0)' : 'translateY(16px)',
-        transition: 'opacity 900ms cubic-bezier(0.16, 1, 0.3, 1) 480ms, transform 900ms cubic-bezier(0.16, 1, 0.3, 1) 480ms',
-      }}
+      className={`flex items-center ${compactOnMobile ? 'justify-center gap-3 [&_svg]:h-4 [&_svg]:w-4 sm:gap-5 sm:[&_svg]:h-5 sm:[&_svg]:w-5' : 'gap-5'}`}
     >
       <MagneticIcon href={socials.github}   label="GitHub"   className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><GithubIcon size={20} /></MagneticIcon>
       <MagneticIcon href={socials.linkedin} label="LinkedIn" className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><LinkedinIcon size={20} /></MagneticIcon>
