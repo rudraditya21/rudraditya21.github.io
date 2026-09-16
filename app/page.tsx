@@ -8,7 +8,6 @@ import Socials from '@/components/socials'
 import Interests from '@/components/interests'
 import ThemeToggle from '@/components/theme-toggle'
 import Projects from '@/components/projects'
-import SideQuests from '@/components/side-quests'
 import Writing from '@/components/writing'
 import Publications from '@/components/publications'
 import Tools from '@/components/tools'
@@ -119,10 +118,22 @@ export default function Home() {
                   </button>
                 </div>
                 <div className="rounded-full border border-border bg-background/70 px-4 py-2.5 backdrop-blur-md">
-                  <Socials show={show} bright />
-                </div>
+                <Socials show={show} bright />
               </div>
             </div>
+            <div className="mt-14" style={fadeUp(480)}>
+              <h2 className="text-xl tracking-tight text-foreground sm:text-2xl" style={{ fontFamily: 'var(--font-unbounded)' }}>
+                Beyond the code
+              </h2>
+              <div className="mt-4 flex flex-wrap gap-2.5" style={{ fontFamily: 'var(--font-inter)' }}>
+                {['Chess', 'Language learning', 'Open source', 'Guitar & piano'].map((interest) => (
+                  <span key={interest} className="rounded-full border border-border px-3 py-1.5 text-sm text-foreground/70">
+                    {interest}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
           </div>
         </section>
 
@@ -133,8 +144,6 @@ export default function Home() {
         <div id="education"><Education /></div>
         <div id="interests"><Interests /></div>
         <div id="writing"><Writing /></div>
-        <div id="quests"><SideQuests /></div>
-
       </main>
 
       <Toast visible={toastVisible} />
