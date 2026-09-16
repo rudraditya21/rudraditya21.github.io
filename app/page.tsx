@@ -208,7 +208,7 @@ export default function Home() {
                 href={`#${id}`}
                 className="flex items-center gap-3 text-lg transition-colors duration-200"
                 style={{
-                  fontFamily: 'var(--font-instrument-serif)',
+                  fontFamily: 'var(--font-unbounded)',
                   color: active ? 'var(--foreground)' : 'var(--muted-foreground)',
                   fontWeight: 400,
                 }}
@@ -262,7 +262,7 @@ export default function Home() {
             </div>
             <h1
               className="mb-6 leading-[0.88] tracking-tight text-[3rem] sm:text-[4rem] md:text-[6rem] lg:text-[clamp(7rem,10vw,10rem)]"
-              style={{ fontFamily: 'var(--font-instrument-serif)' }}
+              style={{ fontFamily: 'var(--font-unbounded)' }}
             >
               <span className="block" style={fadeUp(0)}>Rudraditya</span>
               <span className="block" style={fadeUp(130)}>Thakur</span>

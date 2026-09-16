@@ -112,7 +112,7 @@ export default function HamburgerMenu({ show, onGetInTouch }: { show: boolean; o
               href={`#${id}`}
               onClick={e => { e.preventDefault(); navigate(id) }}
               className="py-2 text-xl leading-none text-foreground/60 transition-colors duration-200 hover:text-foreground sm:py-2.5 sm:text-2xl lg:py-3 lg:text-2xl"
-              style={{ fontFamily: 'var(--font-instrument-serif)' }}
+              style={{ fontFamily: 'var(--font-unbounded)' }}
             >
               {label}
             </a>

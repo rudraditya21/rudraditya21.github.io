@@ -19,7 +19,7 @@ function PostRow({ post, index }: { post: typeof posts[0]; index: number }) {
     >
       <p
         className="flex-1 text-xl leading-snug text-foreground lg:text-2xl"
-        style={{ fontFamily: 'var(--font-instrument-serif)' }}
+        style={{ fontFamily: 'var(--font-unbounded)' }}
       >
         {post.title}
       </p>
@@ -46,7 +46,7 @@ export default function Writing() {
         ref={ref as React.RefObject<HTMLHeadingElement>}
         className="mb-10 text-5xl tracking-tight"
         style={{
-          fontFamily: 'var(--font-instrument-serif)',
+          fontFamily: 'var(--font-unbounded)',
           opacity: inView ? 1 : 0,
           transform: inView ? 'translateY(0)' : 'translateY(20px)',
           transition: 'opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)',
@@ -67,7 +67,7 @@ export default function Writing() {
           target="_blank"
           rel="noopener noreferrer"
           className="group inline-flex items-center text-xl leading-snug text-foreground underline underline-offset-4 lg:text-2xl"
-          style={{ fontFamily: 'var(--font-instrument-serif)' }}
+          style={{ fontFamily: 'var(--font-unbounded)' }}
         >
           More on Medium
           <ArrowRight

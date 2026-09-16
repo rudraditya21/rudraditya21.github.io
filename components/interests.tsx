@@ -68,7 +68,7 @@ function InterestRow({ item, index }: { item: typeof interests[0]; index: number
       <div className="lg:w-52 lg:shrink-0">
         <p
           className="text-xl leading-snug text-foreground lg:text-2xl"
-          style={{ fontFamily: 'var(--font-instrument-serif)' }}
+          style={{ fontFamily: 'var(--font-unbounded)' }}
         >
           {item.domain}
         </p>
@@ -94,7 +94,7 @@ export default function Interests() {
         ref={ref as React.RefObject<HTMLHeadingElement>}
         className="mb-10 text-5xl tracking-tight"
         style={{
-          fontFamily: 'var(--font-instrument-serif)',
+          fontFamily: 'var(--font-unbounded)',
           opacity: inView ? 1 : 0,
           transform: inView ? 'translateY(0)' : 'translateY(20px)',
           transition: 'opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)',

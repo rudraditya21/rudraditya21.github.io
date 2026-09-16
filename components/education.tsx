@@ -38,7 +38,7 @@ function SchoolEntry({ school, index }: { school: School; index: number }) {
       }}
     >
       <div className="flex flex-col gap-0.5">
-        <p className="text-xl leading-snug text-foreground lg:text-2xl" style={{ fontFamily: 'var(--font-instrument-serif)' }}>
+        <p className="text-xl leading-snug text-foreground lg:text-2xl" style={{ fontFamily: 'var(--font-unbounded)' }}>
           {school.institution}
         </p>
         <p className="text-sm text-foreground/70" style={{ fontFamily: 'var(--font-inter)' }}>
@@ -62,7 +62,7 @@ export default function Education() {
         ref={ref as React.RefObject<HTMLHeadingElement>}
         className="mb-10 text-5xl tracking-tight"
         style={{
-          fontFamily: 'var(--font-instrument-serif)',
+          fontFamily: 'var(--font-unbounded)',
           opacity: inView ? 1 : 0,
           transform: inView ? 'translateY(0)' : 'translateY(20px)',
           transition: 'opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)',

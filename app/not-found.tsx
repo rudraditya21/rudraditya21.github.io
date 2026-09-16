@@ -5,7 +5,7 @@ export default function NotFound() {
     <div className="flex min-h-svh flex-col items-center justify-center px-12 text-center">
       <h1
         className="mb-4 text-[10rem] leading-none tracking-tight text-foreground"
-        style={{ fontFamily: 'var(--font-instrument-serif)' }}
+        style={{ fontFamily: 'var(--font-unbounded)' }}
       >
         404
       </h1>

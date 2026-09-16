@@ -65,7 +65,7 @@ function QuestRow({ quest, index }: { quest: Quest; index: number }) {
       <div className="flex h-full flex-col gap-6">
         <p
           className="text-2xl leading-snug text-foreground lg:text-3xl"
-          style={{ fontFamily: 'var(--font-instrument-serif)' }}
+          style={{ fontFamily: 'var(--font-unbounded)' }}
         >
           {quest.name}
         </p>
@@ -126,7 +126,7 @@ export default function SideQuests() {
         ref={ref as React.RefObject<HTMLHeadingElement>}
         className="mb-10 text-6xl tracking-tight"
         style={{
-          fontFamily: 'var(--font-instrument-serif)',
+          fontFamily: 'var(--font-unbounded)',
           opacity: inView ? 1 : 0,
           transform: inView ? 'translateY(0)' : 'translateY(20px)',
           transition: 'opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)',
