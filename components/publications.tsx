@@ -2,7 +2,6 @@
 
 import { useInView } from '@/hooks/use-in-view'
 import { ArrowUpRight } from '@phosphor-icons/react'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
 type Publication = {
   title: string
@@ -24,73 +23,67 @@ const publications: Publication[] = [
   },
 ]
 
-function PublicationRow({ pub, index }: { pub: Publication; index: number }) {
+function FeaturedPublication({ pub }: { pub: Publication }) {
   const { ref, inView } = useInView(0.1)
 
   return (
-    <div
+    <article
       ref={ref as React.RefObject<HTMLDivElement>}
-      className="flex flex-col gap-2 py-8 lg:flex-row lg:gap-10 lg:py-10"
+      className="rounded-2xl border border-border p-6 sm:p-8"
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? 'translateY(0)' : 'translateY(24px)',
-        transition: `opacity 700ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 60}ms, transform 700ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 60}ms`,
+        transition: 'opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)',
       }}
     >
-      <div className="lg:w-52 lg:shrink-0">
-        <p className="text-xl leading-snug text-foreground lg:text-2xl" style={{ fontFamily: 'var(--font-unbounded)' }}>
-          {pub.publisher} – {pub.year}
+      <h3 className="text-lg leading-snug text-foreground sm:text-xl" style={{ fontFamily: 'var(--font-unbounded)' }}>
+        {pub.title}
+      </h3>
+      <p className="mt-3 text-sm text-foreground/60" style={{ fontFamily: 'var(--font-inter)' }}>
+        {pub.conference} · {pub.publisher}
+      </p>
+      <p className="mt-5 text-sm leading-relaxed text-foreground/60" style={{ fontFamily: 'var(--font-inter)' }}>
+        {pub.abstract}
+      </p>
+      {pub.href && (
+        <a
+          href={pub.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 inline-flex items-center gap-1 text-sm text-foreground underline underline-offset-4 transition-opacity duration-200 hover:opacity-60"
+          style={{ fontFamily: 'var(--font-inter)' }}
+        >
+          View paper<ArrowUpRight size={14} />
+        </a>
+      )}
+    </article>
+  )
+}
+
+function PublicationIndexRow({ pub }: { pub: Publication }) {
+  return (
+    <article className="flex flex-col gap-3 py-6 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+      <div>
+        <h3 className="text-base leading-snug text-foreground sm:text-lg" style={{ fontFamily: 'var(--font-unbounded)' }}>{pub.title}</h3>
+        <p className="mt-2 text-sm text-foreground/60" style={{ fontFamily: 'var(--font-inter)' }}>
+          {pub.conference} · {pub.publisher}
         </p>
+      </div>
+      <div className="flex shrink-0 items-center gap-4 text-sm" style={{ fontFamily: 'var(--font-inter)' }}>
+        <span className="text-foreground/50">{pub.year}</span>
         {pub.href && (
-          <div className="mt-2">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <a
-                    href={pub.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-0.5 text-xs font-medium uppercase tracking-wider underline underline-offset-2 text-muted-foreground transition-colors duration-200 hover:text-foreground"
-                    style={{ fontFamily: 'var(--font-unbounded)' }}
-                  >
-                    View Paper<ArrowUpRight size={10} />
-                  </a>
-                </TooltipTrigger>
-                <TooltipContent side="right">
-                  Read Publication
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
+          <a href={pub.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-foreground underline underline-offset-4">
+            Paper<ArrowUpRight size={14} />
+          </a>
         )}
       </div>
-
-      <div className="lg:pt-0.5">
-        <p
-          className="text-xl leading-snug text-foreground lg:text-2xl"
-          style={{ fontFamily: 'var(--font-unbounded)' }}
-        >
-          {pub.title}
-        </p>
-        <p
-          className="mt-1 text-xs text-muted-foreground"
-          style={{ fontFamily: 'var(--font-inter)' }}
-        >
-          {pub.conference}
-        </p>
-        <p
-          className="mt-3 text-sm leading-relaxed text-foreground/50"
-          style={{ fontFamily: 'var(--font-inter)' }}
-        >
-          {pub.abstract}
-        </p>
-      </div>
-    </div>
+    </article>
   )
 }
 
 export default function Publications() {
   const { ref, inView } = useInView(0.15)
+  const [featured, ...index] = publications
 
   return (
     <section className="px-12 py-16 md:py-24">
@@ -107,11 +100,18 @@ export default function Publications() {
         Publications
       </h2>
 
-      <div className="divide-y divide-border">
-        {publications.map((pub, i) => (
-          <PublicationRow key={pub.title} pub={pub} index={i} />
-        ))}
-      </div>
+      {featured && <FeaturedPublication pub={featured} />}
+
+      {index.length > 0 && (
+        <div className="mt-12">
+          <p className="text-xs font-medium uppercase tracking-wider text-foreground/45" style={{ fontFamily: 'var(--font-inter)' }}>
+            Research index
+          </p>
+          <div className="mt-4 divide-y divide-border">
+            {index.map((pub) => <PublicationIndexRow key={pub.title} pub={pub} />)}
+          </div>
+        </div>
+      )}
     </section>
   )
 }
