@@ -27,7 +27,7 @@ function SchoolEntry({ school, index }: { school: School; index: number }) {
   return (
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
-      className="rounded-2xl bg-foreground p-6 text-background sm:p-8"
+      className="py-8 lg:py-10"
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? 'translateY(0)' : 'translateY(32px)',
@@ -35,13 +35,13 @@ function SchoolEntry({ school, index }: { school: School; index: number }) {
       }}
     >
       <div className="flex flex-col gap-1">
-        <p className="text-xl leading-snug sm:text-2xl" style={{ fontFamily: 'var(--font-unbounded)' }}>
+        <p className="text-xl leading-snug text-foreground sm:text-2xl" style={{ fontFamily: 'var(--font-unbounded)' }}>
           {school.institution}
         </p>
-        <p className="text-sm text-background/80" style={{ fontFamily: 'var(--font-inter)' }}>
+        <p className="text-sm text-foreground/70" style={{ fontFamily: 'var(--font-inter)' }}>
           {school.degree}
         </p>
-        <p className="mt-1 text-xs text-background/60" style={{ fontFamily: 'var(--font-inter)' }}>
+        <p className="mt-1 text-xs text-muted-foreground" style={{ fontFamily: 'var(--font-inter)' }}>
           {school.period}
         </p>
 
@@ -68,7 +68,7 @@ export default function Education() {
         Education
       </h2>
 
-      <div className="grid grid-cols-1 gap-4">
+      <div className="divide-y divide-border">
         {schools.map((school, i) => (
           <SchoolEntry key={school.institution} school={school} index={i} />
         ))}
