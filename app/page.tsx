@@ -111,21 +111,6 @@ export default function Home() {
               <br /><br />
               I'm drawn to the hard parts of computing — the parts where you have to understand the hardware, the protocol, or the math to get it right. I work across systems programming, compiler design, blockchain internals, and security, with a published research background in deep learning.
             </p>
-            <div className="mt-6" style={fadeUp(390)}>
-              <div className="flex flex-wrap items-center gap-3">
-                <div className="w-fit rounded-full border border-border">
-                  <button
-                    onClick={copyEmail}
-                    className="rounded-full bg-background/70 px-4 py-2.5 text-sm text-foreground backdrop-blur-md transition-colors duration-200 hover:bg-foreground/8"
-                    style={{ fontFamily: 'var(--font-inter)' }}
-                  >
-                    Get in Touch
-                  </button>
-                </div>
-                <div className="rounded-full border border-border bg-background/70 px-4 py-2.5 backdrop-blur-md">
-                <Socials show={show} bright />
-              </div>
-            </div>
             <div className="mt-14 grid grid-cols-1 gap-4 lg:grid-cols-2" style={fadeUp(480)}>
               <section className="rounded-2xl bg-foreground p-6 text-background sm:p-8">
                 <h2 className="text-xl tracking-tight sm:text-2xl" style={{ fontFamily: 'var(--font-unbounded)' }}>
@@ -153,7 +138,6 @@ export default function Home() {
               </section>
             </div>
           </div>
-          </div>
         </section>
 
         <div id="experience"><WorkExperience /></div>
@@ -161,6 +145,28 @@ export default function Home() {
         <div id="publications"><Publications /></div>
         <div id="tools"><Tools /></div>
         <div id="education"><Education /></div>
+        <section id="contact" className="px-12 py-16 md:py-24">
+          <h2
+            className="mb-10 whitespace-nowrap leading-[0.88] tracking-tight text-[clamp(1.15rem,calc((100vw-20rem)/18),3rem)]"
+            style={{ fontFamily: 'var(--font-unbounded)' }}
+          >
+            Contact
+          </h2>
+          <div className="flex flex-col items-start gap-3">
+            <div className="w-fit rounded-full border border-border">
+              <button
+                onClick={copyEmail}
+                className="rounded-full bg-background/70 px-4 py-2.5 text-sm text-foreground backdrop-blur-md transition-colors duration-200 hover:bg-foreground/8"
+                style={{ fontFamily: 'var(--font-inter)' }}
+              >
+                Get in Touch
+              </button>
+            </div>
+            <div className="rounded-full border border-border bg-background/70 px-4 py-2.5 backdrop-blur-md">
+              <Socials show={show} bright />
+            </div>
+          </div>
+        </section>
       </main>
 
       <Toast visible={toastVisible} />
