@@ -7,7 +7,6 @@ import Education from '@/components/education'
 import Socials from '@/components/socials'
 import ThemeToggle from '@/components/theme-toggle'
 import Projects from '@/components/projects'
-import Writing from '@/components/writing'
 import Publications from '@/components/publications'
 import Tools from '@/components/tools'
 
@@ -127,7 +126,7 @@ export default function Home() {
                 <Socials show={show} bright />
               </div>
             </div>
-            <div className="mt-14 grid grid-cols-1 gap-4" style={fadeUp(480)}>
+            <div className="mt-14 grid grid-cols-1 gap-4 lg:grid-cols-2" style={fadeUp(480)}>
               <section className="rounded-2xl bg-foreground p-6 text-background sm:p-8">
                 <h2 className="text-xl tracking-tight sm:text-2xl" style={{ fontFamily: 'var(--font-unbounded)' }}>
                   Beyond the code
@@ -162,7 +161,6 @@ export default function Home() {
         <div id="publications"><Publications /></div>
         <div id="tools"><Tools /></div>
         <div id="education"><Education /></div>
-        <div id="writing"><Writing /></div>
       </main>
 
       <Toast visible={toastVisible} />
