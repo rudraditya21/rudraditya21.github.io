@@ -60,7 +60,7 @@ export default function Education() {
     <section className="px-12 py-16 md:py-24">
       <h2
         ref={ref as React.RefObject<HTMLHeadingElement>}
-        className="mb-10 text-5xl tracking-tight"
+        className="mb-10 whitespace-nowrap leading-[0.88] tracking-tight text-[clamp(1.15rem,calc((100vw-20rem)/18),3rem)]"
         style={{
           fontFamily: 'var(--font-unbounded)',
           opacity: inView ? 1 : 0,
