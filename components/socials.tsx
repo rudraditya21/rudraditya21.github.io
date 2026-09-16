@@ -60,7 +60,7 @@ function KaggleIcon({ size = 20 }: { size?: number }) {
   )
 }
 
-export default function Socials({ show }: { show: boolean }) {
+export default function Socials({ show, bright = false }: { show: boolean; bright?: boolean }) {
   return (
     <div
       className="flex items-center gap-5"
@@ -70,13 +70,13 @@ export default function Socials({ show }: { show: boolean }) {
         transition: 'opacity 900ms cubic-bezier(0.16, 1, 0.3, 1) 480ms, transform 900ms cubic-bezier(0.16, 1, 0.3, 1) 480ms',
       }}
     >
-      <MagneticIcon href={socials.github}   label="GitHub">   <GithubIcon   size={20} /></MagneticIcon>
-      <MagneticIcon href={socials.linkedin}  label="LinkedIn"> <LinkedinIcon size={20} /></MagneticIcon>
-      <MagneticIcon href={socials.twitter}   label="Twitter">  <TwitterIcon  size={20} /></MagneticIcon>
-      <MagneticIcon href={socials.youtube}   label="YouTube">  <YoutubeIcon  size={20} /></MagneticIcon>
-      <MagneticIcon href={socials.medium}    label="Medium">   <MediumIcon   size={20} /></MagneticIcon>
-      <MagneticIcon href={socials.substack}  label="Substack"> <SubstackIcon size={18} /></MagneticIcon>
-      <MagneticIcon href={socials.kaggle}    label="Kaggle">   <KaggleIcon   size={20} /></MagneticIcon>
+      <MagneticIcon href={socials.github}   label="GitHub"   className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><GithubIcon size={20} /></MagneticIcon>
+      <MagneticIcon href={socials.linkedin} label="LinkedIn" className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><LinkedinIcon size={20} /></MagneticIcon>
+      <MagneticIcon href={socials.twitter}  label="Twitter"  className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><TwitterIcon size={20} /></MagneticIcon>
+      <MagneticIcon href={socials.youtube}  label="YouTube"  className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><YoutubeIcon size={20} /></MagneticIcon>
+      <MagneticIcon href={socials.medium}   label="Medium"   className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><MediumIcon size={20} /></MagneticIcon>
+      <MagneticIcon href={socials.substack} label="Substack" className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><SubstackIcon size={18} /></MagneticIcon>
+      <MagneticIcon href={socials.kaggle}   label="Kaggle"   className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><KaggleIcon size={20} /></MagneticIcon>
     </div>
   )
 }

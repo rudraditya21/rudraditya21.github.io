@@ -38,7 +38,7 @@ export default function MagneticIcon({ href, label, strength = 0.35, children, c
             target="_blank"
             rel="noopener noreferrer"
             aria-label={label}
-            className={`text-muted-foreground transition-colors duration-200 hover:text-foreground ${className}`}
+            className={`${className || 'text-muted-foreground hover:text-foreground'} transition-colors duration-200`}
             onMouseMove={onMove}
             onMouseLeave={onLeave}
           >

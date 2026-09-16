@@ -84,35 +84,6 @@ export default function Home() {
         style={{ width: `${scrollProgress * 100}%` }}
       />
 
-      {/* Fixed top-right: Get in Touch + Socials — lg only */}
-      <div className="fixed right-24 top-8 z-40 hidden items-center gap-3 lg:flex">
-        <div
-          className="rounded-full p-px"
-          style={{
-            background: 'linear-gradient(to bottom, transparent 50%, var(--border) 50%)',
-            opacity: show ? 1 : 0,
-            pointerEvents: show ? 'auto' : 'none',
-            transition: 'opacity 600ms ease',
-          }}
-        >
-          <button
-            onClick={copyEmail}
-            className="rounded-full bg-background/70 px-4 py-2.5 text-sm text-foreground/70 backdrop-blur-md transition-colors duration-200 hover:text-foreground"
-            style={{ fontFamily: 'var(--font-inter)' }}
-          >
-            Get in Touch
-          </button>
-        </div>
-        <div
-          className="rounded-full p-px"
-          style={{ background: 'linear-gradient(to bottom, transparent 50%, var(--border) 50%)' }}
-        >
-          <div className="rounded-full bg-background/70 px-4 py-2.5 backdrop-blur-md">
-            <Socials show={show} />
-          </div>
-        </div>
-      </div>
-
       {/* Main content */}
       <div>
         <section id="about" className="flex min-h-svh items-center px-12 py-20">
@@ -131,6 +102,7 @@ export default function Home() {
             >
               Turning <span className="relative inline-block">caffeine
                 <svg className="pointer-events-none absolute -bottom-[0.55em] -left-[4%] h-[0.52em] w-[110%] text-foreground/75" viewBox="0 0 100 20" fill="none" preserveAspectRatio="none" aria-hidden="true">
+                  <path d="M3 6C20 2 34 8 51 4s29 1 46-2" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" />
                   <path d="M7 15c18-4 33 1 48-2s27 1 40-3" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
                 </svg>
               </span> into <span className="relative inline-block">products
@@ -141,6 +113,22 @@ export default function Home() {
               <br /><br />
               I'm drawn to the hard parts of computing — the parts where you have to understand the hardware, the protocol, or the math to get it right. I work across systems programming, compiler design, blockchain internals, and security, with a published research background in deep learning.
             </p>
+            <div className="mt-6" style={fadeUp(390)}>
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="w-fit rounded-full border border-border">
+                  <button
+                    onClick={copyEmail}
+                    className="rounded-full bg-background/70 px-4 py-2.5 text-sm text-foreground backdrop-blur-md transition-colors duration-200 hover:bg-foreground/8"
+                    style={{ fontFamily: 'var(--font-inter)' }}
+                  >
+                    Get in Touch
+                  </button>
+                </div>
+                <div className="rounded-full border border-border bg-background/70 px-4 py-2.5 backdrop-blur-md">
+                  <Socials show={show} bright />
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
