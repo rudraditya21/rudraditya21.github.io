@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
-import gsap from 'gsap'
 import LoadingScreen from '@/components/loading-screen'
 import WorkExperience from '@/components/work-experience'
 import Education from '@/components/education'
@@ -27,85 +26,6 @@ const navItems = [
   { label: 'Side Quests',       id: 'quests' },
   { label: 'Blogs',             id: 'writing' },
 ]
-
-const BLOB_COUNT = 9
-const BLOB_SIZE  = 20 // % of container
-
-function randomInCircle(maxR: number) {
-  const angle = Math.random() * Math.PI * 2
-  const r = Math.sqrt(Math.random()) * maxR
-  return { x: Math.cos(angle) * r, y: Math.sin(angle) * r }
-}
-
-function BlobAvatar() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const blobRefs    = useRef<(HTMLDivElement | null)[]>([])
-
-  useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
-    const size   = container.offsetWidth
-    const blobPx = size * BLOB_SIZE / 100
-    const maxR   = size / 2 - blobPx / 2 - 4
-
-    function wander(el: HTMLDivElement) {
-      const { x, y } = randomInCircle(maxR)
-      gsap.to(el, {
-        x, y,
-        duration: 0.5 + Math.random() * 0.9,
-        ease: 'power1.inOut',
-        onComplete: () => wander(el),
-      })
-    }
-
-    blobRefs.current.forEach((el, i) => {
-      if (!el) return
-      const start = randomInCircle(maxR)
-      gsap.set(el, { x: start.x, y: start.y })
-      setTimeout(() => wander(el), i * 80)
-    })
-
-    return () => { blobRefs.current.forEach(el => el && gsap.killTweensOf(el)) }
-  }, [])
-
-  return (
-    <div
-      className="relative aspect-square w-full rounded-full p-px"
-      style={{ background: 'linear-gradient(to bottom, transparent 50%, var(--border) 50%)' }}
-    >
-    <div ref={containerRef} className="relative h-full w-full overflow-hidden rounded-full bg-muted">
-      {/* Gooey filter: blur → alpha threshold → blobs merge when touching */}
-      <svg style={{ position: 'absolute', width: 0, height: 0 }}>
-        <defs>
-          <filter id="goo">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
-            <feColorMatrix in="blur" mode="matrix"
-              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -10"
-            />
-          </filter>
-        </defs>
-      </svg>
-
-      {/* Filter wrapper — does not include the circle border/bg */}
-      <div className="absolute inset-0" style={{ filter: 'url(#goo)' }}>
-        {Array.from({ length: BLOB_COUNT }, (_, i) => (
-          <div
-            key={i}
-            ref={el => { blobRefs.current[i] = el }}
-            className="absolute rounded-full bg-foreground"
-            style={{
-              width:  `${BLOB_SIZE}%`,
-              height: `${BLOB_SIZE}%`,
-              top:  `${50 - BLOB_SIZE / 2}%`,
-              left: `${50 - BLOB_SIZE / 2}%`,
-            }}
-          />
-        ))}
-      </div>
-    </div>
-    </div>
-  )
-}
 
 const EMAIL = 'mr.rudradityathakur@gmail.com'
 
@@ -195,10 +115,6 @@ export default function Home() {
 
       {/* Fixed left sidebar */}
       <aside className="fixed left-0 top-0 z-40 hidden h-screen w-56 flex-col lg:flex">
-        <div className="px-9 pt-5">
-          <BlobAvatar />
-        </div>
-
         <nav className="my-auto flex flex-col gap-5 px-8">
           {navItems.map(({ label, id }) => {
             const active = activeSection === id
@@ -257,22 +173,28 @@ export default function Home() {
       <div className="lg:ml-56">
         <section id="about" className="flex min-h-svh items-center px-12 py-20">
           <div>
-            <div className="mb-8 w-24 sm:w-28 md:w-32 lg:hidden">
-              <BlobAvatar />
-            </div>
             <h1
-              className="mb-6 leading-[0.88] tracking-tight text-[3rem] sm:text-[4rem] md:text-[6rem] lg:text-[clamp(7rem,10vw,10rem)]"
+              className="mb-6 whitespace-nowrap leading-[0.88] tracking-tight text-[clamp(1.15rem,calc((100vw-20rem)/18),3rem)]"
               style={{ fontFamily: 'var(--font-unbounded)' }}
             >
-              <span className="block" style={fadeUp(0)}>Rudraditya</span>
-              <span className="block" style={fadeUp(130)}>Thakur</span>
+              <span style={fadeUp(0)}>Rudraditya</span>{' '}
+              <span style={fadeUp(130)}>Thakur</span>
             </h1>
 
             <p
-              className="max-w-md text-base text-foreground/60 leading-relaxed"
+              className="max-w-md text-base leading-relaxed text-foreground/60 lg:max-w-[34rem]"
               style={{ fontFamily: 'var(--font-inter)', ...fadeUp(260) }}
             >
-              Turning caffeine into products.
+              Turning <span className="relative inline-block">caffeine
+                <svg className="pointer-events-none absolute -bottom-[0.55em] -left-[4%] h-[0.52em] w-[110%] text-foreground/75" viewBox="0 0 100 20" fill="none" preserveAspectRatio="none" aria-hidden="true">
+                  <path d="M3 6C20 2 34 8 51 4s29 1 46-2" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" />
+                  <path d="M7 15c18-4 33 1 48-2s27 1 40-3" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+                </svg>
+              </span> into <span className="relative inline-block">products
+                <svg className="pointer-events-none absolute -inset-y-[28%] -left-[14%] h-[156%] w-[128%] text-foreground/75" viewBox="0 0 100 100" fill="none" preserveAspectRatio="none" aria-hidden="true">
+                  <path d="M15 20C29 5 70 3 86 20c13 15 7 51-7 65-20 17-57 9-70-11C0 52 3 34 15 20Z" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" />
+                </svg>
+              </span>.
               <br /><br />
               I'm drawn to the hard parts of computing — the parts where you have to understand the hardware, the protocol, or the math to get it right. I work across systems programming, compiler design, blockchain internals, and security, with a published research background in deep learning.
             </p>
