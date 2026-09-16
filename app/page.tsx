@@ -126,14 +126,14 @@ export default function Home() {
           </div>
         </section>
 
-        <div id="projects"><Projects /></div>
         <div id="experience"><WorkExperience /></div>
-        <div id="education"><Education /></div>
+        <div id="projects"><Projects /></div>
         <div id="publications"><Publications /></div>
-        <div id="interests"><Interests /></div>
         <div id="tools"><Tools /></div>
-        <div id="quests"><SideQuests /></div>
+        <div id="education"><Education /></div>
+        <div id="interests"><Interests /></div>
         <div id="writing"><Writing /></div>
+        <div id="quests"><SideQuests /></div>
 
       </main>
 
