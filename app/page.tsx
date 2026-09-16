@@ -12,7 +12,6 @@ import SideQuests from '@/components/side-quests'
 import Writing from '@/components/writing'
 import Publications from '@/components/publications'
 import Tools from '@/components/tools'
-import CommandPalette from '@/components/command-palette'
 
 const EMAIL = 'mr.rudradityathakur@gmail.com'
 
@@ -139,7 +138,6 @@ export default function Home() {
       </main>
 
       <Toast visible={toastVisible} />
-      <CommandPalette onCopyEmail={copyEmail} />
       <ThemeToggle show={show} />
     </>
   )
