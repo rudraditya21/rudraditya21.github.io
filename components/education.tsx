@@ -4,7 +4,6 @@ import { useInView } from '@/hooks/use-in-view'
 
 type School = {
   institution: string
-  abbr: string
   degree: string
   period: string
 }
@@ -12,13 +11,11 @@ type School = {
 const schools: School[] = [
   {
     institution: 'Vellore Institute of Technology',
-    abbr: 'VIT',
     degree: 'Bachelor of Technology – Computer Science',
     period: 'Sep 2022 – Aug 2026',
   },
   {
     institution: 'Amity International School, Sec 46 Gurugram',
-    abbr: 'AIS',
     degree: 'High School Education',
     period: 'Apr 2009 – Apr 2022',
   },
@@ -30,21 +27,21 @@ function SchoolEntry({ school, index }: { school: School; index: number }) {
   return (
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
-      className="py-10"
+      className="rounded-2xl bg-foreground p-6 text-background sm:p-8"
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? 'translateY(0)' : 'translateY(32px)',
         transition: `opacity 800ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 100}ms, transform 800ms cubic-bezier(0.16, 1, 0.3, 1) ${index * 100}ms`,
       }}
     >
-      <div className="flex flex-col gap-0.5">
-        <p className="text-xl leading-snug text-foreground lg:text-2xl" style={{ fontFamily: 'var(--font-unbounded)' }}>
+      <div className="flex flex-col gap-1">
+        <p className="text-xl leading-snug sm:text-2xl" style={{ fontFamily: 'var(--font-unbounded)' }}>
           {school.institution}
         </p>
-        <p className="text-sm text-foreground/70" style={{ fontFamily: 'var(--font-inter)' }}>
+        <p className="text-sm text-background/80" style={{ fontFamily: 'var(--font-inter)' }}>
           {school.degree}
         </p>
-        <p className="mt-0.5 text-xs text-muted-foreground" style={{ fontFamily: 'var(--font-inter)' }}>
+        <p className="mt-1 text-xs text-background/60" style={{ fontFamily: 'var(--font-inter)' }}>
           {school.period}
         </p>
 
@@ -71,7 +68,7 @@ export default function Education() {
         Education
       </h2>
 
-      <div className="divide-y divide-border">
+      <div className="grid grid-cols-1 gap-4">
         {schools.map((school, i) => (
           <SchoolEntry key={school.institution} school={school} index={i} />
         ))}
