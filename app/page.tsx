@@ -85,8 +85,8 @@ export default function Home() {
       />
 
       {/* Main content */}
-      <div>
-        <section id="about" className="flex min-h-svh items-center px-12 py-20">
+      <main className="mx-auto w-full max-w-6xl">
+        <section id="about" className="flex items-start px-12 py-20">
           <div>
             <h1
               className="mb-6 whitespace-nowrap leading-[0.88] tracking-tight text-[clamp(1.15rem,calc((100vw-20rem)/18),3rem)]"
@@ -97,7 +97,7 @@ export default function Home() {
             </h1>
 
             <p
-              className="max-w-md text-base leading-relaxed text-foreground/60 lg:max-w-[34rem]"
+              className="text-base leading-relaxed text-foreground/60"
               style={{ fontFamily: 'var(--font-inter)', ...fadeUp(260) }}
             >
               Turning <span className="relative inline-block">caffeine
@@ -151,7 +151,7 @@ export default function Home() {
             <span className="text-xs">to navigate</span>
           </button>
         </footer>
-      </div>
+      </main>
 
       <Toast visible={toastVisible} />
       <CommandPalette onCopyEmail={copyEmail} />
