@@ -1,12 +1,10 @@
+"use client"
+
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import gsap from 'gsap'
+import { useState } from 'react'
 import { GithubLogoIcon, BrowserIcon } from '@phosphor-icons/react'
 import Link from 'next/link'
-
-const TABS = ['Projects', 'Products', 'Experiments', 'Machine Learning', 'For Fun'] as const
-type Tab = (typeof TABS)[number]
 
 type Project = {
   name: string
@@ -16,7 +14,7 @@ type Project = {
   live?: string
 }
 
-const data: Record<Tab, Project[]> = {
+const data: Record<string, Project[]> = {
   Projects: [
     {
       name: 'DockUI',
@@ -146,6 +144,8 @@ const data: Record<Tab, Project[]> = {
   ],
 }
 
+const filters = ['All', ...Object.keys(data)]
+
 function ProjectCard({ project }: { project: Project }) {
   return (
     <article className="group flex min-h-56 flex-col rounded-2xl border border-border p-6 transition-colors duration-300 hover:bg-foreground sm:p-7">
@@ -197,78 +197,9 @@ function ProjectCard({ project }: { project: Project }) {
   )
 }
 
-const PER_PAGE = 4
-
 export default function Projects() {
-  const [activeTab, setActiveTab] = useState<Tab>('Projects')
-  const [page, setPage] = useState(0)
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([])
-  const indicatorRef = useRef<HTMLDivElement>(null)
-  const contentRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const first = tabRefs.current[0]
-    if (!first || !indicatorRef.current) return
-    gsap.set(indicatorRef.current, {
-      x: first.offsetLeft,
-      width: first.offsetWidth,
-      opacity: 1,
-    })
-  }, [])
-
-  function switchTab(tab: Tab) {
-    if (tab === activeTab) return
-
-    const idx = TABS.indexOf(tab)
-    const btn = tabRefs.current[idx]
-    if (btn) {
-      gsap.to(indicatorRef.current, {
-        x: btn.offsetLeft,
-        width: btn.offsetWidth,
-        duration: 0.35,
-        ease: 'power3.out',
-      })
-    }
-
-    gsap.to(contentRef.current, {
-      opacity: 0,
-      y: 8,
-      duration: 0.15,
-      ease: 'power2.in',
-      onComplete: () => {
-        setActiveTab(tab)
-        setPage(0)
-        gsap.to(contentRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 0.28,
-          ease: 'power2.out',
-        })
-      },
-    })
-  }
-
-  function changePage(next: number) {
-    gsap.to(contentRef.current, {
-      opacity: 0,
-      y: 8,
-      duration: 0.15,
-      ease: 'power2.in',
-      onComplete: () => {
-        setPage(next)
-        gsap.to(contentRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 0.28,
-          ease: 'power2.out',
-        })
-      },
-    })
-  }
-
-  const items = data[activeTab]
-  const totalPages = Math.ceil(items.length / PER_PAGE)
-  const paged = items.slice(page * PER_PAGE, (page + 1) * PER_PAGE)
+  const [activeFilter, setActiveFilter] = useState('All')
+  const projects = activeFilter === 'All' ? Object.values(data).flat() : data[activeFilter]
 
   return (
     <section className="px-12 py-16 md:py-24">
@@ -279,66 +210,30 @@ export default function Projects() {
         Projects
       </h2>
 
-      {/* Tab bar */}
-      <div className="mb-2 overflow-x-auto">
-        <div className="relative inline-flex min-w-max gap-8">
-          {TABS.map((tab, i) => (
+      <div className="mb-8 flex flex-wrap gap-x-5 gap-y-3" style={{ fontFamily: 'var(--font-inter)' }}>
+        {filters.map((filter) => {
+          const active = filter === activeFilter
+          return (
             <button
-              key={tab}
-              ref={el => { tabRefs.current[i] = el }}
-              onClick={() => switchTab(tab)}
-              className="relative z-10 shrink-0 py-2 text-left text-sm transition-colors duration-200"
+              key={filter}
+              type="button"
+              onClick={() => setActiveFilter(filter)}
+              className="border-b pb-1 text-sm transition-colors"
               style={{
-                fontFamily: 'var(--font-inter)',
-                color: activeTab === tab ? 'var(--foreground)' : 'var(--muted-foreground)',
+                borderColor: active ? 'var(--foreground)' : 'transparent',
+                color: active ? 'var(--foreground)' : 'var(--muted-foreground)',
               }}
             >
-              {tab}
+              {filter}
             </button>
-          ))}
-          <div
-            ref={indicatorRef}
-            className="absolute bottom-0 h-px bg-foreground"
-            style={{ opacity: 0, width: 0 }}
-          />
-        </div>
+          )
+        })}
       </div>
 
-      {/* Content + Pagination pinned together */}
-      <div className="flex min-h-128 flex-col">
-        <div ref={contentRef} className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {paged.map(project => (
-            <ProjectCard key={project.name} project={project} />
-          ))}
-        </div>
-
-        {/* Pagination always at bottom of the fixed-height area */}
-        {totalPages > 1 && (
-          <div className="mt-auto pt-8 flex items-center gap-6">
-            <button
-              onClick={() => changePage(page - 1)}
-              disabled={page === 0}
-              className="text-xs font-medium uppercase tracking-wider text-muted-foreground transition-colors duration-200 hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed"
-              style={{ fontFamily: 'var(--font-unbounded)' }}
-            >
-              ← Prev
-            </button>
-            <span
-              className="text-xs text-muted-foreground"
-              style={{ fontFamily: 'var(--font-inter)' }}
-            >
-              {page + 1} / {totalPages}
-            </span>
-            <button
-              onClick={() => changePage(page + 1)}
-              disabled={page === totalPages - 1}
-              className="text-xs font-medium uppercase tracking-wider text-muted-foreground transition-colors duration-200 hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed"
-              style={{ fontFamily: 'var(--font-unbounded)' }}
-            >
-              Next →
-            </button>
-          </div>
-        )}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        {projects.map((project) => (
+          <ProjectCard key={project.name} project={project} />
+        ))}
       </div>
     </section>
   )

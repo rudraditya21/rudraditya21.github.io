@@ -7,9 +7,9 @@ import OpenSource from '@/components/open-source'
 import Education from '@/components/education'
 import Socials from '@/components/socials'
 import ThemeToggle from '@/components/theme-toggle'
-import Projects from '@/components/projects'
 import Publications from '@/components/publications'
 import Tools from '@/components/tools'
+import TopNav from '@/components/top-nav'
 
 const EMAIL = 'mr.rudradityathakur@gmail.com'
 const INTEREST_LAYERS = [
@@ -69,6 +69,8 @@ export default function Home() {
         className="fixed left-0 top-0 z-50 h-0.5 bg-foreground"
         style={{ width: `${scrollProgress * 100}%` }}
       />
+
+      <TopNav />
 
       {/* Main content */}
       <main className="mx-auto w-full max-w-6xl">
@@ -134,7 +136,6 @@ export default function Home() {
 
         <div id="experience"><WorkExperience /></div>
         <OpenSource />
-        <div id="projects"><Projects /></div>
         <div id="publications"><Publications /></div>
         <div id="tools"><Tools /></div>
         <div id="education"><Education /></div>
