@@ -97,6 +97,11 @@ export default function Home() {
               </span>.
               <br /><br />
               I&apos;m drawn to the hard parts of computing — the parts where you have to understand the hardware, the protocol, or the math to get it right. I work across systems programming, compiler design, blockchain internals, and security, with a published research background in deep learning.
+              <br /><br />
+              Easy to reach at{' '}
+              <a href={`mailto:${EMAIL}`} className="font-bold text-foreground transition-colors hover:text-foreground/70">
+                {EMAIL}
+              </a>.
             </p>
             <div className="mt-14 grid grid-cols-1 gap-4 lg:grid-cols-2">
               <section className="rounded-2xl bg-foreground p-6 text-background sm:p-8">
