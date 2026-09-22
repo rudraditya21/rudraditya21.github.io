@@ -20,7 +20,7 @@ export default function TopNav() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-md">
-      <nav aria-label="Primary navigation" className="mx-auto w-full max-w-6xl px-6 sm:px-12">
+      <nav aria-label="Primary navigation" className="mx-auto w-full max-w-6xl px-12">
         <div className="flex h-16 items-center justify-between gap-7">
           <Link
             href="/"
@@ -59,7 +59,7 @@ export default function TopNav() {
             className="fixed inset-x-0 bottom-0 top-16 bg-background/65 backdrop-blur-md md:hidden"
             onClick={() => setOpen(false)}
           >
-            <div className="border-y border-border bg-background/95 px-6 py-3 sm:px-12" onClick={(event) => event.stopPropagation()}>
+            <div className="border-y border-border bg-background/95 px-12 py-3" onClick={(event) => event.stopPropagation()}>
               <div className="mx-auto flex w-full max-w-6xl flex-col">
               {links.map((link) => (
                 <Link
