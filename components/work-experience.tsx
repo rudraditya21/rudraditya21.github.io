@@ -22,7 +22,7 @@ function period(start: Date, end: Date | null) {
   return `${fmt(start)} – ${end ? fmt(end) : 'Present'} · ${duration(start, to)}`
 }
 
-type Job = {
+export type Job = {
   company: string
   abbr: string
   role: string
@@ -34,23 +34,6 @@ type Job = {
 }
 
 const jobs: Job[] = [
-  {
-    company: 'Supernova Labs',
-    abbr: 'SL',
-    role: 'Maintainer & Core Developer',
-    start: new Date(2025, 8),
-    end: null,
-    location: 'Remote',
-    href: 'https://supernova-labs.com/',
-    description: [
-      'Contributed to the architecture and development of a Rust-based HTTP/3 edge runtime focused on reliability and operational resilience.',
-      'Implemented protocol-aware routing, backend load balancing, and traffic management mechanisms for efficient request handling.',
-      'Developed resilience features including admission control, circuit breakers, retry-budget enforcement, and graceful degradation systems.',
-      'Built health monitoring and backend orchestration capabilities to improve service availability during failures and degraded network conditions.',
-      'Integrated observability tooling using Prometheus and OpenTelemetry for metrics collection, tracing, and operational visibility.',
-      'Participated in performance analysis, failure testing, and runtime optimization to improve system stability, fault tolerance, and reliability.',
-    ],
-  },
   {
     company: 'CloudArmour',
     abbr: 'CA',
@@ -86,7 +69,7 @@ const jobs: Job[] = [
   },
 ]
 
-function JobEntry({ job }: { job: Job }) {
+export function JobEntry({ job }: { job: Job }) {
   return (
     <div className="py-8 lg:py-10">
       <div className="flex items-center justify-between gap-6">

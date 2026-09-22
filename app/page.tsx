@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import LoadingScreen from '@/components/loading-screen'
 import WorkExperience from '@/components/work-experience'
+import OpenSource from '@/components/open-source'
 import Education from '@/components/education'
 import Socials from '@/components/socials'
 import ThemeToggle from '@/components/theme-toggle'
@@ -127,6 +128,7 @@ export default function Home() {
         </section>
 
         <div id="experience"><WorkExperience /></div>
+        <OpenSource />
         <div id="projects"><Projects /></div>
         <div id="publications"><Publications /></div>
         <div id="tools"><Tools /></div>
