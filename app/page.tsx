@@ -6,7 +6,6 @@ import WorkExperience from '@/components/work-experience'
 import OpenSource from '@/components/open-source'
 import Socials from '@/components/socials'
 import ThemeToggle from '@/components/theme-toggle'
-import Publications from '@/components/publications'
 import Tools from '@/components/tools'
 import TopNav from '@/components/top-nav'
 

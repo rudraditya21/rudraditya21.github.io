@@ -7,13 +7,13 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 
 export default function ThemeToggle() {
   const [dark, setDark] = useState(false)
-  const sunRef  = useRef<HTMLDivElement>(null)
+  const sunRef = useRef<HTMLDivElement>(null)
   const moonRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const stored      = localStorage.getItem('theme')
+    const stored = localStorage.getItem('theme')
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    const isDark      = stored ? stored === 'dark' : prefersDark
+    const isDark = stored ? stored === 'dark' : prefersDark
 
     setDark(isDark)
     if (isDark) {
@@ -22,13 +22,13 @@ export default function ThemeToggle() {
       document.documentElement.classList.remove('dark')
     }
 
-    gsap.set(sunRef.current,  isDark ? { opacity: 0, rotate: 180, scale: 0 } : { opacity: 1, rotate: 0, scale: 1 })
-    gsap.set(moonRef.current, isDark ? { opacity: 1, rotate: 0,   scale: 1 } : { opacity: 0, rotate: -180, scale: 0 })
+    gsap.set(sunRef.current, isDark ? { opacity: 0, rotate: 180, scale: 0 } : { opacity: 1, rotate: 0, scale: 1 })
+    gsap.set(moonRef.current, isDark ? { opacity: 1, rotate: 0, scale: 1 } : { opacity: 0, rotate: -180, scale: 0 })
   }, [])
 
   function toggle() {
-    const next     = !dark
-    const outgoing = next ? sunRef.current  : moonRef.current
+    const next = !dark
+    const outgoing = next ? sunRef.current : moonRef.current
     const incoming = next ? moonRef.current : sunRef.current
 
     setDark(next)
@@ -68,7 +68,7 @@ export default function ThemeToggle() {
               className="flex h-10 w-10 items-center justify-center rounded-full bg-background/80 backdrop-blur-md"
               aria-label="Toggle theme"
             >
-              <div ref={sunRef}  className="absolute"><Sun  size={18} /></div>
+              <div ref={sunRef} className="absolute"><Sun size={18} /></div>
               <div ref={moonRef} className="absolute"><Moon size={18} /></div>
             </button>
           </TooltipTrigger>

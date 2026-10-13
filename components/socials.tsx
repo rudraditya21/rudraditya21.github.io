@@ -65,13 +65,13 @@ export default function Socials({ bright = false, compactOnMobile = false }: { b
     <div
       className={`flex items-center ${compactOnMobile ? 'justify-center gap-3 [&_svg]:h-4 [&_svg]:w-4 sm:gap-5 sm:[&_svg]:h-5 sm:[&_svg]:w-5' : 'gap-5'}`}
     >
-      <MagneticIcon href={socials.github}   label="GitHub"   className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><GithubIcon size={20} /></MagneticIcon>
+      <MagneticIcon href={socials.github} label="GitHub" className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><GithubIcon size={20} /></MagneticIcon>
       <MagneticIcon href={socials.linkedin} label="LinkedIn" className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><LinkedinIcon size={20} /></MagneticIcon>
-      <MagneticIcon href={socials.twitter}  label="Twitter"  className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><TwitterIcon size={20} /></MagneticIcon>
-      <MagneticIcon href={socials.youtube}  label="YouTube"  className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><YoutubeIcon size={20} /></MagneticIcon>
-      <MagneticIcon href={socials.medium}   label="Medium"   className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><MediumIcon size={20} /></MagneticIcon>
+      <MagneticIcon href={socials.twitter} label="Twitter" className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><TwitterIcon size={20} /></MagneticIcon>
+      {/* <MagneticIcon href={socials.youtube}  label="YouTube"  className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><YoutubeIcon size={20} /></MagneticIcon> */}
+      <MagneticIcon href={socials.medium} label="Medium" className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><MediumIcon size={20} /></MagneticIcon>
       <MagneticIcon href={socials.substack} label="Substack" className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><SubstackIcon size={18} /></MagneticIcon>
-      <MagneticIcon href={socials.kaggle}   label="Kaggle"   className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><KaggleIcon size={20} /></MagneticIcon>
+      <MagneticIcon href={socials.kaggle} label="Kaggle" className={bright ? 'text-foreground/85 hover:text-foreground' : ''}><KaggleIcon size={20} /></MagneticIcon>
     </div>
   )
 }
