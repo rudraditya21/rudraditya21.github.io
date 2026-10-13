@@ -9,9 +9,7 @@ const links = [
   { label: 'Experience', href: '/#experience' },
   { label: 'Open Source', href: '/#open-source' },
   { label: 'Projects', href: '/projects' },
-  { label: 'Publications', href: '/#publications' },
-  { label: 'Stack', href: '/#tools' },
-  { label: 'Education', href: '/#education' },
+  { label: 'Journal', href: '/journal' },
   { label: 'Contact', href: '/#contact' },
 ]
 
@@ -61,17 +59,17 @@ export default function TopNav() {
           >
             <div className="border-y border-border bg-background/95 px-12 py-3" onClick={(event) => event.stopPropagation()}>
               <div className="mx-auto flex w-full max-w-6xl flex-col">
-              {links.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="px-1 py-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  style={{ fontFamily: 'var(--font-inter)' }}
-                >
-                  {link.label}
-                </Link>
-              ))}
+                {links.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="px-1 py-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    style={{ fontFamily: 'var(--font-inter)' }}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
               </div>
             </div>
           </div>

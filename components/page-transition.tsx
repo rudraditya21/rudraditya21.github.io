@@ -33,7 +33,7 @@ function Curtains({ open, onComplete }: { open: boolean; onComplete?: () => void
   )
 }
 
-export default function ProjectsPageTransition() {
+export default function PageTransition() {
   const [stage, setStage] = useState<'checking' | 'preloader' | 'curtains' | 'complete'>('checking')
   const [open, setOpen] = useState(false)
 

@@ -4,7 +4,6 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import LoadingScreen from '@/components/loading-screen'
 import WorkExperience from '@/components/work-experience'
 import OpenSource from '@/components/open-source'
-import Education from '@/components/education'
 import Socials from '@/components/socials'
 import ThemeToggle from '@/components/theme-toggle'
 import Publications from '@/components/publications'
@@ -12,18 +11,6 @@ import Tools from '@/components/tools'
 import TopNav from '@/components/top-nav'
 
 const EMAIL = 'mr.rudradityathakur@gmail.com'
-const INTEREST_LAYERS = [
-  'Systems Programming',
-  'Distributed Systems',
-  'Linux & eBPF',
-  'Computer Networking',
-  'Observability',
-  'Database Internals',
-  'Compilers & Language Design',
-  'Cybersecurity',
-  'Blockchain Infrastructure',
-  'AI & Machine Learning',
-]
 
 function Toast({ visible }: { visible: boolean }) {
   return (
@@ -112,40 +99,12 @@ export default function Home() {
                 {EMAIL}
               </a>.
             </p>
-            <div className="mt-14 grid grid-cols-1 gap-4 lg:grid-cols-2">
-              <section className="rounded-2xl bg-foreground p-6 text-background sm:p-8">
-                <h2 className="text-xl tracking-tight sm:text-2xl" style={{ fontFamily: 'var(--font-unbounded)' }}>
-                  Beyond the code
-                </h2>
-                <div className="mt-4 flex flex-wrap gap-2.5" style={{ fontFamily: 'var(--font-inter)' }}>
-                  {['Chess', 'Language learning', 'Open source', 'Guitar & piano'].map((interest) => (
-                    <span key={interest} className="rounded-full border border-background/30 px-3 py-1.5 text-sm text-background/80">
-                      {interest}
-                    </span>
-                  ))}
-                </div>
-              </section>
-              <section className="rounded-2xl bg-foreground p-6 text-background sm:p-8">
-                <h2 className="text-xl tracking-tight sm:text-2xl" style={{ fontFamily: 'var(--font-unbounded)' }}>
-                  Areas of interest
-                </h2>
-                <div className="mt-4 flex flex-wrap gap-2.5" style={{ fontFamily: 'var(--font-inter)' }}>
-                  {INTEREST_LAYERS.map((interest) => (
-                    <span key={interest} className="rounded-full border border-background/30 px-3 py-1.5 text-sm text-background/80">
-                      {interest}
-                    </span>
-                  ))}
-                </div>
-              </section>
-            </div>
           </div>
         </section>
 
         <div id="experience"><WorkExperience /></div>
         <OpenSource />
-        <div id="publications"><Publications /></div>
         <div id="tools"><Tools /></div>
-        <div id="education"><Education /></div>
         <section id="contact" className="px-12 py-16 md:py-24">
           <h2
             className="mb-10 whitespace-nowrap leading-[0.88] tracking-tight text-[clamp(1.15rem,calc((100vw-20rem)/18),3rem)]"
