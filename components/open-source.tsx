@@ -4,20 +4,18 @@ import { JobEntry, type Job } from '@/components/work-experience'
 
 const contributions: Job[] = [
   {
-    company: 'Supernova Labs',
-    abbr: 'SL',
+    company: 'Impulse Proxy',
     role: 'Maintainer & Core Developer',
     start: new Date(2025, 8),
     end: null,
     location: 'Remote',
-    href: 'https://supernova-labs.com/',
+    href: 'https://impulse-proxy.github.io/',
     description: [
-      'Contributed to the architecture and development of a Rust-based HTTP/3 edge runtime focused on reliability and operational resilience.',
-      'Implemented protocol-aware routing, backend load balancing, and traffic management mechanisms for efficient request handling.',
-      'Developed resilience features including admission control, circuit breakers, retry-budget enforcement, and graceful degradation systems.',
-      'Built health monitoring and backend orchestration capabilities to improve service availability during failures and degraded network conditions.',
-      'Integrated observability tooling using Prometheus and OpenTelemetry for metrics collection, tracing, and operational visibility.',
-      'Participated in performance analysis, failure testing, and runtime optimization to improve system stability, fault tolerance, and reliability.',
+      'Contributed to the architecture and development of a Rust-based HTTP/3 edge runtime supporting HTTP/1.1, HTTP/2, HTTP/3, and QUIC.',
+      'Implemented protocol-aware routing, backend load balancing, and traffic management for efficient request handling.',
+      'Developed resilience mechanisms including admission control, circuit breakers, retry budgets, and graceful degradation.',
+      'Built backend health monitoring and orchestration capabilities to improve availability during failures and degraded network conditions.',
+      'Integrated Prometheus and OpenTelemetry for metrics and tracing, and contributed to performance analysis, failure testing, and runtime optimization.',
     ],
   },
 ]

@@ -13,11 +13,16 @@ import TopNav from '@/components/top-nav'
 
 const EMAIL = 'mr.rudradityathakur@gmail.com'
 const INTEREST_LAYERS = [
-  'AI & Machine Learning',
-  'Cybersecurity',
+  'Systems Programming',
+  'Distributed Systems',
+  'Linux & eBPF',
+  'Computer Networking',
+  'Observability',
+  'Database Internals',
   'Compilers & Language Design',
-  'Systems Engineering',
-  'Blockchain & Distributed Systems',
+  'Cybersecurity',
+  'Blockchain Infrastructure',
+  'AI & Machine Learning',
 ]
 
 function Toast({ visible }: { visible: boolean }) {
@@ -98,7 +103,9 @@ export default function Home() {
                 </svg>
               </span>.
               <br /><br />
-              I&apos;m drawn to the hard parts of computing — the parts where you have to understand the hardware, the protocol, or the math to get it right. I work across systems programming, compiler design, blockchain internals, and security, with a published research background in deep learning.
+              I&apos;m a systems engineer focused on building high-performance, reliable infrastructure. My work spans Linux networking, eBPF/XDP, distributed systems, reverse proxies, and observability pipelines, primarily using Rust, Go, C, and C++.
+              <br /><br />
+              I enjoy working close to the fundamentals — understanding how systems behave, finding performance bottlenecks, and engineering solutions that are efficient, reliable, and built to scale.
               <br /><br />
               Easy to reach at{' '}
               <a href={`mailto:${EMAIL}`} className="font-bold text-foreground transition-colors hover:text-foreground/70">

@@ -24,7 +24,6 @@ function period(start: Date, end: Date | null) {
 
 export type Job = {
   company: string
-  abbr: string
   role: string
   start: Date
   end: Date | null
@@ -36,35 +35,30 @@ export type Job = {
 const jobs: Job[] = [
   {
     company: 'CloudArmour',
-    abbr: 'CA',
-    role: 'Kernel Developer',
+    role: 'Kernel Developer (Contract)',
     start: new Date(2025, 6),
     end: new Date(2026, 6),
     location: 'India · Remote',
     href: 'https://cloudarmour.io/',
     description: [
-      'Led kernel-space architecture efforts for networking and security infrastructure deployed across Linux environments.',
-      'Drove performance optimization initiatives for kernel-level networking components through profiling, tracing, and low-level system analysis.',
-      'Improved system throughput, latency, and resource efficiency by identifying and resolving bottlenecks in kernel-integrated networking workloads.',
-      'Maintained compatibility across multiple Linux kernel releases by adapting to kernel API, subsystem, and behavioral changes.',
-      'Diagnosed and resolved complex kernel-level issues involving networking, concurrency, and system performance in production environments.',
-      'Collaborated with systems and platform teams to deliver reliable, scalable, and production-ready kernel infrastructure.',
-      'Contributed to the design and evolution of network security infrastructure with a focus on performance, reliability, and maintainability.',
+      'Built a zero-copy Rust eBPF metrics ingestion pipeline using NATS JetStream and ClickHouse, processing 50K+ records/sec on 8 GB RAM.',
+      'Developed eBPF-based Kubernetes runtime monitoring and CIS compliance tooling in Go, improving container visibility and runtime security.',
+      'Built Go REST APIs for dynamic firewall configuration and rule management, and integrated Prometheus and Grafana for infrastructure observability.',
+      'Automated ClickHouse and PostgreSQL backup workflows to support data persistence and recovery.',
+      'Audited eBPF programs for integer overflows, memory leaks, and potential kernel data-leak vulnerabilities.',
     ],
   },
   {
     company: 'Udyansh',
-    abbr: 'U',
-    role: 'Software Engineer',
+    role: 'Software Engineer (Contract)',
     start: new Date(2024, 2),
     end: new Date(2025, 5),
     location: 'India · Remote',
     description: [
-      'Built a high-performance Perl XS wrapper over the MongoDB C driver, replacing an end-of-life client library in production environments.',
-      'Developed scalable event ingestion and ETL pipelines in Go, consolidating data from multiple external sources into PostgreSQL with validation, transformation, and fault-tolerance mechanisms.',
-      'Built distributed ETL workflows processing data from Ticketmaster, AllSportsDB, and SeatGeek using source-specific transformers and concurrent execution patterns.',
-      'Designed and maintained data synchronization pipelines, improving reliability and consistency across external data providers and internal systems.',
-      'Worked on backend services, database integrations, and production data processing systems with a focus on performance, maintainability, and operational stability.',
+      'Built a high-performance Perl XS wrapper over the MongoDB C driver, replacing an end-of-life client library.',
+      'Developed concurrent Go ingestion and ETL pipelines integrating Ticketmaster, AllSportsDB, and SeatGeek into PostgreSQL.',
+      'Implemented source-specific data transformations, validation, and fault-tolerant synchronization across external providers.',
+      'Maintained backend services, database integrations, and production data processing workflows with a focus on reliability and performance.',
     ],
   },
 ]
